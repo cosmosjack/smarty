@@ -6,7 +6,7 @@
 	define("HOST", "localhost");			      //数据库主机
 	define("USER", "root");                               //数据库用户名
 	define("PASS", "root");                                   //数据库密码
-	define("DBNAME", "fst");			      //数据库名
+	define("DBNAME", "smarty");			      //数据库名
 	define("TABPREFIX", "bro_");                           //数据表前缀
 	define("CSTART", 0);                                  //缓存开关 1开启，0为关闭
 	define("CTIME", 60*60*24*7);                          //缓存时间

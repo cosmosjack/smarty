@@ -1,7 +1,7 @@
 <?php
 	class Index {
 		function index(){
-
+            // 线上的
             /* 判断是否是手机端 start */
             if($GLOBALS['is_mobile']){
                 $this->mobile_index();

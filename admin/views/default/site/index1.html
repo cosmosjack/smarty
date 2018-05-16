@@ -1,0 +1,403 @@
+<{include "public/header.html"}>
+<style>
+    .label{
+        font-size: 16px;
+    }
+</style>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>网站信息修改</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form class="form-horizontal m-t" id="signupForm">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">企业名称：</label>
+                            <div class="col-sm-8">
+                                <input id="firstname" name="firstname" class="form-control" type="text">
+                                <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 这里写点提示的内容</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">企业介绍：</label>
+                            <div class="col-sm-8">
+                                <input id="lastname" name="lastname" class="form-control" type="text" aria-required="true" aria-invalid="false" class="valid">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">传真号码：</label>
+                            <div class="col-sm-8">
+                                <input id="username" name="username" class="form-control" type="text" aria-required="true" aria-invalid="true" class="error">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">企业电话：</label>
+                            <div class="col-sm-8">
+                                <input id="password" name="password" class="form-control" type="password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">电子邮箱：</label>
+                            <div class="col-sm-8">
+                                <input id="confirm_password" name="confirm_password" class="form-control" type="password">
+                                <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 请确定你的电子邮箱</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">E-mail：</label>
+                            <div class="col-sm-8">
+                                <input id="email" name="email" class="form-control" type="email">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-8 col-sm-offset-3">
+                                <button class="btn btn-primary" type="submit">提交</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>网站栏目修改</h5>
+                    <div class="ibox-tools">
+                        <span  onclick="add_top_colum();" style="cursor:pointer;margin-left: 10px;" class="label label-success" >
+                        新增顶级栏目
+                        </span>
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+
+                    <p class="m-b-lg">
+                        每个列表可以自定义标准的CSS样式。每个单元响应所以你可以给它添加其他元素来改善功能列表。
+                    </p>
+
+                    <div class="dd" id="nestable2">
+                        <ol class="dd-list">
+                            <li class="dd-item" data-id="1">
+                                <div class="dd-handle">
+                                    <span style="color: #c1c1c1">
+                                        <i class="fa fa-minus column_i1" value="1" style="margin-right: 3px;"></i>
+                                    </span>
+                                    <span class="label label-info"><i class="fa fa-users"></i></span> 首页
+                                </div>
+                                <ol class="dd-list1">
+                                </ol>
+                            </li>
+
+                            <{foreach $data_news_cls as $key=>$val}>
+
+                            <li class="dd-item" data-id="1">
+
+                                <div class="dd-handle">
+                                    <span style="color: #c1c1c1">
+                                        <i class="fa fa-minus column_i<{$key}>"  onclick="column_i(this);" index="<{$key}>" value="1" style="margin-right: 3px;"></i>
+                                    </span>
+                                    <span class="label label-info"><i class="fa fa-map"></i></span> <{$val.news_cls_name}>
+                                    <input type="text" name="sort" class="input-sm" style="width: 50px;" index="<{$val.news_cls_id}>" value="<{$val.sort}>">
+                                        <span lower_count="<{count($val.son_data)}>" onclick="" class="label label-primary pull-right">
+                                        <i class="fa fa-trash-o "></i>
+                                        </span>
+                                        <span onclick=";" data-toggle="modal" data-target="#myModal2" class="label label-danger pull-right">
+                                            <i class=" fa fa-pencil "></i>
+                                        </span>
+                                        <span onclick="window.location.href='<{$url}>/cls_add/pid/<{$val.news_cls_id}>';" class="label label-success pull-right">
+                                            <i class="fa fa-plus "></i>
+                                        </span>
+                                </div>
+                                <ol class="dd-list<{$key}>">
+                                    <{foreach $val.son_data as $second_key=>$second_val}>
+                                    <li class="dd-item" data-id="2">
+                                        <div class="dd-handle">
+                                            <span class="label label-info"><i class="fa fa-map-signs"></i></span>
+                                            <{$second_val.news_cls_name}>
+                                            <input type="text" name="sort" class="input-sm" style="width: 50px;" index="<{$second_val.news_cls_id}>" value="<{$second_val.sort}>">
+                                            <span onclick="del_cls('<{$second_val.news_cls_id}>');" class="label label-primary pull-right">
+                                        <i class="fa fa-trash-o "></i>
+                                    </span>
+                                            <span onclick="edit_cls('<{$second_val.news_cls_id}>','<{$second_val.news_cls_name}>','<{$second_val.news_cls_desc}>');" data-toggle="modal" data-target="#myModal2"  class="label label-danger pull-right ">
+                                        <i class=" fa fa-pencil "></i>
+                                    </span>
+                                        </div>
+                                    </li>
+                                    <{/foreach}>
+                                </ol>
+                            </li>
+                            <{/foreach}>
+
+                            <li class="dd-item" data-id="5">
+                                <div class="dd-handle">
+
+                                    <span style="color: #c1c1c1">
+                                        <i class="fa fa-plus" style="margin-right: 3px;"></i>
+                                    </span>
+
+                                    <span class="label label-warning"><i class="fa fa-users"></i></span> 用户
+                                    <span class="label label-primary pull-right">
+                                                <i class="fa fa-trash-o "></i>
+                                            </span>
+                                            <span class="label label-danger pull-right">
+                                                <i class=" fa fa-pencil "></i>
+                                            </span>
+                                            <span class="label label-success pull-right">
+                                                <i class="fa fa-plus "></i>
+                                            </span>
+                                </div>
+                                <ol class="dd-list">
+                                    <li class="dd-item" data-id="6">
+                                        <div class="dd-handle">
+                                            <span class="label label-warning"><i class="fa fa-users"></i></span> 列用户表
+
+                                            <span class="label label-primary pull-right">
+                                                <i class="fa fa-trash-o "></i>
+                                            </span>
+                                            <span class="label label-danger pull-right">
+                                                <i class=" fa fa-pencil "></i>
+                                            </span>
+                                            <span class="label label-success pull-right">
+                                                <i class="fa fa-plus "></i>
+                                            </span>
+
+                                        </div>
+                                    </li>
+                                    <li class="dd-item" data-id="7">
+                                        <div class="dd-handle">
+                                            <span class="label label-warning"><i class="fa fa-bomb"></i></span> 炸弹
+
+                                            <span class="label label-primary pull-right">
+                                                <i class="fa fa-trash-o "></i>
+                                            </span>
+                                            <span class="label label-danger pull-right">
+                                                <i class=" fa fa-pencil "></i>
+                                            </span>
+                                            <span class="label label-success pull-right">
+                                                <i class="fa fa-plus "></i>
+                                            </span>
+
+                                        </div>
+                                    </li>
+                                    <li class="dd-item" data-id="8">
+                                        <div class="dd-handle">
+                                            <span class="label label-warning"><i class="fa fa-child"></i></span> 子元素
+
+                                            <span class="label label-primary pull-right">
+                                                <i class="fa fa-trash-o "></i>
+                                            </span>
+                                            <span class="label label-danger pull-right">
+                                                <i class=" fa fa-pencil "></i>
+                                            </span>
+                                            <span class="label label-success pull-right">
+                                                <i class="fa fa-plus "></i>
+                                            </span>
+
+                                        </div>
+                                    </li>
+                                </ol>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="dd" style="margin-top: 10px;">
+                        <span onclick="location.reload();" style="cursor:pointer;" class="label label-primary" >
+                        刷新排序
+                        </span>
+                        <span onclick="add_top_colum();" style="cursor:pointer;margin-left: 10px;" class="label label-success" data-toggle="modal" data-target="#myModal2">
+                        新增顶级类别
+                        </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal inmodal" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated flipInY">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">新增首页栏目</h4>
+                    <small class="font-bold">
+                        需要从当前的所有栏目中选择
+                    </small>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">选择栏目</label>
+                            <div class="col-sm-4">
+                                <select name="column_select" class="form-control">
+                                    <option value="1" type_name="news">企业新闻</option>
+                                    <option value="2" type_name="pro">高端产品</option>
+                                    <option value="2" type_name="pro">最新军事</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">栏目排序</label>
+                            <div class="col-sm-4">
+                                <input type="text" name="column_sort"  value="" class="form-control" placeholder="请填写整数数字">
+                                <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 数字越大越靠后</span>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                    <button type="button" onclick="ajax_get()" class="btn btn-primary">提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="<{$res}>/bootstrap/js/jquery.min.js?v=2.1.4"></script>
+<script src="<{$res}>/bootstrap/js/bootstrap.min.js?v=3.3.5"></script>
+<script src="<{$res}>/bootstrap/js/content.min.js?v=1.0.0"></script>
+<script src="<{$res}>/bootstrap/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="<{$res}>/bootstrap/js/plugins/validate/messages_zh.min.js"></script>
+<script src="<{$res}>/bootstrap/js/demo/form-validate-demo.min.js"></script>
+
+<script>
+    /* 提交 start */
+    function ajax_get(){
+        var cls_id = $("select[name='column_select']").find("option:selected").val(); // 类别ID
+        var cls_type = $("select[name='column_select']").find("option:selected").attr('type_id'); // 类别ID
+        var cls_type_name = $("select[name='column_select']").find("option:selected").attr('type_name'); // 类别ID
+        var column_sort = $("input[name='column_sort']").val(); //栏目 排序
+        var json_data = {"cls_id":cls_id,"cls_type":cls_type,"cls_type_name":cls_type_name,"column_sort":column_sort};
+        console.log(json_data);
+//        return false;
+        $.ajax({
+            url:"<{$url}>/column_add",
+            type:"POST",
+            data:json_data,
+            success:function(msg){
+                console.log(msg);
+//                $("#myModal2").css({"display":"none"});
+//                $(".modal-backdrop").css({"display":"none"});
+                if(msg.code == 200){
+                    alert(msg.msg);
+                }else{
+                    alert(msg.msg);
+                }
+//                location.reload();
+
+//                console.log(msg);
+            },
+            error: function () {
+                console.log('http error');
+            }
+        });
+    }
+    /* 提交 end */
+
+    function add_top_colum(){
+        // 展示添加栏目的框框 // 最多添加 7个栏目
+        console.log('添加新的栏目');
+        /* 获取所有没有被放在首页的栏目 start */
+        $.ajax({
+            url:"<{$url}>/get_all_column",
+            type:"GET",
+            data:{},
+            success:function(msg){
+                console.log(msg);
+                if(msg.length > 0){
+                    $("select[name='column_select']").children().remove();
+                    for(var i=0;i<msg.length;i++){
+                        if(msg[i].type == 1){
+                            var type_name = 'news';
+                        }else{
+                            var type_name = 'pro';
+                        }
+                        if(msg[i].level == 2){
+                            var level_str = "--|--";
+                        }else{
+                            var level_str = '';
+                        }
+                        $("select[name='column_select']").append('<option value="'+msg[i].news_cls_id+'" type_name="'+type_name+'" type_id="'+msg[i].type+'">'+level_str+msg[i].news_cls_name+'</option>');
+                    }
+                }
+            },
+            error:function(){
+                console.log("http error");
+            }
+        });
+        /* 获取所有没有被放在首页的栏目 end */
+    }
+
+    /* 类别伸缩 start  */
+    function column_i(e){
+        var index = $(e).attr('index');
+        console.log(index);
+
+        var class_name = ".column_i"+index;
+        var dd_list = ".dd-list"+index;
+
+        var li_value = $(class_name).attr('value');
+        if(li_value == 1){
+            // 隐藏
+
+            $(class_name).removeClass("fa-minus");
+            $(class_name).addClass("fa-plus");
+
+            $(dd_list).css({"display":"none"});
+            $(class_name).attr('value',2);
+        }else{
+            // 展示
+
+            $(class_name).removeClass("fa-plus");
+            $(class_name).addClass("fa-minus");
+
+            $(dd_list).css({"display":"block"});
+            $(class_name).attr('value',1);
+
+        }
+
+    }
+    /* 类别伸缩 end  */
+    $(function(){
+        $(".column_i1").click(function(){
+            var li_value = $(".column_i1").attr('value');
+            if(li_value == 1){
+                // 隐藏
+
+                $(".column_i1").removeClass("fa-plus");
+                $(".column_i1").addClass("fa-minus");
+
+                $(".dd-list1").css({"display":"none"});
+                $(".column_i1").attr('value',2);
+            }else{
+                // 展示
+
+                $(".column_i1").removeClass("fa-minus");
+                $(".column_i1").addClass("fa-plus");
+
+                $(".dd-list1").css({"display":"block"});
+                $(".column_i1").attr('value',1);
+
+            }
+        });
+    });
+</script>
+</body>
+
+</html>

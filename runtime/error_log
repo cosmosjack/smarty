@@ -1,0 +1,143 @@
+[15-May-2018 14:57:32 PRC] PHP Fatal error:  Uncaught exception 'SmartyException' with message 'Unable to load template file 'index/index.html'' in E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php:127
+Stack trace:
+#0 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php(374): Smarty_Internal_TemplateBase->fetch('index/index.htm...', NULL, NULL, NULL, true)
+#1 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bases\mytpl.class.php(50): Smarty_Internal_TemplateBase->display('index/index.htm...', NULL, NULL, NULL)
+#2 E:\www\UPUPW_K2.1_64\vhosts\fst.net\runtime\controls\index_php\indexaction.class.php(62): Mytpl->display('index/index')
+#3 E:\www\UPUPW_K2.1_64\vhosts\fst.net\runtime\controls\index_php\indexaction.class.php(7): IndexAction->mobile_index()
+#4 [internal function]: IndexAction->index()
+#5 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bases\action.class.php(17): call_user_func(Array)
+#6 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bro.php(272): Action->run()
+#7 E:\www\UPUPW_K2.1 in E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php on line 127
+[15-May-2018 14:57:33 PRC] PHP Fatal error:  Uncaught exception 'SmartyException' with message 'Unable to load template file 'index/index.html'' in E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php:127
+Stack trace:
+#0 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php(374): Smarty_Internal_TemplateBase->fetch('index/index.htm...', NULL, NULL, NULL, true)
+#1 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bases\mytpl.class.php(50): Smarty_Internal_TemplateBase->display('index/index.htm...', NULL, NULL, NULL)
+#2 E:\www\UPUPW_K2.1_64\vhosts\fst.net\runtime\controls\index_php\indexaction.class.php(62): Mytpl->display('index/index')
+#3 E:\www\UPUPW_K2.1_64\vhosts\fst.net\runtime\controls\index_php\indexaction.class.php(7): IndexAction->mobile_index()
+#4 [internal function]: IndexAction->index()
+#5 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bases\action.class.php(17): call_user_func(Array)
+#6 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bro.php(272): Action->run()
+#7 E:\www\UPUPW_K2.1 in E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php on line 127
+[15-May-2018 14:59:29 PRC] PHP Fatal error:  Uncaught exception 'SmartyException' with message 'Unable to load template file 'index/index.html'' in E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php:127
+Stack trace:
+#0 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php(374): Smarty_Internal_TemplateBase->fetch('index/index.htm...', NULL, NULL, NULL, true)
+#1 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bases\mytpl.class.php(50): Smarty_Internal_TemplateBase->display('index/index.htm...', NULL, NULL, NULL)
+#2 E:\www\UPUPW_K2.1_64\vhosts\fst.net\runtime\controls\index_php\indexaction.class.php(62): Mytpl->display('index')
+#3 E:\www\UPUPW_K2.1_64\vhosts\fst.net\runtime\controls\index_php\indexaction.class.php(7): IndexAction->mobile_index()
+#4 [internal function]: IndexAction->index()
+#5 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bases\action.class.php(17): call_user_func(Array)
+#6 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bro.php(272): Action->run()
+#7 E:\www\UPUPW_K2.1_64\vh in E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php on line 127
+[15-May-2018 14:59:30 PRC] PHP Fatal error:  Uncaught exception 'SmartyException' with message 'Unable to load template file 'index/index.html'' in E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php:127
+Stack trace:
+#0 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php(374): Smarty_Internal_TemplateBase->fetch('index/index.htm...', NULL, NULL, NULL, true)
+#1 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bases\mytpl.class.php(50): Smarty_Internal_TemplateBase->display('index/index.htm...', NULL, NULL, NULL)
+#2 E:\www\UPUPW_K2.1_64\vhosts\fst.net\runtime\controls\index_php\indexaction.class.php(62): Mytpl->display('index')
+#3 E:\www\UPUPW_K2.1_64\vhosts\fst.net\runtime\controls\index_php\indexaction.class.php(7): IndexAction->mobile_index()
+#4 [internal function]: IndexAction->index()
+#5 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bases\action.class.php(17): call_user_func(Array)
+#6 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bro.php(272): Action->run()
+#7 E:\www\UPUPW_K2.1_64\vh in E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php on line 127
+[15-May-2018 14:59:44 PRC] PHP Fatal error:  Uncaught exception 'SmartyException' with message 'Unable to load template file 'index/index.html'' in E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php:127
+Stack trace:
+#0 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php(374): Smarty_Internal_TemplateBase->fetch('index/index.htm...', NULL, NULL, NULL, true)
+#1 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bases\mytpl.class.php(50): Smarty_Internal_TemplateBase->display('index/index.htm...', NULL, NULL, NULL)
+#2 E:\www\UPUPW_K2.1_64\vhosts\fst.net\runtime\controls\index_php\indexaction.class.php(63): Mytpl->display('index')
+#3 E:\www\UPUPW_K2.1_64\vhosts\fst.net\runtime\controls\index_php\indexaction.class.php(7): IndexAction->mobile_index()
+#4 [internal function]: IndexAction->index()
+#5 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bases\action.class.php(17): call_user_func(Array)
+#6 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bro.php(272): Action->run()
+#7 E:\www\UPUPW_K2.1_64\vh in E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php on line 127
+[15-May-2018 15:01:32 PRC] PHP Fatal error:  Uncaught exception 'SmartyException' with message 'Unable to load template file 'index/index.html'' in E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php:127
+Stack trace:
+#0 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php(374): Smarty_Internal_TemplateBase->fetch('index/index.htm...', NULL, NULL, NULL, true)
+#1 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bases\mytpl.class.php(50): Smarty_Internal_TemplateBase->display('index/index.htm...', NULL, NULL, NULL)
+#2 E:\www\UPUPW_K2.1_64\vhosts\fst.net\runtime\controls\index_php\indexaction.class.php(63): Mytpl->display('index')
+#3 E:\www\UPUPW_K2.1_64\vhosts\fst.net\runtime\controls\index_php\indexaction.class.php(7): IndexAction->mobile_index()
+#4 [internal function]: IndexAction->index()
+#5 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bases\action.class.php(17): call_user_func(Array)
+#6 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bro.php(272): Action->run()
+#7 E:\www\UPUPW_K2.1_64\vh in E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php on line 127
+[15-May-2018 15:03:13 PRC] PHP Fatal error:  Uncaught exception 'SmartyException' with message 'Unable to load template file 'index/index.html'' in E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php:127
+Stack trace:
+#0 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php(374): Smarty_Internal_TemplateBase->fetch('index/index.htm...', NULL, NULL, NULL, true)
+#1 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bases\mytpl.class.php(50): Smarty_Internal_TemplateBase->display('index/index.htm...', NULL, NULL, NULL)
+#2 E:\www\UPUPW_K2.1_64\vhosts\fst.net\runtime\controls\index_php\indexaction.class.php(63): Mytpl->display('index')
+#3 [internal function]: IndexAction->mobile_index()
+#4 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bases\action.class.php(17): call_user_func(Array)
+#5 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bro.php(272): Action->run()
+#6 E:\www\UPUPW_K2.1_64\vhosts\fst.net\index.php(11): require('E:\\www\\UPUPW_K2...')
+#7 {main}
+  thrown in E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php on line 127
+[15-May-2018 15:03:20 PRC] PHP Fatal error:  Uncaught exception 'SmartyException' with message 'Unable to load template file 'index/index.html'' in E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php:127
+Stack trace:
+#0 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php(374): Smarty_Internal_TemplateBase->fetch('index/index.htm...', NULL, NULL, NULL, true)
+#1 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bases\mytpl.class.php(50): Smarty_Internal_TemplateBase->display('index/index.htm...', NULL, NULL, NULL)
+#2 E:\www\UPUPW_K2.1_64\vhosts\fst.net\runtime\controls\index_php\indexaction.class.php(62): Mytpl->display('index')
+#3 [internal function]: IndexAction->mobile_index()
+#4 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bases\action.class.php(17): call_user_func(Array)
+#5 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bro.php(272): Action->run()
+#6 E:\www\UPUPW_K2.1_64\vhosts\fst.net\index.php(11): require('E:\\www\\UPUPW_K2...')
+#7 {main}
+  thrown in E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php on line 127
+[15-May-2018 15:03:38 PRC] PHP Fatal error:  Uncaught exception 'SmartyException' with message 'Unable to load template file 'index/mobile_index.html'' in E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php:127
+Stack trace:
+#0 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php(374): Smarty_Internal_TemplateBase->fetch('index/mobile_in...', NULL, NULL, NULL, true)
+#1 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bases\mytpl.class.php(50): Smarty_Internal_TemplateBase->display('index/mobile_in...', NULL, NULL, NULL)
+#2 E:\www\UPUPW_K2.1_64\vhosts\fst.net\runtime\controls\index_php\indexaction.class.php(62): Mytpl->display()
+#3 [internal function]: IndexAction->mobile_index()
+#4 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bases\action.class.php(17): call_user_func(Array)
+#5 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bro.php(272): Action->run()
+#6 E:\www\UPUPW_K2.1_64\vhosts\fst.net\index.php(11): require('E:\\www\\UPUPW_K2...')
+#7 {main}
+  thrown in E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php on line 127
+[15-May-2018 15:03:39 PRC] PHP Fatal error:  Uncaught exception 'SmartyException' with message 'Unable to load template file 'index/mobile_index.html'' in E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php:127
+Stack trace:
+#0 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php(374): Smarty_Internal_TemplateBase->fetch('index/mobile_in...', NULL, NULL, NULL, true)
+#1 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bases\mytpl.class.php(50): Smarty_Internal_TemplateBase->display('index/mobile_in...', NULL, NULL, NULL)
+#2 E:\www\UPUPW_K2.1_64\vhosts\fst.net\runtime\controls\index_php\indexaction.class.php(62): Mytpl->display()
+#3 [internal function]: IndexAction->mobile_index()
+#4 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bases\action.class.php(17): call_user_func(Array)
+#5 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bro.php(272): Action->run()
+#6 E:\www\UPUPW_K2.1_64\vhosts\fst.net\index.php(11): require('E:\\www\\UPUPW_K2...')
+#7 {main}
+  thrown in E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php on line 127
+[15-May-2018 15:03:40 PRC] PHP Fatal error:  Uncaught exception 'SmartyException' with message 'Unable to load template file 'index/mobile_index.html'' in E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php:127
+Stack trace:
+#0 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php(374): Smarty_Internal_TemplateBase->fetch('index/mobile_in...', NULL, NULL, NULL, true)
+#1 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bases\mytpl.class.php(50): Smarty_Internal_TemplateBase->display('index/mobile_in...', NULL, NULL, NULL)
+#2 E:\www\UPUPW_K2.1_64\vhosts\fst.net\runtime\controls\index_php\indexaction.class.php(62): Mytpl->display()
+#3 [internal function]: IndexAction->mobile_index()
+#4 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bases\action.class.php(17): call_user_func(Array)
+#5 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bro.php(272): Action->run()
+#6 E:\www\UPUPW_K2.1_64\vhosts\fst.net\index.php(11): require('E:\\www\\UPUPW_K2...')
+#7 {main}
+  thrown in E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php on line 127
+[15-May-2018 15:03:41 PRC] PHP Fatal error:  Uncaught exception 'SmartyException' with message 'Unable to load template file 'index/mobile_index.html'' in E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php:127
+Stack trace:
+#0 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php(374): Smarty_Internal_TemplateBase->fetch('index/mobile_in...', NULL, NULL, NULL, true)
+#1 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bases\mytpl.class.php(50): Smarty_Internal_TemplateBase->display('index/mobile_in...', NULL, NULL, NULL)
+#2 E:\www\UPUPW_K2.1_64\vhosts\fst.net\runtime\controls\index_php\indexaction.class.php(62): Mytpl->display()
+#3 [internal function]: IndexAction->mobile_index()
+#4 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bases\action.class.php(17): call_user_func(Array)
+#5 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bro.php(272): Action->run()
+#6 E:\www\UPUPW_K2.1_64\vhosts\fst.net\index.php(11): require('E:\\www\\UPUPW_K2...')
+#7 {main}
+  thrown in E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php on line 127
+[15-May-2018 15:03:56 PRC] PHP Fatal error:  Uncaught exception 'SmartyException' with message 'Unable to load template file 'index/mobile_index.html'' in E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php:127
+Stack trace:
+#0 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php(374): Smarty_Internal_TemplateBase->fetch('index/mobile_in...', NULL, NULL, NULL, true)
+#1 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bases\mytpl.class.php(50): Smarty_Internal_TemplateBase->display('index/mobile_in...', NULL, NULL, NULL)
+#2 E:\www\UPUPW_K2.1_64\vhosts\fst.net\runtime\controls\index_php\indexaction.class.php(63): Mytpl->display()
+#3 [internal function]: IndexAction->mobile_index()
+#4 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bases\action.class.php(17): call_user_func(Array)
+#5 E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\bro.php(272): Action->run()
+#6 E:\www\UPUPW_K2.1_64\vhosts\fst.net\index.php(11): require('E:\\www\\UPUPW_K2...')
+#7 {main}
+  thrown in E:\www\UPUPW_K2.1_64\vhosts\fst.net\brophp\libs\sysplugins\smarty_internal_templatebase.php on line 127
+[15-May-2018 16:36:29 PRC] PHP Fatal error:  Call to undefined function get_cls_list() in E:\www\UPUPW_K2.1_64\vhosts\fst.net\runtime\controls\index_php\indexaction.class.php on line 76
+[15-May-2018 16:36:59 PRC] PHP Fatal error:  Call to undefined function get_cls_list() in E:\www\UPUPW_K2.1_64\vhosts\fst.net\runtime\controls\index_php\indexaction.class.php on line 76
+[15-May-2018 16:37:00 PRC] PHP Fatal error:  Call to undefined function get_cls_list() in E:\www\UPUPW_K2.1_64\vhosts\fst.net\runtime\controls\index_php\indexaction.class.php on line 76
+[15-May-2018 16:37:11 PRC] PHP Fatal error:  Call to undefined function get_cls_list() in E:\www\UPUPW_K2.1_64\vhosts\fst.net\runtime\controls\index_php\indexaction.class.php on line 76
+[15-May-2018 16:37:12 PRC] PHP Fatal error:  Call to undefined function get_cls_list() in E:\www\UPUPW_K2.1_64\vhosts\fst.net\runtime\controls\index_php\indexaction.class.php on line 76
+[15-May-2018 16:37:55 PRC] PHP Fatal error:  Call to undefined function get_cls_list() in E:\www\UPUPW_K2.1_64\vhosts\fst.net\runtime\controls\index_php\indexaction.class.php on line 77

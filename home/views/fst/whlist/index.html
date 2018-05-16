@@ -1,0 +1,154 @@
+
+	<{include "public/header.html"}>
+				
+			<div class="layer_right">
+				<div class="layer_right_centan">
+					精益管理期刊_精益管理大师_3A精益管理顾问
+				</div>
+				<!--循环数据-->
+                <div class="layer_right_centan_nei">
+				<{foreach $json_data.data_news as $key=>$val}>
+						<a class="tba_list" href="/whshow?id=<{$val.news_id}>">
+							<div class="layer_right_centan_nei_left">
+								<{$val.news_name}>
+							</div>
+							<div class="layer_right_centan_nei_right">
+								<{$val.add_times|date_format:"Y-m-d H:m:s"}>
+							</div>
+						</a>	
+				<{/foreach}>
+                </div>
+                <{$json_data.fpage}>
+
+                <!--<div class="layer_right_centan_nei">
+
+                        <a class="tba_list" href="#">
+                            <div class="layer_right_centan_nei_left">
+                                签约：河北金力新能源科技股份有限公司6S管理及厂区布局规划
+                            </div>
+                            <div class="layer_right_centan_nei_right">
+                                2017-12-14
+                            </div>
+                        </a>
+                        <a class="tba_list" href="#">
+                            <div class="layer_right_centan_nei_left">
+                                合众资源·3A精益管理顾问发展成为中国咨询行业50强
+                            </div>
+                            <div class="layer_right_centan_nei_right">
+                                2017-12-14
+                            </div>
+                        </a>
+                        <a class="tba_list" href="#">
+                            <div class="layer_right_centan_nei_left">
+                                签约：河北金力新能源科技股份有限公司6S管理及厂区布局规划
+                            </div>
+                            <div class="layer_right_centan_nei_right">
+                                2017-12-14
+                            </div>
+                        </a>
+                        <a class="tba_list" href="#">
+                            <div class="layer_right_centan_nei_left">
+                                合众资源·3A精益管理顾问发展成为中国咨询行业50强
+                            </div>
+                            <div class="layer_right_centan_nei_right">
+                                2017-12-14
+                            </div>
+                        </a>
+                        <a class="tba_list" href="#">
+                            <div class="layer_right_centan_nei_left">
+                                签约：河北金力新能源科技股份有限公司6S管理及厂区布局规划
+                            </div>
+                            <div class="layer_right_centan_nei_right">
+                                2017-12-14
+                            </div>
+                        </a>
+                        <a class="tba_list" href="#">
+                            <div class="layer_right_centan_nei_left">
+                                合众资源·3A精益管理顾问发展成为中国咨询行业50强
+                            </div>
+                            <div class="layer_right_centan_nei_right">
+                                2017-12-14
+                            </div>
+                        </a>
+                        <a class="tba_list" href="#">
+                            <div class="layer_right_centan_nei_left">
+                                签约：河北金力新能源科技股份有限公司6S管理及厂区布局规划
+                            </div>
+                            <div class="layer_right_centan_nei_right">
+                                2017-12-14
+                            </div>
+                        </a>
+                        <a class="tba_list" href="#">
+                            <div class="layer_right_centan_nei_left">
+                                合众资源·3A精益管理顾问发展成为中国咨询行业50强
+                            </div>
+                            <div class="layer_right_centan_nei_right">
+                                2017-12-14
+                            </div>
+                        </a>
+                        <a class="tba_list" href="#">
+                            <div class="layer_right_centan_nei_left">
+                                签约：河北金力新能源科技股份有限公司6S管理及厂区布局规划
+                            </div>
+                            <div class="layer_right_centan_nei_right">
+                                2017-12-14
+                            </div>
+                        </a>
+                        <a class="tba_list" href="#">
+                            <div class="layer_right_centan_nei_left">
+                                签约：河北金力新能源科技股份有限公司6S管理及厂区布局规划
+                            </div>
+                            <div class="layer_right_centan_nei_right">
+                                2017-12-14
+                            </div>
+                        </a>
+                        <a class="tba_list" href="#">
+                            <div class="layer_right_centan_nei_left">
+                                合众资源·3A精益管理顾问发展成为中国咨询行业50强
+                            </div>
+                            <div class="layer_right_centan_nei_right">
+                                2017-12-14
+                            </div>
+                        </a>
+                        <a class="tba_list" href="#">
+                            <div class="layer_right_centan_nei_left">
+                                签约：河北金力新能源科技股份有限公司6S管理及厂区布局规划
+                            </div>
+                            <div class="layer_right_centan_nei_right">
+                                2017-12-14
+                            </div>
+                        </a>
+                        <a class="tba_list" href="#">
+                            <div class="layer_right_centan_nei_left">
+                                合众资源·3A精益管理顾问发展成为中国咨询行业50强
+                            </div>
+                            <div class="layer_right_centan_nei_right">
+                                2017-12-14
+                            </div>
+                        </a>
+                        <a class="tba_list" href="#">
+                            <div class="layer_right_centan_nei_left">
+                                签约：河北金力新能源科技股份有限公司6S管理及厂区布局规划
+                            </div>
+                            <div class="layer_right_centan_nei_right">
+                                2017-12-14
+                            </div>
+                        </a>
+                        <a class="tba_list" href="#">
+                            <div class="layer_right_centan_nei_left">
+                                合众资源·3A精益管理顾问发展成为中国咨询行业50强
+                            </div>
+                            <div class="layer_right_centan_nei_right">
+                                2017-12-14
+                            </div>
+                        </a>
+
+                </div>-->
+				
+			</div>
+			
+	<!--尾部-->
+		<{include "public/footer.html"}>
+	<!--尾部  end-->
+
+	

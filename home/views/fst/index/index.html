@@ -1,0 +1,261 @@
+
+	<{include "public/header.html"}>
+			<!--右侧内容-->
+			<div class="layer_right">
+				<div class="layer_right_centan">
+					<{$data_site.company_name}>
+				</div>
+				<div class="layer_right_left">
+					<!--新闻-->
+					<div class="box_centen">
+						
+						<div class="bgtop"><{$json_data.right_data[0].news_cls_name}></div>
+						<!--<div class="topti">
+							<a href="#"><{$json_data.right_data[0].news_data.news_name}></a>
+						</div>-->
+						<ul class="dian xinwen">
+							<{foreach $json_data.right_data[0].news_data as $key=>$left_r}>
+							<li>
+								<a href="/whshow?id=<{$left_r.news_id}>"><span></span><{$left_r.news_name}></a>
+							</li>
+							<{/foreach}>
+							
+						</ul>
+					</div>
+					<!--动态-->
+					<div class="box_centen">
+						<div class="bgtop" style="background: none;">
+							<{$json_data.right_data[1].news_cls_name}>
+							<a href="/whlist" class="gengduo">更多公司动态</a>
+						</div>
+						<!--<div class="topti">
+							<a href="#">【动态】：发展成为中国咨询行业50强</a>
+						</div>-->
+						<ul class="dian dongtai">
+							<{foreach $json_data.right_data[1].news_data as $key=>$left_g}>
+							<li>
+								<a href="/whshow?id=<{$left_g.news_id}>"><span></span><{$left_g.news_name}></a>
+							</li>
+							<{/foreach}>
+							
+						</ul>
+					</div>
+					<!--荣誉-->
+					<div class="box_centen" style="border-bottom: 1px solid #ccc;">
+						<div class="bgtop" style="background: none;">
+							<{$json_data.right_data[2].news_cls_name}>
+						</div>
+						<ul class="dian">
+							<{foreach $json_data.right_data[2].news_data as $key=>$left_g}>
+							<li>
+								<a href="/whshow?id=<{$left_g.news_id}>"><{$left_g.news_name}></a>
+							</li>
+							<{/foreach}>
+							
+						</ul>
+					</div>
+					<!--案例-->
+					<div class="box_centen">
+						<div class="bgtop" style="background: none;">
+							<{$json_data.right_data[3].news_cls_name}>
+						</div>
+						<ul class="dians">
+							<{foreach $json_data.right_data[3].news_data as $key=>$left_g}>
+							<li>
+								<a href="/whshow?id=<{$left_g.news_id}>"><{$left_g.news_name}></a>
+							</li>
+							<{/foreach}>
+							
+						</ul>
+					</div>
+				</div>
+				<div class="layer_right_right">
+					<div class="carousel_figure">
+						<div class="carousel_figure_title">
+							<span>新闻标题</span>
+						</div>
+						<div class="carousel_figure_lunbo">
+							<!--轮播图-->
+							<div class="yx-rotaion">
+
+								<ul class="rotaion_list">
+									<{foreach $home_adv as $key=>$vas}>
+										<li>
+											<a href="<{$vas.img_url}>">
+												<img title="<{$vas.img_desc}>" src="<{$vas.pic_url}>" alt="<{$vas.img_desc}>"  height="200" width="380">
+											</a>
+										</li>
+									<{/foreach}>
+
+								</ul>
+
+							</div>
+
+						</div>
+
+					</div>
+					<!--客户-->
+					<div class="content_column">
+						
+						<div class="column_img">
+							<{$json_data.right_data[5].news_cls_name}>
+						</div>
+						<ul>
+							<{foreach $json_data.right_data[5].news_data as $key=>$left_g}>
+							<li>
+								<a href="/whshow?id=<{$left_g.news_id}>"><{$left_g.news_name}></a>
+							</li>
+							<{/foreach}>
+							
+						</ul>
+						
+					</div>
+					<!--文章-->
+					<div class="content_column">
+						<div class="column_img">
+							<{$json_data.right_data[6].news_cls_name}>
+						</div>
+						<ul>
+							<{foreach $json_data.right_data[6].news_data as $key=>$left_g}>
+							<li>
+								<a href="/whshow?id=<{$left_g.news_id}>"><{$left_g.news_name}></a>
+							</li>
+							<{/foreach}>
+							
+						</ul>
+					</div>
+					<!--团队-->
+					<div class="content_columnsa">
+						<div class="column_img">
+							<{$json_data.right_data[7].news_cls_name}>
+						</div>
+						<ul>
+							<{foreach $json_data.right_data[7].news_data as $key=>$left_g}>
+							<li>
+								<a href="/whshow?id=<{$left_g.news_id}>"><{$left_g.news_name}></a>
+							</li>
+							<{/foreach}>
+							
+						</ul>
+					</div>
+
+				</div>
+				<div class="layer_right_all">
+					<img src="<{$res}>/images/20170429.jpg" title="精益生产管理" alt="精益生产管理"/>
+				</div>
+				
+				<div class="layer_right_buttom">
+					<!--著作-->
+					<div class="layer_right_buttom_left">
+						<div class="lies_top">
+							<{$json_data.right_data[4].news_cls_name}>
+						</div>
+						<div class="lies_buttom">
+							<ul>
+							<{foreach $json_data.right_data[4].news_data as $key=>$left_g}>
+							<li>
+								<a href="/whshow?id=<{$left_g.news_id}>"><{$left_g.news_name}></a>
+							</li>
+							<{/foreach}>
+							
+						</ul>
+						</div>
+					</div>
+					
+					<div class="layer_right_buttom_right">
+						<img src="<{$res}>/images/index_23.png" alt="诚聘英才" title="诚聘英才"/>
+					</div>
+				</div>
+
+			</div>
+			<!--流程-->
+			<div class="inner_liucheng">
+				<div class="liucheng">
+					<div class="liucheng_title">
+						精益生产咨询流程
+					</div>
+					<div class="liucheng_lieaa">
+						<ul>
+							<li>
+								<strong>第一步：前期沟通</strong>
+								<span>
+									首先由意向企业填写《基本情况调查表》。然后3A精益管理顾问公司根据所填内容，确定前往诊断的内容和顾问师，并与企业签订诊断协议。
+								</span>
+							</li>
+							<li>
+								<strong>第二步：诊断实施</strong>
+								<span>
+									3A精益管理顾问师前往企业进行调研，查找经营和管理中存在的典型问题和问题点，评估改善的机会，提出今后改善的方向、原则、措施和步骤等。
+								</span>
+							</li>
+							<li>
+								<strong>第三步：商务谈判</strong>
+								<span>
+									根据诊断报告，双方就未来改善方向、辅导内容、辅导时间以及辅导费用等进行协商确认。
+								</span>
+							</li>
+							<li>
+								<strong>第四步：协议签署</strong>
+								<span>
+									3A精益管理顾问本着帮助企业解决实际问题，改善企业经营管理和实现企业经济效益最大化的原则，双方达成一致意见后，签署精益管理咨询协议。
+								</span>
+							</li>
+							<li>
+								<strong>第五步：项目实施</strong>
+								<span>
+									3A精益管理顾问师驻厂辅导从双方商定的启动日开始。通常顾问师每月驻厂一次，每次驻厂前会提供《辅导日程安排表》。
+								</span>
+							</li>
+							<li>
+								<strong>第六步：项目总结</strong>
+								<span>
+									3A精益管理顾问公司将对每一个阶段的辅导及其成果进行全面系统的总结，并对企业下一步的精益改善工作进行科学规划。
+								</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="exhibition">
+				<div class="exhibition_title">
+					精益生产客户展示
+				</div>
+				<div class="exhibition_image">
+					<ul>
+						<{foreach $json_data.link as $key=>$left_t}>
+							<li>
+                                <a href="<{$left_t.link_url}>"><img src="<{$root}>/uploads/links/<{$left_t.link_pic}>" alt="企业logo" title="企业logo"/></a></li>
+						<{/foreach}>
+					</ul>
+				</div>
+			</div>
+			<!--友情链接-->
+			<div class="exhibition">
+				<div class="exhibition_title">
+					友情链接
+				</div>
+				<div class="exhibition_link">
+					<ul>
+						<{foreach $json_data.link as $key=>$left_t}>
+							<li>
+								<a href="<{$left_t.link_url}>"><{$left_t.link_name}></a>
+							</li>
+						<{/foreach}>
+						
+					</ul>
+				</div>
+			</div>
+
+	<!--尾部-->
+		<{include "public/footer.html"}>
+	<!--尾部 end-->
+	<script type="text/javascript">
+		$(".xinwen li a").eq(0).addClass("xi_text");
+		$(".xinwen li a").eq(0).addClass("dt");
+		$(".xinwen li").eq(0).css({"background":"none","padding": "2px 0 2px 0px"});
+		$(".xinwen li a span").eq(0).text("【新闻】: ");
+		$(".dongtai li a").eq(0).addClass("xi_text");
+		$(".dongtai li a").eq(0).addClass("dt");
+		$(".dongtai li").eq(0).css({"background":"none","padding": "2px 0 2px 0px"});
+		$(".dongtai li a span").eq(0).text("【动态】: ");
+	</script>

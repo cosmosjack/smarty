@@ -1,0 +1,718 @@
+<{include "public/header.html"}>
+
+<title>个人资料</title>
+
+    <link href="<{$res}>/bootstrap/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content">
+    <div class="row animated fadeInRight">
+        <div class="col-sm-4">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>个人资料</h5>
+                </div>
+                <div>
+                    <div class="ibox-content no-padding border-left-right">
+                        <img alt="image" class="img-responsive" src="<{$pic_url}>">
+                    </div>
+                    <div class="ibox-content profile-content">
+                        <h4><strong><{$user_info.user_name}></strong></h4>
+                        <p><i class="fa fa-map-marker"></i> <{$user_info.address}></p>
+                        <h5>
+                            昵称
+                        </h5>
+                        <p>
+                            <{$user_info.nick_name}>
+                        </p>
+                        <h5>
+                            关于我
+                        </h5>
+                        <p>
+                            <{$user_info.user_desc}>
+                        </p>
+                        <div class="row m-t-lg">
+                            <div class="col-sm-4">
+                                <span class="bar">5,3,9,6,5,9,7,3,5,2</span>
+                                <h5><strong><{$user_info.readnum}></strong> 阅读量</h5>
+                            </div>
+                            <div class="col-sm-4">
+                                <span class="line">5,3,9,6,5,9,7,3,5,2</span>
+                                <h5><strong><{$sign_total}></strong> 签到</h5>
+                            </div>
+                            <div class="col-sm-4">
+                                <span class="bar">5,3,2,-1,-3,-2,2,3,5,2</span>
+                                <h5><strong><{$user_info.integral}></strong> 积分值</h5>
+                            </div>
+                        </div>
+                        <div class="user-button">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <button type="button" id="user_sign" class="btn btn-primary btn-sm btn-block"><i class="fa fa-coffee"></i> <span id="sign_desc"><{$is_sign}></span></button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" onclick="window.open('<{$url}>/mod_info')" class="btn btn-success btn-sm btn-block"><i class="fa fa-pencil"></i> 修改</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" onclick="window.open('<{$url}>/logout')" class="btn btn-danger btn-sm btn-block"><i class="fa fa-pencil"></i> 退出</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>个人动态</h5>
+                    <p class="text-right"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal3">招商发布</button><button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal4">需求发布</button></p>
+                </div>
+                <!--<div class="ibox-content profile-content">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <div class="row">
+                                <i style="color: red;font-size: 18px;" class="fa fa-calendar">日期</i>
+                            </div>
+                            <div class="row">
+                                <span class="tips">
+                                    您于这天，成功签到一次
+                                </span>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="row">
+                                <i style="color: red;font-size: 18px;" class="fa fa-calendar">日期</i>
+                            </div>
+                            <div class="row">
+                                <span>
+                                    您于这天，看了这篇文章
+                                </span>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="row">
+                                <i style="color: red;font-size: 18px;" class="fa fa-calendar">日期</i>
+                            </div>
+                            <div class="row">
+                                <span>
+                                    您于这天，对某某文章发起好评
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>-->
+                <div class="ibox-content">
+                    <div class="clients-list">
+                        <ul class="nav nav-tabs">
+                            <span class="pull-right small text-muted"><a href="#">更多</a></span>
+                            <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> 招商信息</a>
+                            </li>
+                            <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-briefcase"></i> 需求</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="tab-1" class="tab-pane active">
+                                <div class="full-height-scroll">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover">
+                                            <tbody>
+                                                <{foreach $data_investment as $key=>$val}>
+                                                    <tr>
+                                                        <td class="client-avatar"><img alt="image" src="<{$root}>/uploads/investment/<{$val['pic']}>"> </td>
+                                                        <td><a data-toggle="tab" href="#contact-1" class="client-link"><{$val['cls_name']}></a>
+                                                        </td>
+                                                        <td> <{$val['investment']}></td>
+                                                        <td class="contact-type"><i class="fa fa-phone"> </i>
+                                                        </td>
+                                                        <td> <{$val['phone']}></td>
+                                                        <td class="client-status">
+                                                            <span class="btn btn-primary btn-sm">修改</span>
+                                                            <span class="btn btn-danger btn-sm">删除</span>
+                                                        </td>
+                                                    </tr>
+                                                <{/foreach}>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="tab-2" class="tab-pane">
+                                <div class="full-height-scroll">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover">
+                                            <tbody>
+                                            <{foreach $data_demand as $key=>$val}>
+                                                <tr>
+                                                    <td><a data-toggle="tab" href="#company-1" class="client-link"><{$val.demand}></a>
+                                                    </td>
+                                                    <td><{$val.area}></td>
+                                                    <td><i class="fa fa-flag"></i> <{$val.phone}></td>
+                                                    <td class="client-status">
+                                                        <span class="btn btn-primary btn-sm">修改</span>
+                                                        <span class="btn btn-danger btn-sm">删除</span>
+                                                    </td>
+                                                </tr>
+                                            <{/foreach}>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>站内最新动态</h5>
+
+                </div>
+                <div class="ibox-content">
+
+                    <div>
+                        <div class="feed-activity-list">
+                            <{foreach $data_news as $key=>$val}>
+                                <div class="feed-element">
+                                    <div class="media-body ">
+                                        <small class="pull-right text-navy"><{$val.add_times|date_format:'%y-%m-%d'}></small>
+                                        <a target="_blank" href="<{$app}>/goods_list/show/goods_id/<{$val.news_id}>/type/news">
+                                            <strong style="color: #2e2e2e">企业</strong> 发布了 <strong><{$val.news_name}></strong>.
+                                        </a>
+                                        <br>
+                                        <small class="text-muted"><{$val.add_times|date_format:'%y-%m-%d %H:%M:%S'}> 发布了<{$val.news_pname}></small>
+                                        <div class="actions">
+                                            <!--<a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> 赞 </a>-->
+                                            <a class="btn btn-xs btn-danger"><i class="fa fa-heart"></i> 收藏</a>
+                                        </div>
+                                        <div class="photos">
+                                            <a target="_blank" href="<{$app}>/goods_list/show/goods_id/<{$val.news_id}>/type/news">
+                                                <img alt="image" height="180" class="feed-photo" src="<{$val.pic_url}>">
+                                            </a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            <{/foreach}>
+                        </div>
+                        <!--<button class="btn btn-primary btn-block m"><i class="fa fa-arrow-down"></i> 显示更多</button>-->
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!--mini聊天窗口开始-->
+    <div  class="small-chat-box fadeInRight animated">
+
+        <div class="heading" draggable="true">
+            <small class="chat-date pull-right">
+                2017.6.27
+            </small> 站内通知
+        </div>
+
+        <div id="agent_msg_div" class="content">
+
+            <!--<div class="left">
+
+                <div class="chat-message active">
+                    你好
+                </div>
+
+            </div>
+            <div class="right">
+                <button class="label label-danger" data-toggle="modal" data-target="#myModal2">查看</button>
+            </div>
+
+            <div class="left">
+                <div class="chat-message active">
+                    有，购买的H+源码包中有帮助文档，位于docs文件夹下
+                </div>
+            </div>
+            <div class="right">
+                <button class="label label-danger" data-toggle="modal" data-target="#myModal2">查看</button>
+            </div>
+
+            <div  class="left ">
+                <div class="chat-message active">
+                    1.所有源码(未压缩、带注释版本)双方都收到分水电费水电费水电费；
+                </div>
+            </div>
+            <div class="right">
+                <button class="label label-danger" data-toggle="modal" data-target="#myModal2">查看</button>
+            </div>-->
+
+        </div>
+        <!--<div class="form-chat">
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control"> <span class="input-group-btn"> <button
+                        class="btn btn-primary" type="button">发送
+                    </button> </span>
+            </div>
+        </div>-->
+
+    </div>
+    <div id="small-chat" style="bottom: 100px;">
+        <span id="msg_now_number" class="badge badge-warning pull-right">0</span>
+        <a class="open-small-chat">
+            <i class="fa fa-comments"></i>
+        </a>
+    </div>
+</div>
+
+<div class="modal inmodal" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated flipInY">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">内部通知</h4>
+                <small id="msg_window_title" class="font-bold">这里可以显示副标题</small>
+            </div>
+            <div id="msg_window_body" class="modal-body">
+                <p>内容</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal inmodal" id="myModal3" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated flipInY">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">招商发布</h4>
+                <small class="font-bold">发布你的招商信息</small>
+            </div>
+            <div class="modal-body">
+                <div class="ibox-content">
+                    <form class="form-horizontal m-t" enctype="multipart/form-data" id="investment_form">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">商品名称</label>
+                            <div class="col-sm-8">
+                                <input id="cname" name="investment" minlength="2" type="text" class="form-control" required="" aria-required="true">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">图片</label>
+                            <div class="col-sm-4">
+                                <label>
+                                    <input type="file" multiple="multiple" id="input_img" style="display: none;" name="pic" value="" onchange="javascript:setImagePreview('input_img','preview','localImage');">
+                                    <a style="text-align: center">
+                                        <div id="localImage">
+                                            <img id="preview" src="<{$res}>/bootstrap/img/a1.jpg" style="margin:0 auto .1rem;display: block; width: 200px; height: 200px;">
+                                        </div>
+                                        <h4>选择展示图</h4>
+                                        <div style="clear: both;"></div>
+                                    </a>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">分类</label>
+                            <div class="col-sm-8">
+                                <select name="cls_id" class="form-control">
+                                    <option value="1">瓜类</option>
+                                    <option value="1">豆类</option>
+                                    <option value="1">叶菜类</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">供货量</label>
+                            <div class="col-sm-8">
+                                <input type="url" class="form-control" name="supply_quantity">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">起订量</label>
+                            <div class="col-sm-8">
+                                <input type="url" class="form-control" name="moq">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">供货价</label>
+                            <div class="col-sm-8">
+                                <input type="url" class="form-control" name="supply_price">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">市场价</label>
+                            <div class="col-sm-8">
+                                <input type="url" class="form-control" name="market_price">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">联系人</label>
+                            <div class="col-sm-8">
+                                <input type="url" class="form-control" name="contacts">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">联系电话</label>
+                            <div class="col-sm-8">
+                                <input type="url" class="form-control" name="phone">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">区域</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" name="province" onchange="province_change('province','select_city3','select_position3','province3');" id="province3">
+                                    <option value="1" selected>北京</option>
+                                    <option value="2">天津</option>
+                                    <option value="3">河北</option>
+                                </select>
+                                <select class="form-control" name="city" onchange="province_change('select_city','select_city3','select_position3','select_city3');" id="select_city3">
+                                    <option value="1" selected>北京</option>
+                                    <option value="2">天津</option>
+                                    <option value="3">河北</option>
+                                </select>
+                                <select class="form-control" name="position" id="select_position3">
+                                    <option value="1" selected>北京</option>
+                                    <option value="2">天津</option>
+                                    <option value="3">河北</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">商品介绍</label>
+                            <div class="col-sm-8">
+                                <textarea id="ccomment" name="investment_desc" class="form-control" required="" aria-required="true"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-3">
+                                <button class="btn btn-primary" onclick="ajax_form('investment_form','investment','add',false,function(){alert('bbb');$('#myModal3').modal('hide')});" type="button">提交</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary">保存s</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal inmodal" id="myModal4" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated fadeIn">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">需求发布</h4>
+                <small class="font-bold">发布需求的资料</small>
+            </div>
+            <div class="modal-body">
+                <div class="ibox-content">
+                    <form class="form-horizontal m-t" enctype="multipart/form-data" id="demand_form">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">商品名称</label>
+                            <div class="col-sm-8">
+                                <input name="demand" minlength="2" type="text" class="form-control" required="" aria-required="true">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">分类</label>
+                            <div class="col-sm-8">
+                                <select name="cls_id" class="form-control">
+                                    <option value="1">瓜类</option>
+                                    <option value="1">豆类</option>
+                                    <option value="1">叶菜类</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">购价</label>
+                            <div class="col-sm-8">
+                                <input type="price" class="form-control" name="price">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">起订量</label>
+                            <div class="col-sm-8">
+                                <input type="moq" class="form-control" name="moq">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">联系人</label>
+                            <div class="col-sm-8">
+                                <input type="url" class="form-control" name="contacts">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">联系电话</label>
+                            <div class="col-sm-8">
+                                <input type="url" class="form-control" name="phone">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">区域</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" name="province" onchange="province_change('province','select_city','select_position','province');" id="province">
+                                    <option value="1" selected>北京</option>
+                                    <option value="2">天津</option>
+                                    <option value="3">河北</option>
+                                </select>
+                                <select class="form-control" name="city" onchange="province_change('select_city','select_city','select_position','select_city');" id="select_city">
+                                    <option value="1" selected>北京</option>
+                                    <option value="2">天津</option>
+                                    <option value="3">河北</option>
+                                </select>
+                                <select class="form-control" name="position" id="select_position">
+                                    <option value="1" selected>北京</option>
+                                    <option value="2">天津</option>
+                                    <option value="3">河北</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">需求描述</label>
+                            <div class="col-sm-8">
+                                <textarea  name="demand_desc" class="form-control" required="" aria-required="true"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-3">
+                                <button class="btn btn-primary" onclick="ajax_form('demand_form','demand','add',false,function(){alert('bbb');$('#myModal4').modal('hide')});" type="button">提交</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary">保存s</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="<{$res}>/bootstrap/js/plugins/peity/jquery.peity.min.js"></script>
+<script src="<{$res}>/bootstrap/js/demo/peity-demo.min.js"></script>
+<script src="<{$res}>/bootstrap/js/plugins/sweetalert/sweetalert.min.js"></script>
+
+<script src="<{$res}>/bootstrap/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="<{$res}>/bootstrap/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="<{$res}>/bootstrap/js/plugins/layer/layer.min.js"></script>
+<script src="<{$res}>/bootstrap/js/hplus.min.js?v=4.0.0"></script>
+<script type="text/javascript" src="<{$res}>/bootstrap/js/contabs.min.js"></script>
+<script src="<{$res}>/bootstrap/js/plugins/pace/pace.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#user_sign").click(function(){
+            $.ajax({
+                url:"<{$url}>/user_sign",
+                type:"get",
+                data:{},
+                success:function(msg){
+                    console.log(msg);
+                    if(msg.code == 200){
+                        swal({title:"太帅了",text:"小手一抖就签到成功",type:"success"});
+                        $("#sign_desc").text('已签到');
+                    }else{
+                        swal({title:"签到",text:msg.msg});
+                    }
+                },
+                error:function(){
+                    console.log("http error");
+                    swal({title:"签到",text:"你没有签到成功"});
+                }
+            });
+        });
+
+        /* 获取默认省份 start */
+        $.ajax({
+            url:"<{$app}>/area/get_area/",
+            type:"GET",
+            data:{},
+            success:function(msg){
+                console.log(msg);
+                $("#province").children().remove();
+                for(var i=0;i<msg['data'].length;i++){
+                    if(msg['data'][i]['area_id'] == 19){
+                        $("#province").append("<option selected class='province_op' value='"+msg['data'][i]['area_id']+"'>"+msg['data'][i]['area_name']+"</option>");
+                        province_change('province','select_city','select_position','province');
+
+                        $("#province3").append("<option selected class='province_op' value='"+msg['data'][i]['area_id']+"'>"+msg['data'][i]['area_name']+"</option>");
+                        province_change('province','select_city3','select_position3','province3');
+                    }else{
+                        $("#province").append("<option class='province_op' value='"+msg['data'][i]['area_id']+"'>"+msg['data'][i]['area_name']+"</option>");
+                        $("#province3").append("<option class='province_op' value='"+msg['data'][i]['area_id']+"'>"+msg['data'][i]['area_name']+"</option>");
+                    }
+                }
+            },
+            error:function(){
+                alert('请求失败');
+            }
+        });
+        /* 获取默认省份 end */
+    });
+
+    $(function(){
+        $.ajax({
+            url:"<{$app}>/investment/ajax_list",
+            type:"GET",
+            data:{},
+            success:function(msg){
+                console.log(msg);
+            },
+            error:function(){
+                console.log("http error");
+            }
+        });
+    });
+</script>
+<script>
+    /* 全局消息通知 start */
+    var msg_num =0;
+    var msg_id_arr = [];
+    function show_window_msg(id){
+//        console.log(id);// 具体的classID
+//        console.log($(".msg_title_class"+id).text());//标题
+        var msg_title = $(".msg_title_class"+id).text();
+//        console.log($("input[name='msg_input"+id+"']").val());//内容
+        var msg_body = $("input[name='msg_input"+id+"']").val();
+//        console.log($("input[name='msg_input"+id+"']").attr('index'));//通知ID
+        var msg_id = $("input[name='msg_input"+id+"']").attr('index');
+
+        /* 改变窗口内容后 改变状态 start */
+        $("#msg_window_title").text(msg_title);
+        $("#msg_window_body").text(msg_body);
+        var json_data = {"msg_id":msg_id};
+        $.ajax({
+            url:"<{$app}>/user/change_msg",
+            type:"GET",
+            data:json_data,
+            success:function(msg){
+//                console.log(msg);
+                if(msg.code == 200){
+                    /* 改变窗口 start */
+                    $("#msg_left_div"+id).remove();
+                    $("#msg_right_div"+id).remove();
+                    /* 改变窗口 end */
+                    /* 改变全局JSON start */
+                    msg_id_arr.splice($.inArray(msg_id,msg_id_arr),1);
+//                    console.log(msg_id_arr);
+                    $("#msg_now_number").text(msg_id_arr.length);
+                    /* 改变全局JSON end */
+
+                }
+            },
+            error:function(){
+                console.log('http error');
+            }
+        });
+        /* 改变窗口内容后 改变状态 end */
+
+    }
+
+    //* 三级联动 start */
+    function province_change(name,select_city,select_position,select_province){ // name = province select_city
+        var pid = $("#"+select_province+" option:selected").val();
+        $.ajax({
+            url:"<{$app}>/area/get_area/area_id/"+pid,
+            type:"GET",
+            data:{},
+            success:function(msg){
+                if(name == 'province'){
+                    console.log(select_province);
+                    $("#"+select_city).children().remove();
+                    for(var i=0;i<msg['data'].length;i++){
+                        if(i==1){
+                            $("#"+select_city).append("<option selected class='select_city_op' value='"+msg['data'][i]['area_id']+"'>"+msg['data'][i]['area_name']+"</option>");
+                            $("#"+select_position).children().remove();
+                            $.ajax({
+                                url:"<{$app}>/area/get_area/area_id/"+msg['data'][i]['area_id'],
+                                type:"GET",
+                                data:{},
+                                success:function(data){
+                                    for(var j=0;j<data['data'].length;j++){
+                                        $("#"+select_position).append("<option value='"+data['data'][j]['area_id']+"'>"+data['data'][j]['area_name']+"</option>");
+                                    }
+                                }
+                            });
+                        }else{
+                            $("#"+select_city).append("<option class='select_city_op' value='"+msg['data'][i]['area_id']+"'>"+msg['data'][i]['area_name']+"</option>");
+                        }
+                    }
+                }else if(name == 'select_city'){
+                    $("#"+select_position).children().remove();
+                    for(var i=0;i<msg['data'].length;i++){
+                        $("#"+select_position).append("<option class='select_position_op' value='"+msg['data'][i]['area_id']+"'>"+msg['data'][i]['area_name']+"</option>");
+                    }
+                }
+
+            },
+            error:function(){
+                alert('请求失败');
+            }
+        });
+    }
+    //* 三级联动 end */
+
+    function msg_function(){
+//        console.log(msg_num);
+        var json_data = {"sub":"ok"};
+        $.ajax({
+            url:"<{$app}>/user/get_msg",
+            type:"POST",
+            data:json_data,
+            success:function(msg){
+
+//                console.log(msg);
+                if(msg.code == 200){
+                    for(var i=0;i<msg['data']['msg_id_arr'].length;i++){
+                        /* 判断通知ID 是否已存在 start */
+//                        console.log(msg['data']['msg_id_arr'][i]);
+                        var is_in_msg = $.inArray(msg['data']['msg_id_arr'][i],msg_id_arr);
+                        if(is_in_msg >= 0){
+//                            console.log(is_in_msg);
+//                            console.log('在里边,不用append');
+                        }else{
+//                            console.log(is_in_msg);
+
+//                            console.log('不在里边,需要append');
+                            $("#agent_msg_div").append('<div id="msg_left_div'+i+'"  class="left"><div class="chat-message active msg_title_class'+i+'">'+msg['data']['msg_title_arr'][i]+'</div> </div> <div id="msg_right_div'+i+'" class="right"><button onclick="show_window_msg('+i+')"  class="label label-danger" data-toggle="modal" data-target="#myModal2">查看</button><input type="hidden" index="'+msg['data']['msg_id_arr'][i]+'" name="msg_input'+i+'" value="'+msg['data']['msg_body'][i]+'"/></div>');
+                            // 加入 json
+                            msg_id_arr.push(msg['data']['msg_id_arr'][i]);
+                        }
+                        /* 判断通知ID 是否已存在 end */
+
+                    }
+                }else{
+//                    console.log('没有新的通知');
+                }
+                /* 每次请求后 需要改变 消息数量 start 根据 json 数量 */
+                $("#msg_now_number").text(msg_id_arr.length);
+                /* 每次请求后 需要改变 消息数量 end */
+            },
+            error:function(){
+                console.log('http error');
+            }
+        });
+        msg_num++;
+    }
+//    var msg_timer = setInterval(msg_function,3000);
+    /* 全局消息通知 end */
+
+    /* 查看消息后 改变状态 及改变页面 start */
+
+    /* 查看消息后 改变状态 及改变页面 end */
+
+</script>
+</body>
+
+</html>

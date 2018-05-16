@@ -1,0 +1,608 @@
+#banner {
+	position: relative;
+	width: 100%;
+	height: 200px;
+	border: 1px solid #666;
+	overflow: hidden;
+}
+
+#banner_list img {
+	border: 0px;
+}
+
+#banner_bg {
+	position: absolute;
+	bottom: 0;
+	background-color: #000;
+	height: 30px;
+	filter: Alpha(Opacity=30);
+	opacity: 0.3;
+	z-index: 1000;
+	cursor: pointer;
+	width: 478px;
+}
+
+#banner_info {
+	position: absolute;
+	bottom: 0;
+	left: 5px;
+	height: 22px;
+	color: #fff;
+	z-index: 1001;
+	cursor: pointer
+}
+
+#banner_text {
+	position: absolute;
+	width: 120px;
+	z-index: 1002;
+	right: 3px;
+	bottom: 3px;
+}
+
+#banner ul {
+	position: absolute;
+	list-style-type: none;
+	filter: Alpha(Opacity=80);
+	opacity: 0.8;
+	z-index: 1002;
+	margin: 0;
+	padding: 0;
+	bottom: 3px;
+	right: 5px;
+}
+
+#banner ul li {
+	padding: 0px 8px;
+	float: left;
+	display: block;
+	color: #FFF;
+	background: #6f4f67;
+	cursor: pointer;
+	border: 1px solid #333;
+}
+
+#banner ul li.on {
+	background-color: #000;
+}
+
+#banner_list a {
+	position: absolute;
+}
+
+#banner_list a img {
+	width: 100%;
+	height: 200px;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 12px;
+}
+
+.txt {
+	line-height: 50px;
+	text-align: center;
+}
+
+.txt .btn {
+	margin: 100px 0 20px;
+}
+
+.txt .btn span {
+	display: inline-block;
+	width: 100px;
+	height: 50px;
+	color: #fff;
+	background-color: #f50;
+	cursor: pointer;
+}
+
+.sidebar-wrapper {
+	position: relative;
+	height: 100%;
+	overflow: auto;
+}
+
+#dowebok {
+	position: fixed;
+	right: -250px;
+	top: 0;
+	bottom: 0;
+	width: 250px;
+	background-color: #fff;
+}
+
+#dowebok .nav {
+	/*margin-top: 50px;*/
+	line-height: 40px;
+	list-style-type: none;
+	width: 90%;
+	margin: 0 5%;
+}
+
+#dowebok .nav a {
+	display: block;
+	padding: 0 20px;
+	color: #222;
+	font-size: 14px;
+	text-decoration: none;
+}
+
+#dowebok .nav a:hover {
+	background-color: #e62828;
+}
+
+[data-simplersidebar='active'] {
+	box-shadow: -3px 0 3px 0 rgba(0, 0, 0, 0.3);
+}
+
+.h_header {
+	width: 100%;
+	height: 50px;
+	overflow: hidden;
+	border-bottom: 1px solid red;
+	line-height: 50px;
+}
+
+.header_left {
+	float: left;
+	height: 100%;
+}
+
+.header_left img {
+	height: 50px;
+}
+
+.faihui {
+	height: 22px !important;
+	display: block;
+	margin-top: 15px;
+	margin-left: 10px;
+}
+
+.right_you {
+	width: 80%;
+	height: 50px;
+	margin: 20px 10%;
+}
+
+.right_you img {
+	width: 100%;
+	height: 100%;
+}
+
+.hui_b {
+	height: 60px;
+	line-height: 60px;
+	width: 90%;
+	margin: 0 5%;
+	text-align: center;
+	font-size: 14px;
+}
+
+.header_right {
+	float: right;
+	height: 100%;
+}
+
+.header_right img {
+	height: 30px;
+	margin: 10px;
+}
+
+.kong {
+	width: 100%;
+	height: 10px;
+}
+
+.nav li {
+	text-align: center;
+	border-bottom: 1px solid #ccc;
+	padding: 5px 0;
+}
+
+a {
+	text-decoration: none;
+}
+
+.bow_max {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+.top_a{
+	color: #222;
+}
+.xiang {
+	border-bottom: 1px solid #ccc;
+}
+
+.lunbo {
+	height: auto;
+	width: 100%;
+	overflow: hidden;
+	/*background: #F35626;*/
+}
+
+.journalism {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+
+.journalism_title {
+	width: 100%;
+	height: 40px;
+	overflow: hidden;
+	line-height: 40px;
+	border-bottom: 2px solid #d94143;
+}
+.journalism_title span a{
+	color: #d94143;
+	font-size: 14px;
+}
+.journalism_hott a{
+	color: #333;
+	font-size: 14px;
+}
+.journalism_title span:nth-child(1) {
+	float: left;
+	color: #d94143;
+	padding-left: 10px;
+	font-size: 14px;
+}
+
+.journalism_title span:nth-child(2) {
+	float: right;
+	color: #d94143;
+	padding-right: 10px;
+	font-size: 14px;
+}
+
+.journalism_hott {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+
+.journalism_hott_left {
+	float: left;
+	width: 40%;
+}
+
+.journalism_hott_left img {
+	height: 80px;
+	margin: 5px 5% 5px 10%;
+	width: 85%;
+}
+
+.journalism_hott_right {
+	float: right;
+	width: 54%;
+	padding-top: 5px;
+	margin: 0 3%;
+}
+
+.journalism_hott_right_can {
+	overflow: hidden;
+	/*文字超出用省略号*/
+	text-overflow: ellipsis;
+	/*盒子模型*/
+	display: -webkit-box;
+	/*显示的文本行数,3行*/
+	-webkit-line-clamp: 2;
+	/*子元素的垂直排列方式*/
+	-webkit-box-orient: vertical;
+}
+
+.journalism_hott_right_can span {
+	font-size: 14px;
+}
+
+.journalism_hott_right_time {
+	height: 30px;
+	line-height: 30px;
+	margin-top: 10px;
+}
+
+.journalism_hott_right_time span {
+	float: right;
+	color: #8ab9fa;
+	line-height: 20px;
+}
+
+.journalism_lie {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+
+.journalism_lie ul {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+
+li {
+	list-style-type: none;
+}
+
+.journalism_lie ul li {
+	width: 100%;
+	height: 25px;
+	line-height: 25px;
+	color: #222;
+	background: url(../images/dian.png) no-repeat;
+	background-position: 13px;
+}
+
+.box_max {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+
+.journalism_lie ul li a {
+	color: #222;
+	float: left;
+	width: 230px;
+	overflow: hidden;
+	/*文本不换行*/
+	white-space: nowrap;
+	/*文字超出用省略号*/
+	text-overflow: ellipsis;
+	margin-left: 20px;
+}
+
+.journalism_lie ul li span {
+	color: #222;
+	float: right;
+	margin-right: 12px;
+	color: #8ab9fa;
+}
+.gduo{
+	float: right !important;
+	height: 14px;
+	margin-top: 5px;
+	margin-left: 5px;
+}
+.gduos{
+	float: right !important;
+    height: 16px;
+    margin-top: 12px;
+    margin-left: 5px;
+}
+
+
+.column_now {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+
+.column_now_click {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+	border-bottom: 2px solid #d94143;
+}
+
+.click_yes {
+	margin: 10px 2.5% 5px 2.5%;
+	height: 100%;
+	color: #222;
+	width: 20%;
+	float: left;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	font-size: 14px;
+}
+
+.kk_off {
+	background: red;
+	color: #fff !important;
+}
+
+.column_now_centen {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+	margin-top: 10px;
+}
+
+.centen_img {
+	background: url(../images/img1.jpg) no-repeat;
+	background-size: 100% 100%;
+	height: 170px;
+	width: 95%;
+	margin: 0 2.5%;
+}
+
+.centen_img_text {
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	position: relative;
+	top: 140px;
+	background: rgba(0, 0, 0, .5);
+}
+
+.centen_img_text a {
+	color: #fff;
+	float: left;
+}
+
+.centen_img_text img {
+	color: #fff;
+	float: left;
+	height: 14px;
+	margin-top: 8px;
+	margin-left: 5px;
+}
+
+.centen_img_text span {
+	color: #fff;
+	float: right;
+}
+
+.an_button {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+
+.button_text {
+	background: #d94143;
+	width: 95%;
+	margin: 5px 2.5%;
+	padding: 10px 0;
+	border-radius: 5px;
+	text-align: center;
+	color: #FFFFFF;
+	font-size: 14px;
+}
+
+.huise {
+	background: #bbb !important;
+}
+
+.about_us {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+
+.journalism_text {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+
+.journalism_text span {
+	width: 95%;
+	padding: 5px 2.5%;
+	display: block;
+	line-height: 20px;
+	text-indent: 1.5rem;
+}
+
+.options {
+	width: 95%;
+	height: auto;
+	overflow: hidden;
+	margin: 10px 2.5% 10px 2.5%;
+}
+
+.options_mac {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+
+.options_mac_butt {
+	width: 33%;
+	float: left;
+	font-size: 14px;
+	text-align: center;
+	border-left: 1px solid #ccc;
+}
+
+.options_mac_butt:nth-child(1) {
+	width: 33%;
+	float: left;
+	font-size: 14px;
+	text-align: center;
+	border: 0;
+}
+
+.ka {
+	height: 30px;
+	line-height: 30px;
+	display: block;
+	width: 80%;
+	margin: 0 10%;
+	border-radius: 5px;
+	font-size: 14px;
+}
+
+.xuan {
+	background: red;
+	color: #fff;
+}
+
+.options_list {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+	margin-top: 10px;
+}
+
+.options_list ul {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+
+.options_list ul li {
+	width: 25%;
+	height: 25px;
+	line-height: 25px;
+	float: left;
+	text-align: center;
+}
+
+.copyright {
+	width: 100%;
+	height: 50px;
+	overflow: hidden;
+}
+
+.copyright p {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+	text-align: center;
+	padding-top: 5px;
+	color: #999;
+}
+
+.query_now {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+	padding: 10px 0;
+}
+
+.query_now h1 {
+	width: 100%;
+	font-size: 14px;
+	text-align: center;
+}
+
+.query_now p {
+	width: 100%;
+	text-align: center;
+}
+
+.query_text {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+
+.query_text span {
+	width: 95%;
+	margin: 0px 2.5% 0 2.5%;
+	display: block;
+	text-indent: 1.5rem;
+}
+
+.query_text img {
+	width: 250px;
+	width: 60%;
+	margin: 5px 20%;
+}

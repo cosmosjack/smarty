@@ -1,0 +1,1 @@
+<?php {"pri":"id","0":"cls_name","1":"cls_id","2":"type","3":"sort","4":"level","5":"url","6":"cls_pid"}yes

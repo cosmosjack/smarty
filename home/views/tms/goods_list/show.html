@@ -1,0 +1,76 @@
+<{include "public/goods_header.html"}>
+<div id="nbanner">
+    <img src="<{$res}>/img/20160225114612_21412.jpg">
+</div>
+<div class="max">
+    <div id="content" class="clearfix">
+        <div id="side">
+            <div class="s_title1">
+                <{$cls_list.news_cls_name}>
+            </div>
+            <div class="s_link1">
+                <{foreach $cls_list.son_data as $key=>$val}>
+                <div class="tree_box">
+                    <h3>
+                        <a href="<{$url}>/index/cls_id/<{$val.news_cls_id}>/pid/<{$val.news_cls_id}>/choose/<{$smarty.get.choose}>" <{if $val.news_cls_id==$smarty.get.cls_id}> style="color:darkred;" <{/if}>>
+                        <{$val.news_cls_name}>
+                        </a>
+                    </h3>
+                    <ul class="tree_one" <{if $val.news_cls_id == $smarty.get.pid}> style="display:block;" <{/if}> >
+                    <{foreach $val.son_data as $k=>$v}>
+                    <li class="two">
+                        <h4>
+                            <a <{if $v.news_cls_id==$smarty.get.cls_id}> style="color:darkred;" <{/if}> href="<{$url}>/index/cls_id/<{$v.news_cls_id}>/pid/<{$val.news_cls_id}>/choose/<{$smarty.get.choose}>">
+                            <{$v.news_cls_name}>
+                            </a>
+                        </h4>
+                    </li>
+                    <{/foreach}>
+                    </ul>
+                </div>
+                <{/foreach}>
+            </div>
+            <div class="s_title2">
+                <{$data_site.company_fax}>
+            </div>
+        </div>
+        <div id="main">
+            <div class="title clearfix">
+                <div class="man">
+                    <div class="three">
+                    </div>
+                    <img src="<{$res}>/img/man.png">
+                </div>
+                <div class="location">
+                    当前位置：<{$position_html}>
+                </div>
+                <div class="titlecon">
+                    <div class="titleCH">
+                        <h3>
+                            <{$news_cls_name}>
+                        </h3>
+                <span class="titleEn">
+                  惠州托马斯 <{$data.add_times|date_format:"%y-%m-%d"}>
+                </span>
+                    </div>
+                    <div class="intro">
+                        <{$data.news_pname}>
+                    </div>
+                </div>
+            </div>
+            <div class="detail">
+                <div class="detailtitle clearfix">
+                    <!-- <h2>COMPANY PROFILE</h2>-->
+                    <div class="detailEn">
+                        <{$data.news_name}>
+                    </div>
+                </div>
+                <div class="detailcon">
+                    <{$data.html}>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<{include "public/footer.html"}>

@@ -1,0 +1,729 @@
+<{include "public/header.html"}>
+<title><{$site_title}></title>
+    <!-- css -->
+    <link rel="stylesheet" href="<{$res}>/css/style.css">
+    <!-- jq框架 -->
+    <script type="text/javascript" src="<{$res}>/js/jquery-1.8.3.min.js"></script>
+    <!-- 轮播框架 -->
+    <script type="text/javascript" src="<{$res}>/js/swiper-3.4.2.min.js"></script>
+    <link rel="stylesheet" href="<{$res}>/css/swiper-3.4.2.min.css">
+    <style type="text/css">
+    .header .header_container nav .dropdown .dropdown-toggle{
+        height: 100px;
+    }
+       ul{
+         margin-bottom: 0 !important;
+       }
+        .swiper-container{
+            z-index: 0;
+            height: 520px;
+        }
+        .swiper-slide img{
+            display: block;
+        }
+        .swiper-slide{
+            height: 520px;
+            overflow: hidden;
+        }
+        .swiper-pagination-bullet{
+            width: 12px;
+            height: 13px;
+        }
+        .swiper-button-next{
+            -ms-transform: translate(0, 0);
+            -webkit-transform: translate(0, 0);
+            -moz-transform: translate(0, 0);
+            -o-transform: translate(0, 0);
+        }
+        .swiper-button-prev{
+            transform: translate(0, 0);
+            -ms-transform: translate(0, 0);
+            -webkit-transform: translate(0, 0);
+            -moz-transform: translate(0, 0);
+            -o-transform: translate(0, 0);
+
+        }
+        .swiper-container:hover .swiper-button-next{
+            display: block;
+
+        }
+        .swiper-container:hover .swiper-button-prev{
+            display: block;
+        }
+
+        .swiper-other .swiper-wrapper .swiper-slide{
+            height:300px;
+        }
+        .other_img{
+            width: 100%;
+            height:253px;
+            overflow: hidden;
+        }
+        .swiper-other .swiper-wrapper .swiper-slide img{
+            -webkit-transition: all .3s linear;
+            -moz-transition: all .3s linear;
+            -o-transition: all .3s linear;
+            transition: all .3s linear;
+            border-radius: 50%;
+            width: 83%;
+            margin:0 auto;
+        }
+        .swiper-other .swiper-wrapper .swiper-slide img:hover{
+            transform: scale(1.1, 1.1);
+            -ms-transform: scale(1.1, 1.1);
+            -webkit-transform: scale(1.1, 1.1);
+            -moz-transform: scale(1.1, 1.1);
+            -o-transform: scale(1.1, 1.1);
+        }
+        .swiper-other .swiper-wrapper .swiper-slide span{
+            display: block;
+            width: 100%;
+            padding: 15px 0;
+            overflow: hidden;
+            font-size: 17px;
+            font-weight: bold;
+            color: #69c;
+            text-align: center;
+        }
+        .swiper-page{
+            text-align: center;
+        }
+        .Solution_nav a{
+            color: white;
+        }
+        .Solution_list_title{
+            color: white !important;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <div class="header_container">
+        <div class="navbar_header">
+
+            <h1 class="logo">
+                <a href="" class="navbar-brand"><img width="215" height="55" src="<{$public}>/uploads/home_adv/<{$data_site.site_logo}>"></a>
+                <small class="pull-left">
+                    <a href="" class="visible-lg"><{$data_site.company_name}></a>
+                </small>
+            </h1>
+            <button class="navbar-toggle">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <ul class="header_list">
+                <!--<li>
+                    营造环境，创造价值
+                    <br />
+                    <small>Building Enuironment Creation Value</small>
+                </li>
+                <li>
+                    商业WiFi云端系统+硬件+资质+数据支持+审计
+                    <br />
+                    <small>Commercial WiFi cloud system + hardware + qualification + data support + audit</small>
+                </li>-->
+                <li class="tel">
+                    企业电话： <{$data_site.company_tel}>
+                </li>
+                <li class="oc">
+                    电子邮箱：<{$data_site.company_email}>
+                    <!--<a href="" target="_blank">
+                        <img src="<{$res}>/images/head-sq.png" alt="在线咨询">
+                    </a>
+                    <a href="" target="_blank">
+                        <img src="<{$res}>/images/head-qq.png" alt="QQ咨询">
+                    </a>-->
+                </li>
+                <li>
+                    企业传真： <{$data_site.company_fax}>
+                </li>
+
+            </ul>
+        </div>
+        <nav>
+        <!-- 导航条 -->
+            <ul class="index_nav">
+                <li class="dropdown nav_hover">
+                    <a href="<{$url}>" class="dropdown-toggle">
+                        网站首页
+                        <small>Home</small>
+                    </a>
+                </li>
+
+                <{foreach $data_column as $key=>$val}>
+                    <li class="dropdown show_nav">
+                        <a href="<{$val.url}>/hover_id/<{$key+1}>" class="dropdown-toggle">
+                            <{$val.cls_name}>
+                            <!--<small><{if $val.type == 1}>News<{else}>Products<{/if}></small>-->
+                            <small><{if $key == 2}>Shop<{elseif $key == 3}>Us<{elseif $key == 1}>Service<{else}>News<{/if}></small>
+                        </a>
+                        <ul class="down_menu">
+                            <{foreach $val.son_data as $son_key=>$son_val}>
+                                <li>
+                                    <a href="<{$son_val.url}>"><{$son_val.cls_name}></a>
+                                </li>
+                            <{/foreach}>
+                        </ul>
+                    </li>
+                <{/foreach}>
+               <!--  <li class="dropdown show_nav">
+                    <a href="" class="dropdown-toggle">
+                        会员中心
+                        <small>Vip</small>
+                    </a>
+                    <ul class="down_menu">
+                        <{if $is_login == 1}>
+                            <li>
+                                <a href="<{$app}>/user/user_info">个人中心</a>
+                            </li>
+                        <{else}>
+                            <li>
+                                <a href="<{$app}>/user/login">登录</a>
+                            </li>
+                            <li>
+                                <a href="<{$app}>/user/index">注册</a>
+
+                            </li>
+                        <{/if}>
+                    </ul>
+                </li> -->
+            </ul>
+       <!-- 导航条2 -->
+
+            <ul class="index_nav mobile_nav">
+                <li class="dropdown nav_hover">
+                    <a href="<{$url}>" class="dropdown-toggle">
+                        网站首页
+                        <small>Home</small>
+                    </a>
+                </li>
+<!-- href="<{$val.url}>/hover_id/<{$key+1}>" -->
+                <{foreach $data_column as $key=>$val}>
+                    <li class="dropdown show_nav">
+                        <a class="dropdown-toggle">
+                            <{$val.cls_name}>
+                            <!--<small><{if $val.type == 1}>News<{else}>Products<{/if}></small>-->
+                            <small><{if $key == 2}>Shop<{elseif $key == 3}>Us<{elseif $key == 1}>Service<{else}>News<{/if}></small>
+                        </a>
+                        <ul class="down_menu">
+                            <{foreach $val.son_data as $son_key=>$son_val}>
+                                <li>
+                                    <a href="<{$son_val.url}>"><{$son_val.cls_name}></a>
+                                </li>
+                            <{/foreach}>
+                        </ul>
+                    </li>
+                <{/foreach}>
+                <!-- href="" -->
+				
+				
+                <li class="dropdown show_nav">
+                    <a class="dropdown-toggle">
+                        会员中心
+                    </a>
+                    <ul class="down_menu">
+                        <{if $is_login == 1}>
+                            <li>
+                                <a href="<{$app}>/user/user_info">个人中心</a>
+                            </li>
+                        <{else}>
+                            <li>
+                                <a href="<{$app}>/user/login">登录</a>
+                            </li>
+                            <li>
+                                <a href="<{$app}>/user/index">注册</a>
+
+                            </li>
+                        <{/if}>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+    </div>
+</div>
+<!-- 轮播广告 -->
+<!-- Swiper -->
+<div class="swiper-container" style="margin-top: 5%;">
+    <div class="swiper-wrapper">
+
+        <{foreach $home_adv as $key=>$val}>
+        <div class="swiper-slide">
+            <img width="100%" src="<{$val.pic_url}>" alt="">
+        </div>
+        <{/foreach}>
+
+    </div>
+    <!-- Add Pagination -->
+    <div class="swiper-pagination"></div>
+    <!-- Add Arrows -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+</div>
+<!-- 关于我们 -->
+<div class="index_about">
+    <h2>关于<{$data_site.company_name}></h2>
+    <div class="small_title">营造环境，创造价值</div>
+    <div class="about_us">
+        <p>     <{$data_site.company_desc}></p>
+    </div>
+    <a href="http://www.zhongguoyuncai.com/index.php/goods_list/show/goods_id/80/type/news" class="index_about_btn">查看更多 MORE →</a>
+</div>
+
+<div class="service_div">
+    <div class="service_container">
+        <h2 class="service_title">我们的服务&nbsp;Our Service</h2>
+        <span class="service_small">不仅仅只提供信息展示,我们还欢迎各大供应商加入我们共同打造一个信息开放稳定的平台</span>
+        <ul class="service_box">
+
+            <{foreach $data_recommend as $key=>$val}>
+            <li class="service_list">
+                <a href="<{$app}>/goods_list/index/goods_id/<{$val.news_cls_id}>/type/<{if $val.type == 1}>news<{else}>pro<{/if}>/cls_id/<{$val.news_cls_id}>" class="service_list_pic"></a>
+                <div><{$val.news_cls_name}></div>
+                <p><{$val.news_cls_desc}></p>
+            </li>
+            <{/foreach}>
+
+            <!--<li class="service_list">
+                <a href="" class="service_list_pic"></a>
+                <div>网络设计推广<br /><small>Network design promotion</small></div>
+                <p>首创【策略+创意+技术】建站模式<br />网络营销推广</p>
+            </li>-->
+        </ul>
+    </div>
+</div>
+
+<div class="index_containner" >
+    <div class="space_div">
+        <h2 class="space_title"><{$data_one_news.news_cls_name}>合作商家</h2>
+        <span class="space_small_title"><{$data_one_news.news_cls_name}>最新发布的资讯供您参考</span>
+        <ul class="newslist_box">
+            <{foreach $data_news_cls as $key=>$val}>
+            <li>
+                <a target="_blank" href="<{$app}>/goods_list/index/cls_id/<{$val.news_cls_id}>/type/news/hover_id/2">
+                    <div class="newslist_img">
+                        <img src="<{$val.pic_url}>" alt="">
+                   <span>
+                     <p></p>
+                   </span>
+                    </div>
+                </a>
+                <div class="newslist_content">
+                    <a target="_blank" href="<{$app}>/goods_list/index/cls_id/<{$val.news_cls_id}>/type/news/hover_id/2" class="newstitle" title="标题"><{$val.news_cls_name}></a>
+                    <p class="news_smalltitle"><{$val.news_cls_name}>合作商家</p>
+                    <div class="newslist_ft">
+                        <span class="type"><a href="http://www.zhongguoyuncai.com/index.php/goods_list/merchants/type/news/cls_id/1/hover_id/2/hover_id/2">合作商家</a></span>
+                        <!--<span class="look">177</span>-->
+                        <span class="time"><{$val.date_form}></span>
+                    </div>
+                </div>
+            </li>
+            <{/foreach}>
+        </ul>
+    </div>
+</div>
+
+<!--<div class="service_div" style="background: url('<{$res}>/images/kehu-bg1.jpg') left center;">
+    <div class="service_container">
+        <h2 class="service_title" style="color: rgba(255, 255, 255, 0.95);">友情链接</h2>
+        <span class="service_small" style="color: #ffffff;font-size: 14px;margin-bottom:55px;">世界500强的选择，让优秀的企业更加优秀</span>
+        <ul class="Customer_ul">
+            <{foreach $data_link as $key=>$val}>
+            <a target="_blank" href="<{$val.link_url}>" class="Customer_list">
+                <img src="<{$val.pic_url}>">
+                <p><{$val.link_name}></p>
+            </a>
+            <{/foreach}>
+
+        </ul>
+    </div>
+</div>-->
+
+<div class="index_containner" style="background: url('<{$res}>/images/kehu-bg2.jpg') left top repeat-x;background-size: 100% 100%;margin-top: 20px;">
+    <div class="space_div">
+        <h2 class="space_title" style="color: rgba(255, 255, 255, 0.95);">我们专注</h2>
+        <span class="space_small_title" style="color: rgba(255, 255, 255, 0.95);">专注农业,水果,蔬菜，无污染绿色产品，国家食品安全认证产品</span>
+        <div class="Solution_nav">
+            <a href="">农业</a>/
+            <a href="">水果</a>/
+            <a href="">蔬菜</a>/
+            <a href="">绿色食品</a>/
+        </div>
+        <ul class="Solution_ul">
+            <{foreach $data_three_news as $key=>$val}>
+            <a href="http://www.zhongguoyuncai.com/index.php/goods_list/show/goods_id/<{$val.news_id}>/type/news" target="_blank">
+                <li class="Solution_list">
+                    <div class="Solution_img_div">
+                     <span class="Solution_hover_bg">
+                         <span class="Solution_hover_i"></span>
+                     </span>
+                        <img src="<{$res}>/images/1-16041916242915<{$key}>.jpg" alt="">
+                    </div>
+                    <h3>
+                        <a href="" title="" class="Solution_list_title"><{$val.news_name}></a>
+                        <br />
+                        <small>时间：<{$val.add_times|date_format:'%Y-%m-%d %H:%M:%S'}> </small>
+                    </h3>
+                </li>
+            </a>
+            <{/foreach}>
+        </ul>
+        <a target="_blank" href="http://www.zhongguoyuncai.com/index.php/goods_list/index/type/news/cls_id/6" class="more_btn">
+            查看更多 MORE →
+        </a>
+    </div>
+</div>
+
+<!--<div class="service_div" style="background: url('<{$res}>/images/team-bg.jpg') left center no-repeat;">
+    <div class="service_container">
+        <h2 class="service_title" style="color: #000;">其他产品&nbsp;Other products</h2>
+        <span class="service_small" style="color: #999;font-size: 14px;margin-bottom:35px;">适用于企业、商场、酒店、学校、医院、景区等场景无线覆盖。</span>
+        <div class="Other_div">
+            &lt;!&ndash; Swiper &ndash;&gt;
+            <div class="swiper-other">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="other_img">
+                            <img src="<{$res}>/images/1-151202091S60-L.jpg" alt="">
+                        </div>
+                        <span>啊撒大声地</span>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="other_img">
+                            <img src="<{$res}>/images/1-151202091Z00-L.jpg" alt="">
+                        </div>
+                        <span>啊撒大声地</span>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="other_img">
+                            <img src="<{$res}>/images/1-1512020919240-L.jpg" alt="">
+                        </div>
+                        <span>啊撒大声地</span>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="other_img">
+                            <img src="<{$res}>/images/1-1512020919530-L.jpg" alt="">
+                        </div>
+                        <span>啊撒大声地</span>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="other_img">
+                            <img src="<{$res}>/images/1-1512020920110-L.jpg" alt="">
+                        </div>
+                        <span>啊撒大声地</span>
+                    </div>
+
+                </div>
+                &lt;!&ndash; Add Pagination &ndash;&gt;
+                <div class="swiper-page"></div>
+            </div>
+            <script>
+                var swiper = new Swiper('.swiper-other', {
+                    pagination: '.swiper-page',
+                    slidesPerView:4,
+                    paginationClickable: true,
+                    spaceBetween:20
+                });
+            </script>
+        </div>
+    </div>
+</div>-->
+
+<!--<div class="index_containner">
+    <div class="space_div">
+        <h2 class="space_title">微信公众平台一体化</h2>
+        <span class="space_small_title">高端定制开发服务 </span>
+        <ul class="platform_ul">
+            <li class="platform_list">
+                <img src="<{$res}>/images/1.png" alt="">
+                <div style="clear: both;"></div>
+                <h3>微官网</h3>
+                <p>
+                    <a href="">微官网</a>
+                    <small>5分钟轻松建站打造酷炫微官网按时间打死哦大家啊搜ID静安寺</small>
+                </p>
+            </li>
+            <li class="platform_list">
+                <img src="<{$res}>/images/2.png" alt="">
+                <div style="clear: both;"></div>
+                <h3>微官网</h3>
+                <p>
+                    <a href="">微官网</a>
+                    <small>5分钟轻松建站打造酷炫微官网按时间打死哦大家啊搜ID静安寺</small>
+                </p>
+            </li>
+            <li class="platform_list">
+                <img src="<{$res}>/images/3.png" alt="">
+                <div style="clear: both;"></div>
+                <h3>微官网</h3>
+                <p>
+                    <a href="">微官网</a>
+                    <small>5分钟轻松建站打造酷炫微官网按时间打死哦大家啊搜ID静安寺</small>
+                </p>
+            </li>
+            <li class="platform_list">
+                <img src="<{$res}>/images/4.png" alt="">
+                <div style="clear: both;"></div>
+                <h3>微官网</h3>
+                <p>
+                    <a href="">微官网</a>
+                    <small>5分钟轻松建站打造酷炫微官网按时间打死哦大家啊搜ID静安寺</small>
+                </p>
+            </li>
+            <li class="platform_list">
+                <img src="<{$res}>/images/5.png" alt="">
+                <div style="clear: both;"></div>
+                <h3>微官网</h3>
+                <p>
+                    <a href="">微官网</a>
+                    <small>5分钟轻松建站打造酷炫微官网按时间打死哦大家啊搜ID静安寺</small>
+                </p>
+            </li>
+            <li class="platform_list">
+                <img src="<{$res}>/images/6.png" alt="">
+                <div style="clear: both;"></div>
+                <h3>微官网</h3>
+                <p>
+                    <a href="">微官网</a>
+                    <small>5分钟轻松建站打造酷炫微官网按时间打死哦大家啊搜ID静安寺</small>
+                </p>
+            </li>
+            <li class="platform_list">
+                <img src="<{$res}>/images/7.png" alt="">
+                <div style="clear: both;"></div>
+                <h3>微官网</h3>
+                <p>
+                    <a href="">微官网</a>
+                    <small>5分钟轻松建站打造酷炫微官网按时间打死哦大家啊搜ID静安寺</small>
+                </p>
+            </li>
+            <li class="platform_list">
+                <img src="<{$res}>/images/8.png" alt="">
+                <div style="clear: both;"></div>
+                <h3>微官网</h3>
+                <p>
+                    <a href="">微官网</a>
+                    <small>5分钟轻松建站打造酷炫微官网按时间打死哦大家啊搜ID静安寺</small>
+                </p>
+            </li>
+            <li class="platform_list">
+                <img src="<{$res}>/images/9.png" alt="">
+                <div style="clear: both;"></div>
+                <h3>微官网</h3>
+                <p>
+                    <a href="">微官网</a>
+                    <small>5分钟轻松建站打造酷炫微官网按时间打死哦大家啊搜ID静安寺</small>
+                </p>
+            </li>
+        </ul>
+        <div class="platform_btn_box">
+            <a href="" class="more_btn">查看更多 MORE →</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="" class="more_btn">关于我们 About →</a>
+        </div>
+    </div>
+</div>-->
+
+<div class="news_box">
+    <div class="news_div">
+
+        <div class="news_row">
+            <div class="news_top">
+                <h3>最新资讯 News</h3>
+                <div class="news_nav">
+                    <a href="javascript:;" title=""></a>
+                    <a href="javascript:;" title=""></a>
+                    <a href="javascript:;" title=""></a>
+                </div>
+            </div>
+            <div class="news_content">
+                <ul class="news_ul">
+                    <{for $foo=1 to 4}>
+                    <li>
+                        <a target="_blank" href="http://www.zhongguoyuncai.com/index.php/goods_list/show/goods_id/<{$data_news_3[$foo].news_id}>/type/news" title=""><{$data_news_3[$foo].news_name}></a>
+                        <small><{$data_news_3[$foo].add_times|date_format:"%Y-%m-%d"}></small>
+                    </li>
+                    <{/for}>
+                </ul>
+                <ul class="news_ul" style="display: none;">
+                    <{for $foo=5 to 8}>
+                    <li>
+                        <a target="_blank" href="http://www.zhongguoyuncai.com/index.php/goods_list/show/goods_id/<{$data_news_3[$foo].news_id}>/type/news" title=""><{$data_news_3[$foo].news_name}></a>
+                        <small><{$data_news_3[$foo].add_times|date_format:"%Y-%m-%d"}></small>
+                    </li>
+                    <{/for}>
+                </ul>
+                <ul class="news_ul" style="display: none;">
+                    <{for $foo=9 to 12}>
+                    <li>
+                        <a target="_blank" href="http://www.zhongguoyuncai.com/index.php/goods_list/show/goods_id/<{$data_news_3[$foo].news_id}>/type/news" title=""><{$data_news_3[$foo].news_name}></a>
+                        <small><{$data_news_3[$foo].add_times|date_format:"%Y-%m-%d"}></small>
+                    </li>
+                    <{/for}>
+                </ul>
+            </div>
+            <p class="news_bottom"><a href="">查看更多 MORE →</a></p>
+        </div>
+
+        <div class="news_row">
+            <div class="news_top">
+                <h3>行业新闻 News</h3>
+                <div class="news_nav">
+                    <a href="javascript:;" title=""></a>
+                    <a href="javascript:;" title=""></a>
+                    <a href="javascript:;" title=""></a>
+                </div>
+            </div>
+            <div class="news_content">
+                <ul class="news_ul">
+                    <{for $foo=1 to 4}>
+                    <li>
+                        <a target="_blank" href="http://www.zhongguoyuncai.com/index.php/goods_list/show/goods_id/<{$data_news_17[$foo].news_id}>/type/news" title=""><{$data_news_17[$foo].news_name}></a>
+                        <small><{$data_news_17[$foo].add_times|date_format:"%Y-%m-%d"}></small>
+                    </li>
+                    <{/for}>
+                </ul>
+                <ul class="news_ul" style="display: none;">
+                    <{for $foo=5 to 8}>
+                    <li>
+                        <a target="_blank" href="http://www.zhongguoyuncai.com/index.php/goods_list/show/goods_id/<{$data_news_17[$foo].news_id}>/type/news" title=""><{$data_news_17[$foo].news_name}></a>
+                        <small><{$data_news_17[$foo].add_times|date_format:"%Y-%m-%d"}></small>
+                    </li>
+                    <{/for}>
+                </ul>
+                <ul class="news_ul" style="display: none;">
+                    <{for $foo=9 to 12}>
+                    <li>
+                        <a target="_blank" href="http://www.zhongguoyuncai.com/index.php/goods_list/show/goods_id/<{$data_news_17[$foo].news_id}>/type/news" title=""><{$data_news_17[$foo].news_name}></a>
+                        <small><{$data_news_17[$foo].add_times|date_format:"%Y-%m-%d"}></small>
+                    </li>
+                    <{/for}>
+                </ul>
+            </div>
+            <p class="news_bottom"><a href="">查看更多 MORE →</a></p>
+        </div>
+        <div class="news_row">
+            <div class="news_top">
+                <h3>商家动态 News</h3>
+                <div class="news_nav">
+                    <a href="javascript:;" title=""></a>
+                    <a href="javascript:;" title=""></a>
+                    <a href="javascript:;" title=""></a>
+                </div>
+            </div>
+            <div class="news_content">
+                <ul class="news_ul">
+                    <{for $foo=1 to 4}>
+                    <li>
+                        <a target="_blank" href="http://www.zhongguoyuncai.com/index.php/goods_list/show/goods_id/<{$data_news_18[$foo].news_id}>/type/news" title=""><{$data_news_18[$foo].news_name}></a>
+                        <small><{$data_news_18[$foo].add_times|date_format:"%Y-%m-%d"}></small>
+                    </li>
+                    <{/for}>
+                </ul>
+                <ul class="news_ul" style="display: none;">
+                    <{for $foo=5 to 8}>
+                    <li>
+                        <a target="_blank" href="http://www.zhongguoyuncai.com/index.php/goods_list/show/goods_id/<{$data_news_18[$foo].news_id}>/type/news" title=""><{$data_news_18[$foo].news_name}></a>
+                        <small><{$data_news_18[$foo].add_times|date_format:"%Y-%m-%d"}></small>
+                    </li>
+                    <{/for}>
+                </ul>
+                <ul class="news_ul" style="display: none;">
+                    <{for $foo=9 to 12}>
+                    <li>
+                        <a target="_blank" href="http://www.zhongguoyuncai.com/index.php/goods_list/show/goods_id/<{$data_news_18[$foo].news_id}>/type/news" title=""><{$data_news_18[$foo].news_name}></a>
+                        <small><{$data_news_18[$foo].add_times|date_format:"%Y-%m-%d"}></small>
+                    </li>
+                    <{/for}>
+                </ul>
+            </div>
+            <p class="news_bottom"><a href="">查看更多 MORE →</a></p>
+        </div>
+    </div>
+</div>
+<!-- 底部 -->
+<div class="footer_box">
+    <div class="footer_div">
+        <div class="footer_rows_a">
+            <h3>快速预约上门  Reservation</h3>
+            <div class="login">
+                <input type="text" class="user" placeholder="输入用户名">
+                <input type="password" class="number" placeholder="输入电话">
+                <input type="submit" class="login_btn" value="立即提交 Submit →">
+            </div>
+        </div>
+        <div class="footer_row_b">
+            <h3>联系我们  Contact US</h3>
+            <ul>
+                <li class="address">深圳市前海深港合作区前湾一路1号A栋201室 </li>
+                <li class="phone">4006058388 </li>
+                <li class="telphone">18675777008 24小时服务</li>
+                <li class="email">zhongguoyuncai@hotmail.com</li>
+            </ul>
+        </div>
+        <div class="footer_row_c">
+            <h3>友情链接  Quick Entry</h3>
+            <div class="footer_enter_row">
+                <ul>
+                    <li><a target="_blank" href="http://www.hzdaten.com">道腾网络</a></li>
+
+                </ul>
+            </div>
+            <div class="footer_enter_row">
+                <ul>
+                    <li><a target="_blank" href="http://www.zhongguoyuncai.com/">中果云采</a></li>
+                </ul>
+            </div>
+            <div class="footer_enter_row">
+                <img src="<{$res}>/images/weixin.jpg" alt="">
+                <span>微信扫一扫</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="kefu" style="display: block;">
+    <div>
+        <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=2556239708&site=qq&menu=yes" class="kefu_lx"></a>
+    </div>
+    <ul class="kefu_list">
+        <li><a href="" title="" class="soon">快速预约</a></li>
+        <li><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=2556239708&site=qq&menu=yes" title="" class="msg">在线咨询</a></li>
+    </ul>
+</div>
+</body>
+</html>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        paginationClickable: true,
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: 2500,
+        autoplayDisableOnInteraction: false
+    });
+
+    $('.space_point_box a').click(function(){
+        var index=$(this).index();
+        $('.space_list').eq(index).fadeIn(1000);
+        $('.space_list').not($('.space_list').eq(index)).hide();
+    });
+    $('.news_nav a').click(function(){
+        var index=$(this).index();
+        var obj=$(this).parent().parent().next('.news_content').children();
+        $(obj).eq(index).show();
+        $(obj).not($(obj).eq(index)).hide();
+    });
+
+   $('.navbar-toggle').click(function(){
+      if ($('.mobile_nav').is(':hidden')) {
+         $('.mobile_nav').slideDown();
+      }else{
+        $('.mobile_nav').slideUp();
+      }
+   });
+</script>
+<script type="text/javascript" src="<{$res}>/js/nav_common.js"></script>

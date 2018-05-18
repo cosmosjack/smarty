@@ -1,0 +1,1 @@
+<?php {"pri":"id","0":"link_name","1":"link_pname","2":"link_url","3":"sort","4":"link_pic"}yes

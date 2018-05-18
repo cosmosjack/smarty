@@ -1,0 +1,426 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title><{$site_title}></title>
+    <!-- css -->
+    <link rel="stylesheet" href="<{$res}>/css/style.css">
+    <!-- jq¿ò¼Ü -->
+    <script type="text/javascript" src="<{$res}>/js/jquery-1.8.3.min.js"></script>
+    <!-- ÂÖ²¥¿ò¼Ü -->
+    <script type="text/javascript" src="<{$res}>/js/swiper-3.4.2.min.js"></script>
+    <link rel="stylesheet" href="<{$res}>/css/swiper-3.4.2.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style type="text/css">
+        .swiper-container{
+            z-index: 0;
+            height: 430px;
+        }
+        .swiper-slide img{
+            display: block;
+        }
+        .swiper-slide{
+            overflow: hidden;
+            height: 430px;
+        }
+        .swiper-pagination-bullet{
+            width: 12px;
+            height: 13px;
+        }
+
+        .swiper-container-horizontal>.swiper-pagination-bullets{
+            bottom: 11px;
+        }
+        @media screen and (min-width: 768px){
+            .header .header_container nav .dropdown .dropdown-toggle{
+                height: 81px !important;
+            }
+        }
+        @media screen and (max-width: 767px){
+            .service_container{
+                background: none;
+            }
+            .newslist_top div .news_btn{
+                height: 36px;
+            }
+            .newslist_top div .news_search{
+                width: 88%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <div class="header_container">
+
+        <div class="navbar_header">
+            <h1 class="logo">
+                <a href="" class="navbar-brand"><img width="215" height="55" src="<{$public}>/uploads/home_adv/<{$data_site.site_logo}>"></a>
+                <small class="pull-left">
+                    <a href="" class="visible-lg"><{$data_site.company_name}></a>
+                </small>
+            </h1>
+            <button class="navbar-toggle">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <ul class="header_list">
+
+                <li class="tel">
+                    企业电话： <{$data_site.company_tel}>
+                </li>
+                <li class="oc">
+                    电子邮箱：<{$data_site.company_email}>
+                    <!--<a href="" target="_blank">
+                        <img src="<{$res}>/images/head-sq.png" alt="在线咨询">
+                    </a>
+                    <a href="" target="_blank">
+                        <img src="<{$res}>/images/head-qq.png" alt="QQ咨询">
+                    </a>-->
+                </li>
+                <li>
+                    企业传真： <{$data_site.company_fax}>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 导航条 -->
+        <nav>
+            <ul class="index_nav">
+                <li class="dropdown">
+                    <a href="<{$app}>" class="dropdown-toggle">
+                        网站首页
+                        <small>Home</small>
+                    </a>
+                </li>
+                <{foreach $data_column as $key=>$val}>
+                <{if ($key+1) == $smarty.get.hover_id}>
+                <li class="dropdown show_nav nav_hover">
+                    <{else}>
+                <li class="dropdown show_nav">
+                    <{/if}>
+                    <a href="<{$val.url}>/hover_id/<{$key+1}>" class="dropdown-toggle">
+                        <{$val.cls_name}>
+                        <small><{if $val.type == 1}>News<{else}>Products<{/if}></small>
+                    </a>
+                    <ul class="down_menu">
+                        <{foreach $val.son_data as $son_key=>$son_val}>
+                        <li>
+                            <a href="<{$son_val.url}>/hover_id/<{$key+1}>"><{$son_val.cls_name}></a>
+                        </li>
+                        <{/foreach}>
+                    </ul>
+                </li>
+                <{/foreach}>
+				<li class="dropdown">
+                    <a target="_blank" href="http://www.zhongguoyuncai.com/shop" class="dropdown-toggle">
+                        中果苗圃
+                        <small>Home</small>
+                    </a>
+                </li>
+            </ul>
+            <!-- 导航条2 -->
+            <ul class="index_nav mobile_nav">
+                <li class="dropdown nav_hover">
+                    <a href="<{$url}>" class="dropdown-toggle">
+                        网站首页
+                        <small>Home</small>
+                    </a>
+                </li>
+                <!-- href="<{$val.url}>/hover_id/<{$key+1}>" -->
+                <{foreach $data_column as $key=>$val}>
+                <li class="dropdown show_nav">
+                    <a class="dropdown-toggle">
+                        <{$val.cls_name}>
+                        <small><{if $val.type == 1}>News<{else}>Products<{/if}></small>
+                    </a>
+                    <ul class="down_menu">
+                        <{foreach $val.son_data as $son_key=>$son_val}>
+                        <li>
+                            <a href="<{$son_val.url}>"><{$son_val.cls_name}></a>
+                        </li>
+                        <{/foreach}>
+                    </ul>
+                </li>
+                <{/foreach}>
+				
+                <!-- href="" -->
+                <li class="dropdown show_nav">
+                    <a class="dropdown-toggle">
+                        会员中心
+                    </a>
+                    <ul class="down_menu">
+                        <{if $is_login == 1}>
+                        <li>
+                            <a href="<{$app}>/user/user_info">个人中心</a>
+                        </li>
+                        <{else}>
+                        <li>
+                            <a href="<{$app}>/user/login">登录</a>
+                        </li>
+                        <li>
+                            <a href="<{$app}>/user/index">注册</a>
+
+                        </li>
+                        <{/if}>
+                    </ul>
+                </li>
+            </ul>
+
+        </nav>
+    </div>
+</div>
+<!-- ÂÖ²¥¹ã¸æ -->
+<!-- Swiper -->
+<div class="swiper-container" style="margin-top: 5%;">
+    <div class="swiper-wrapper">
+        <{foreach $home_adv as $key=>$val}>
+        <div class="swiper-slide">
+            <img width="100%" src="<{$val.pic_url}>" alt="">
+        </div>
+        <{/foreach}>
+    </div>
+    <!-- Add Pagination -->
+    <div class="swiper-pagination"></div>
+    <!-- Add Arrows -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+</div>
+<!-- À¸Ä¿ÄÚÈÝ -->
+<div class="location_bg">
+    <div class="location_div">
+        <{$postition_html}>
+
+        <div class="menu_more">
+            <button class="menu_btn">更多菜单 Menu<span></span></button>
+            <ul>
+                <li><a href="" title="公司新闻">公司新闻</a></li>
+                <li><a href="" title="行业新闻">行业新闻</a></li>
+                <li><a href="" title="专业知识">专业知识</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<style>
+    .search_select{
+        float: left;
+        width: 80%;
+    }
+    .search_select li{
+        clear: both;
+    }
+    .search_select_span{
+        float: left;
+        color: #666;
+    }
+</style>
+<div class="index_containner" style="margin:10px 0;">
+    <div class="service_container">
+        <div class="newslist_top">
+            <div class="search_select" style="width:87%;">
+                <ul>
+                    <li>
+                        <span class="search_select_span" style="color: green">区域</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                        <span class="search_select_span">广东</span>
+                    </li>
+                    <li>
+                        <span class="search_select_span" style="color: green">分类</span>
+                        <span class="search_select_span">分类</span>
+                        <span class="search_select_span">分类</span>
+                        <span class="search_select_span">分类</span>
+                        <span class="search_select_span">分类</span>
+                        <span class="search_select_span">分类</span>
+                        <span class="search_select_span">分类</span>
+                        <span class="search_select_span">分类</span>
+                        <span class="search_select_span">分类</span>
+                        <span class="search_select_span">分类</span>
+                        <span class="search_select_span">分类</span>
+                        <span class="search_select_span">分类</span>
+                        <span class="search_select_span">分类</span>
+                        <span class="search_select_span">分类</span>
+                        <span class="search_select_span">分类</span>
+                        <span class="search_select_span">分类</span>
+                        <span class="search_select_span">分类</span>
+                        <span class="search_select_span">分类</span>
+                        <span class="search_select_span">分类</span>
+                        <span class="search_select_span">分类</span>
+                        <span class="search_select_span">分类</span>
+                        <span class="search_select_span">分类</span>
+                        <span class="search_select_span">分类</span>
+                        <span class="search_select_span">分类</span>
+                        <span class="search_select_span">分类</span>
+                        <span class="search_select_span">分类</span>
+                        <span class="search_select_span">分类</span>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <input type="text" name=""  class="news_search" placeholder="输入商品关键词">
+                <input type="submit" name=""  class="news_btn" value="&nbsp;">
+            </div>
+        </div>
+        <ul class="newslist_box">
+            <{foreach $data as $key=>$val}>
+            <li>
+                <a href="<{$url}>/show/goods_id/<{$val.news_id}>/type/news/hover_id/<{$smarty.get.hover_id}>">
+                    <div class="newslist_img">
+                        <img src="<{$root}>/uploads/investment/<{$val.pic}>" alt="">
+               <span>
+                 <p></p>
+               </span>
+                    </div>
+                </a>
+                <div class="newslist_content">
+                    <a href="<{$url}>/show/goods_id/<{$val.news_id}>/type/news/hover_id/<{$smarty.get.hover_id}>" class="newstitle" title="标题"><{$val.investment}></a>
+                    <p class="news_smalltitle"><{$val.investment_desc}></p>
+                    <div class="newslist_ft">
+                        <span class="type"><a href=""><{$val.contacts}></a></span>
+                        <span class="look"><{$val.open_times}></span>
+                        <span ><{$val.time|date_format:'%Y-%m-%d %H:%M:%S'}></span>
+                        <p class="newlist_phone"><span class="phone">联系电话:</span><{$val.phone}></p>
+                        <p class="newlist_phone"><span class="phone">起订量:</span><{$val.moq}></p>
+                        <p class="newlist_phone"><span class="phone">供货价:</span><{$val.supply_price}>元&nbsp;<span class="phone">市场价:</span><{$val.market_price}>元</p>
+                    </div>
+                </div>
+
+            </li>
+            <{/foreach}>
+
+
+        </ul>
+        <{$fpage}>
+    </div>
+</div>
+
+<!-- µ×²¿ -->
+
+<div class="footer_box">
+    <div class="footer_div">
+        <div class="footer_rows_a">
+            <h3>快速预约上门  Reservation</h3>
+            <div class="login">
+                <input type="text" class="user" placeholder="输入用户名">
+                <input type="password" class="number" placeholder="输入电话">
+                <input type="submit" class="login_btn" value="立即提交 Submit →">
+            </div>
+        </div>
+        <div class="footer_row_b">
+            <h3>联系我们  Contact US</h3>
+            <ul>
+                <li class="address">深圳市前海深港合作区前湾一路1号A栋201室 </li>
+                <li class="phone">4006058388 </li>
+                <li class="telphone">18675777008 24小时服务</li>
+                <li class="email">zhongguoyuncai@hotmail.com</li>
+            </ul>
+        </div>
+        <div class="footer_row_c">
+            <h3>友情链接  Quick Entry</h3>
+            <div class="footer_enter_row">
+                <ul>
+                    <li><a target="_blank" href="http://www.hzdaten.com">道腾网络</a></li>
+
+                </ul>
+            </div>
+            <div class="footer_enter_row">
+                <ul>
+                    <li><a target="_blank" href="http://www.zhongguoyuncai.com/">中果云采</a></li>
+                </ul>
+            </div>
+            <div class="footer_enter_row">
+                <img src="<{$res}>/images/weixin.jpg" alt="">
+                <span>微信扫一扫</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="kefu">
+    <div>
+        <a href="" class="kefu_lx"></a>
+    </div>
+    <ul class="kefu_list">
+        <li><a href="" title="" class="soon">联系电话</a></li>
+        <li><a href="" title="" class="msg">给我留言</a></li>
+    </ul>
+</div>
+</body>
+</html>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        paginationClickable: true,
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: 2500,
+        autoplayDisableOnInteraction: false
+    });
+    $('.menu_btn').click(function(){
+        var obj=$(this).next('ul');
+        if (obj.is(":hidden")) {
+            $(obj).slideDown();
+        }else{
+            $(obj).slideUp();
+        }
+    });
+
+    $('.navbar-toggle').click(function(){
+        if ($('.mobile_nav').is(':hidden')) {
+            $('.mobile_nav').slideDown();
+        }else{
+            $('.mobile_nav').slideUp();
+        }
+    });
+
+
+    /* $('.mobile_nav li').click(function(){
+     $(this).find('ul').slideToggle();
+     $('.mobile_nav li').find('ul').not($(this).find('ul')).slideUp();
+     });*/
+    // }else{
+    // $(obj).slideUp();
+    // }
+    // });
+</script>
+<script type="text/javascript" src="<{$res}>/js/nav_common.js"></script>

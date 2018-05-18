@@ -1,0 +1,45 @@
+<{include "public/header.html"}>
+<base target="_self">
+<body class="gray-bg" xmlns="http://www.w3.org/1999/html">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <{foreach $data as $key=>$val}>
+            <div class="col-sm-4">
+                <div class="contact-box">
+                    <a>
+                        <div class="col-sm-4">
+                            <div class="text-center">
+                                <img alt="image" class="img-circle m-t-xs img-responsive" src="<{$val.pic_url}>">
+                                <div class="m-t-xs font-bold">合作商家</div>
+                            </div>
+                            <span onclick="alert(3434)" style="font-size: 14px;position: relative;top: 10px;left: 10px"  class="label label-primary"><i  class="fa fa-paper-plane-o">查看</i></span>
+                            <div class="clear"></div>
+                            <span onclick="alert(9527)" style="font-size: 14px;position: relative;top: 20px;left: 10px" class="label label-success"><i  class="fa fa-pencil">编辑</i></span>
+                        </div>
+                        <div class="col-sm-8">
+                            <h3><strong><{$val.link_name}></strong></h3>
+                            <p><i class="fa fa-map-marker"></i> <{$val.link_pname}></p>
+                            <address>
+                                URL</br>
+                                <a href=""><{$val.link_url}></a><br>
+                            </address>
+                        </div>
+                        <div class="clearfix"></div>
+                    </a>
+                </div>
+            </div>
+        <{/foreach}>
+    </div>
+</div>
+<div class="row">
+    <{$fpage}>
+</div>
+<script src="<{$res}>/bootstrap/js/jquery.min.js?v=2.1.4"></script>
+<script src="<{$res}>/bootstrap/js/bootstrap.min.js?v=3.3.5"></script>
+<script src="<{$res}>/bootstrap/js/content.min.js?v=1.0.0"></script>
+<script>
+    $(document).ready(function(){$(".contact-box").each(function(){animationHover(this,"pulse")})});
+</script>
+</body>
+
+</html>

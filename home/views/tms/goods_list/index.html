@@ -1,0 +1,113 @@
+<{include "public/goods_header.html"}>
+<div id="nbanner">
+    <img src="<{$res}>/img/20160225114612_21412.jpg">
+</div>
+<div class="max">
+    <div id="content" class="clearfix">
+        <div id="side">
+            <div class="s_title1">
+                <{$cls_list.news_cls_name}>
+            </div>
+            <div class="s_link1">
+                <{foreach $cls_list.son_data as $key=>$val}>
+                <div class="tree_box">
+                    <h3>
+                        <a href="<{$url}>/index/cls_id/<{$val.news_cls_id}>/pid/<{$val.news_cls_id}>/choose/<{$smarty.get.choose}>" <{if $val.news_cls_id==$smarty.get.cls_id}> style="color:darkred;" <{/if}>>
+                            <{$val.news_cls_name}>
+                        </a>
+                    </h3>
+                    <ul class="tree_one" <{if $val.news_cls_id == $smarty.get.pid}> style="display:block;" <{/if}> >
+                        <{foreach $val.son_data as $k=>$v}>
+                            <li class="two">
+                                <h4>
+                                    <a <{if $v.news_cls_id==$smarty.get.cls_id}> style="color:darkred;" <{/if}> href="<{$url}>/index/cls_id/<{$v.news_cls_id}>/pid/<{$val.news_cls_id}>/choose/<{$smarty.get.choose}>">
+                                        <{$v.news_cls_name}>
+                                    </a>
+                                </h4>
+                            </li>
+                        <{/foreach}>
+                    </ul>
+                </div>
+                <{/foreach}>
+            </div>
+            <div class="s_title2">
+                400-600-1239
+            </div>
+        </div>
+        <div id="main">
+            <div class="title clearfix">
+                <div class="man">
+                    <div class="three">
+                    </div>
+                    <img src="<{$res}>/img/man.png">
+                </div>
+                <div class="location">
+                    当前位置：<{$postition_html}>
+                </div>
+                <div class="titlecon">
+                    <div class="titleCH">
+                        <h3>
+                            <{$news_cls_name}>
+                        </h3>
+              <span class="titleEn">
+                惠州托马斯
+              </span>
+                    </div>
+                    <div class="intro">
+                        惠州托马斯工业科技有限公司
+                    </div>
+                </div>
+            </div>
+            <div class="detail">
+                <div class="detailtitle clearfix">
+                    <h2>
+                        <{$news_cls_name}>
+                    </h2>
+                   <!-- <div class="detailEn2">
+                        "全国机床行业十八罗汉之一"
+                    </div>-->
+                </div>
+                <ul class="prodlist clearfix">
+                    <{foreach $data as $key=>$val}>
+                        <li>
+                            <div class="prod">
+                                <a href="<{$app}>/goods_list/show/goods_id/<{$val.news_id}>">
+                                    <img src="<{$public}>/uploads/news/<{$val.news_pic}>">
+                                </a>
+                            </div>
+                            <div class="txt">
+                                <a href="<{$app}>/goods_list/show/goods_id/<{$val.news_id}>">
+                                    <{$val.news_name}>
+                                </a>
+                            </div>
+                        </li>
+                    <{/foreach}>
+
+                </ul>
+                    <{$fpage}>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function() {
+        var h3 = $(".tree_box").find("h3");
+        var tree_one = $(".tree_box").find(".tree_one");
+        var h4 = $(".tree_one").find("h4");
+        var tree_two = $(".tree_one").find(".tree_two");
+        h3.each(function(i) {
+            $(this).click(function() {
+                tree_one.eq(i).slideToggle();
+                tree_one.eq(i).parent().siblings().find(".tree_one").slideUp();
+            })
+        })
+        h4.each(function(i) {
+            $(this).click(function() {
+                tree_two.eq(i).slideToggle();
+                tree_two.eq(i).parent().siblings().find(".tree_two").slideUp();
+            })
+        })
+    })
+</script>
+
+<{include "public/footer.html"}>

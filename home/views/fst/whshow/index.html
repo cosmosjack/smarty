@@ -1,0 +1,20 @@
+
+	<{include "public/header.html"}>
+		
+			<div class="layer_right">
+				<div class="layer_right_centan">
+					<{$json_data.data_news.news_name}>
+				</div>
+				<div class="layer_right_boxs">
+					<{$json_data.data_news.news_body}>
+				</div>
+				<div id="shi_time" style="width: 100%;height: auto;overflow: hidden;color: #999;">
+					<span>发表于 <{$json_data.data_news.add_times|date_format:"Y-m-d H:m:s"}></span>
+				</div>
+			</div>
+			
+	<!--尾部-->
+	<{include "public/footer.html"}>
+	<!--尾部 end-->
+	
+		

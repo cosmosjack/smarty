@@ -1,0 +1,1 @@
+<?php {"pri":"news_id","0":"news_name","1":"news_pname","2":"news_cls_id","3":"news_cls_name","4":"news_pic","5":"news_body","6":"news_key","7":"label","8":"open_times","9":"add_times","10":"source"}yes

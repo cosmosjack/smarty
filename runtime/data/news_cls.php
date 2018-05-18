@@ -1,0 +1,1 @@
+<?php {"pri":"news_cls_id","0":"news_cls_name","1":"news_cls_pic","2":"cls_pid","3":"sort","4":"level","5":"news_cls_desc","6":"type"}yes

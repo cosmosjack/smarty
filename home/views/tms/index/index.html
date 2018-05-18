@@ -1,0 +1,347 @@
+<{include "public/header.html"}>
+  <script src="<{$res}>/js/jquery.carouFredSel-6.0.4-packed.js" type="text/javascript">
+  </script>
+  <script type="text/javascript">
+      function check_seachkey() {
+          var key = $("#seach_key").val();
+          if (!key) {
+              alert("请输入查询的关键词！！！");
+              return false;
+          }
+      }
+      $(function() {
+          var _visible = 5;
+          var $pagers = $('#pager a');
+          var _onBefore = function() {
+              $(this).find('img').stop().fadeTo(300, 1);
+              $pagers.removeClass('selected');
+          };
+
+          $('#carousel').carouFredSel({
+              items: _visible,
+              width: '100%',
+              auto: false,
+              scroll: {
+                  duration: 750
+              },
+              prev: {
+                  button: '#prev2',
+                  items: 2,
+                  onBefore: _onBefore
+              },
+              next: {
+                  button: '#next2',
+                  items: 2,
+                  onBefore: _onBefore
+              }
+          });
+
+          $pagers.click(function(e) {
+              e.preventDefault();
+
+              var group = $(this).attr('href').slice(1);
+              var slides = $('#carousel div.' + group);
+              var deviation = Math.floor((_visible - slides.length) / 2);
+              if (deviation < 0) {
+                  deviation = 0;
+              }
+
+              $('#carousel').trigger('slideTo', [$('#' + group), -deviation]);
+              $('#carousel div img').stop().fadeTo(300, 0.3);
+              slides.find('img').stop().fadeTo(300, 1);
+
+              $(this).addClass('selected');
+          });
+      });
+  </script>
+  <div id="banner">
+    <div id="fwslider">
+      <div class="slider_container">
+          <{foreach $home_adv as $adv_k=>$adv_v}>
+          <div onclick="window.open('<{$adv_v.img_url}>');" class="slide">
+              <div style="background:url(<{$adv_v.pic_url}>) center top no-repeat; height:400px;">
+              </div>
+          </div>
+          <{/foreach}>
+      </div>
+      <div class="timers">
+      </div>
+      <div class="jt">
+        <div class="slidePrev">
+          <span class="pngFix">
+            <a href="javascript:void(0);">
+            </a>
+          </span>
+        </div>
+        <div class="slideNext">
+          <span class="pngFix">
+            <a href="javascript:void(0);">
+            </a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="index_area1">
+    <div class="index_title1">
+      产品族谱
+      <span class="index_title">
+        PRODUCTS
+      </span>
+      <div class="index_right1">
+        <form action="javascrpt:" method="post" onSubmit="return check_seachkey()">
+          <input type="search" id="seach_key" name="key" placeholder="快捷搜索" required
+          class="search">
+          <input type="submit" class="btn" value="" id="tijiao">
+        </form>
+      </div>
+    </div>
+    <div id="inner">
+      <div id="carousel">
+          <{foreach $recomend_news.data as $key=>$val}>
+              <div class="index_pic1">
+                  <div class="pic_area">
+                      <a href="<{$app}>/goods_list/show/goods_id/<{$val.news_id}>" style="display: inline-block;" class="pic_bg">
+                      </a>
+                      <div class="pic_img">
+                              <img src="<{$recomend_news.url_pre}><{$val.news_pic}>" alt="<{$val.news_name}>">
+                      </div>
+                      <div class="pic_txt">
+                          <h4>
+                              <a href="<{$app}>/goods_list/show/goods_id/<{$val.news_id}>">
+                                  <{$val.news_name}>
+                              </a>
+                          </h4>
+                          <div class="index_title2">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          <{/foreach}>
+      </div>
+      <a href="#" id="prev2">
+      </a>
+      <a href="#" id="next2">
+      </a>
+    </div>
+    <a class="seemore" href="javascrpt:">
+      <h4>
+        查看更多机型
+      </h4>
+      <span class="index_title3">
+        To view more models
+      </span>
+    </a>
+  </div>
+  <div class="index_area1 clearfix">
+    <div class="index_news">
+      <div class="index_title1">
+        最新消息
+        <span class="index_title">
+          The latest news
+        </span>
+        <div class="index_right2">
+          <a href="javascrpt:">
+            more
+          </a>
+        </div>
+      </div>
+
+      <div style="height:45px;">
+      </div>
+    <{for $i=0 to 1 }>
+        <div class="pic">
+            <a href="<{$app}>/goods_list/news_show/goods_id/<{$data_new_news[$i].news_id}>">
+                <img src="<{$public}>/uploads/news/<{$data_new_news[$i].news_pic}>" alt="<{$data_new_news[$i].news_name}>">
+            </a>
+        </div>
+
+        <div class="newtxt">
+            <div class="newstitle">
+          <span class="date">
+            <{$data_new_news[$i].add_times|date_format:"%y-%m-%d"}>
+          </span>
+          <span class="new">
+            NEW
+          </span>
+            </div>
+            <div class="newscontent">
+                <a href="javascrpt:">
+                    <{$data_new_news[$i].news_pname}>
+                </a>
+            </div>
+        </div>
+        <{/for}>
+
+      <div>
+        <div class="newstitle">
+          <span class="date">
+            <{$data_new_news[2].add_times|date_format:"%y-%m-%d"}>
+          </span>
+          <span class="new">
+            NEW
+          </span>
+        </div>
+        <h5>
+          <a href="javascrpt:">
+              <{$data_new_news[2].news_name}>
+          </a>
+        </h5>
+        <div class="newscontent">
+            <{$data_new_news[2].news_pname}>
+        </div>
+      </div>
+
+    </div>
+    <div class="index_map">
+      <div class="index_title1">
+        营销网络
+        <span class="index_title">
+          Marketing network
+        </span>
+        <div class="index_right2">
+          <a href="javascrpt:">
+            more
+          </a>
+        </div>
+      </div>
+      <h4>
+        服务领域覆盖整个珠三角
+      </h4>
+      <div class="map">
+        <img src="<{$res}>/img/20160223090314_13680.jpg" />
+      </div>
+      <h3>
+        营销电话
+      </h3>
+      <div class="contact">
+        <span class="redtxt">
+          全国销售热线：<{$data_site.company_tel}>&nbsp;&nbsp;&nbsp;&nbsp;　　　
+        </span>
+        <span class="blacktxt">
+          传真：<{$data_site.company_fax}>
+          <br />
+          E-MAIL:<{$data_site.company_email}>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="index_prod">
+    <div class="prod_box clearfix">
+      <div class="index_title1">
+        产品展示
+        <span class="index_title">
+          Product display
+        </span>
+        <div class="index_right2">
+          <a href="javascrpt:">
+            more
+          </a>
+        </div>
+      </div>
+        <{foreach $data_goods_list as $key=>$val}>
+        <div class="proditem">
+            <div class="prodimg">
+                <a href="<{$app}>/goods_list/show/goods_id/<{$val.news_id}>">
+                    <img src="<{$public}>/uploads/news/<{$val.news_pic}>" alt="<{$val.news_name}>">
+                </a>
+            </div>
+            <a href="javascrpt:"
+               class="prodtitle">
+                <{$val.news_name}>
+            </a>
+        </div>
+        <{/foreach}>
+    </div>
+  </div>
+  <div class="index_area1 clearfix">
+    <div class="index_title1">
+      厂区场景
+      <span class="index_title">
+        The factory scene
+      </span>
+      <div class="index_right2">
+        <a href="javascrpt:?p=factory&lanmu=4">
+          more
+        </a>
+      </div>
+    </div>
+    <div id="preview">
+      <div id="spec-n1">
+        <div class="o-img">
+          <img alt="" src="<{$res}>/img/20160225145333_51072.jpg" onerror="this.src='img/none_347.gif'"
+          />
+        </div>
+      </div>
+      <!--spec-n1 end-->
+      <div id="spec-n5">
+        <div id="spec-top" class="control">
+        </div>
+        <div id="spec-bottom" class="control">
+        </div>
+        <div id="spec-list">
+          <ul>
+            <li class="curr">
+              <img src="<{$res}>/img/20160225145333_51072.jpg" width="242"
+              height="160" alt="大连机床，大连机床厂，大连数控机床，大连" title="大连机床，大连机床厂，大连数控机床，大连">
+            </li>
+            <li>
+              <img src="<{$res}>/img/20160311144332_43406.jpg" width="242"
+              height="160" alt="大连机床，大连机床厂，大连机床集团数控机" title="大连机床，大连机床厂，大连机床集团数控机">
+            </li><li>
+              <img src="<{$res}>/img/20160311144332_43406.jpg" width="242"
+              height="160" alt="大连机床，大连机床厂，大连机床集团数控机" title="大连机床，大连机床厂，大连机床集团数控机">
+            </li><li>
+              <img src="<{$res}>/img/20160311144332_43406.jpg" width="242"
+              height="160" alt="大连机床，大连机床厂，大连机床集团数控机" title="大连机床，大连机床厂，大连机床集团数控机">
+            </li>
+
+          </ul>
+        </div>
+      </div>
+      <!--spec-n5 end-->
+    </div>
+  </div>
+<script type="text/javascript">
+    $(function() {
+        $("#dftop").click(function() {
+            $('html,body').animate({
+                        'scrollTop': 0
+                    },
+                    1000);
+        })
+
+        var navH = $(".indexfloatright").offset().top;
+
+        //滚动条事件
+        $(window).scroll(function() {
+
+            //获取滚动条的滑动距离
+            var scroH = $(this).scrollTop();
+
+            //滚动条的滑动距离大于等于定位元素距离浏览器顶部的距离，就固定，反之就不固定
+            if (scroH >= navH) {
+                $(".indexfloatright").stop().animate({
+                    top: scroH
+                });
+            } else if (scroH < navH) {
+                $(".indexfloatright").stop().animate({
+                    top: navH
+                });
+            }
+
+            /*end*/
+
+        });
+
+    })
+</script>
+<style>
+    .index_prod .proditem:nth-child(5n),
+    .index_prod .proditem:nth-child(9n),
+    .index_prod .proditem:nth-child(13n) {
+        margin-right: 0;
+    }
+</style>
+
+<{include "public/footer.html"}>

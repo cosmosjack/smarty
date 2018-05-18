@@ -39,3 +39,25 @@ function is_mobile_request()
     else
         return false;
 }
+/*  通过cls_id  来查询自己的下级cls_id  列表 默认是产品ID 21 start */
+function getChildArr($pid=0,$data_cls=array(),$level=0){
+    $db_cls = D('news_cls');
+    $rows = $db_cls
+        ->field('news_cls_id,news_cls_name,cls_pid,level,news_cls_pic')
+        ->where(array("cls_pid"=>$pid))
+        ->select(); //21 产品
+    //p($rows);return false;exit();
+    //判断程序执行的条件
+    if(!empty($rows) && $level<20){
+        //递归调用，得到下一级的节点集
+        foreach($rows as $key=>$value){
+            $data_cls[]=$value;
+            $pid=$value['news_cls_id'];
+            $next_level=$level+1;
+            $data_cls=getChildArr($pid,$data_cls,$next_level);
+        }
+    }
+    //返回结果集
+    return $data_cls;
+}
+/*  通过cls_id  来查询自己的下级cls_id  列表 默认是产品ID 21 start */

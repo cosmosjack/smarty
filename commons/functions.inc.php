@@ -61,3 +61,24 @@ function getChildArr($pid=0,$data_cls=array(),$level=0){
     return $data_cls;
 }
 /*  通过cls_id  来查询自己的下级cls_id  列表 默认是产品ID 21 start */
+
+/* 百度主动推送 start*/
+public function tuisong_baidu($urls){
+    // $urls = array(
+    //     'http://www.example.com/1.html',
+    //     'http://www.example.com/2.html',
+    // );
+    $api = 'http://data.zz.baidu.com/urls?site=https://www.shikexu.com&token=oLeKZk0QV85zoxXF';
+    $ch = curl_init();
+    $options =  array(
+        CURLOPT_URL => $api,
+        CURLOPT_POST => true,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POSTFIELDS => implode("\n", $urls),
+        CURLOPT_HTTPHEADER => array('Content-Type: text/plain'),
+    );
+    curl_setopt_array($ch, $options);
+    $result = curl_exec($ch);
+    return $result;
+}
+/* 百度主动推送 end*/

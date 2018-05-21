@@ -40,7 +40,7 @@ function is_mobile_request()
         return false;
 }
 /*  通过cls_id  来查询自己的下级cls_id  列表 默认是产品ID 21 start */
-function getChildArr($pid=0,$data_cls=array(),$level=0){
+function getChildArr($pid=0,$data_cls=array(),$level=0,$init_cid=false){
     $db_cls = D('news_cls');
     $rows = $db_cls
         ->field('news_cls_id,news_cls_name,cls_pid,level,news_cls_pic')
@@ -58,6 +58,10 @@ function getChildArr($pid=0,$data_cls=array(),$level=0){
         }
     }
     //返回结果集
+    if($init_cid){
+        $data_init = $db_cls->where(array('news_cls_id'=>$init_cid))->find();
+        array_unshift($data_cls,$data_init);
+    }
     return $data_cls;
 }
 /*  通过cls_id  来查询自己的下级cls_id  列表 默认是产品ID 21 start */

@@ -16,7 +16,8 @@
 			if(method_exists($this, $method)){
 				call_user_func(array($this, $method));
 			}else{
-				Debug::addmsg("<font color='red'>没有{$_GET["a"]}这个操作！</font>");
+                $this->redirect("index/index");
+                Debug::addmsg("<font color='red'>没有{$_GET["a"]}这个操作！</font>");
 			}	
 		}
 

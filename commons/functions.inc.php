@@ -63,7 +63,7 @@ function getChildArr($pid=0,$data_cls=array(),$level=0){
 /*  通过cls_id  来查询自己的下级cls_id  列表 默认是产品ID 21 start */
 
 /* 百度主动推送 start*/
-public function tuisong_baidu($urls){
+function tuisong_baidu($urls){
     // $urls = array(
     //     'http://www.example.com/1.html',
     //     'http://www.example.com/2.html',

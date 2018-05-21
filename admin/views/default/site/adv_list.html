@@ -24,13 +24,14 @@
                                 <a href="<{$val.img_url}>" class="thumbnail">
                                     <img src="<{$val.pic_url}>"  alt="1440x390" style="width: 1440px;height: 390px;">
                                 </a>
-                                <span class="label label-primary">
-                                    <i onclick="edit_adv('<{$val.id}>','<{$val.img_name}>','<{$val.img_desc}>','<{$val.img_url}>');" class="fa fa-edit" data-toggle="modal" data-target="#myModal"></i>
+                                <span style="margin-left: 5px;" class="label label-primary">
+                                    <i onclick="edit_adv('<{$val.id}>','<{$val.img_name}>','<{$val.img_desc}>','<{$val.img_url}>','<{$val.position}>');" class="fa fa-edit" data-toggle="modal" data-target="#myModal"></i>
                                 </span>
                                 <span style="margin-left: 5px;" class="label label-danger">
                                     <i class="fa fa-trash-o"></i>
                                 </span>
-                                <span style="margin-left: 20px;">请上传1920X520像素的图片</span>
+                                <span style="margin-left: 20px;">
+                                    请上传<{if $val['position']==1}>1920X520<{else}>320*160<{/if}>像素的图片</span>
                             </li>
                         <{/foreach}>
                     </ul>
@@ -116,6 +117,16 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">显示位置：</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" name="position">
+                                <option value="1">PC</option>
+                                <option value="2">手机</option>
+                            </select>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
@@ -134,7 +145,7 @@
 <script src="<{$res}>/bootstrap/js/content.min.js?v=1.0.0"></script>
 <script src="<{$res}>/bootstrap/js/plugins/validate/jquery.validate.min.js"></script>
 <script>
-    function edit_adv(adv_id,img_name,img_desc,img_url){
+    function edit_adv(adv_id,img_name,img_desc,img_url,position){
 
         console.log(adv_id);
         console.log(img_name);
@@ -145,6 +156,9 @@
         $("input[name='ad_name']").val(img_name);
         $("input[name='ad_desc']").val(img_desc);
         $("input[name='ad_link']").val(img_url);
-
+        //选择默认的类别
+        if(position){
+            $("select[name='position']").find("option[value='"+position+"']").attr("selected",true);
+        }
     }
 </script>

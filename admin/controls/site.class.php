@@ -59,7 +59,37 @@ class Site{
 
         $this->display();
     }
+    //添加首页轮播图广告
+    function add_adv(){
+        if($_POST['sub'] == 'ok'){
+            if(empty($_POST['ad_name']))
+                $this->error("名称为空",2);
+            /* 图片上传 start */
+            $up = new FileUpload();
+            $up->set('path','./public/uploads/home_adv');
+            $result_file = $up->upload('ad_pic');
+            if($result_file){
+                $insert['img_path'] = $up->getFileName();
+            }else{
+                $this->error($up->getErrorMsg(),2);
+            }
+            /* 图片上传 end */
+            $insert['img_name'] = $_POST['ad_name'];
+            $insert['img_desc'] = $_POST['ad_desc']; 
+            $insert['img_url'] = $_POST['ad_link'];
+            $insert['position'] = $_POST['position'];
+            $db_home_adv = D('home_adv');
+            $result = $db_home_adv->insert($insert);
+            if($result){
+                $this->success("添加成功",2,'site/adv_list');
+            }else{
+                $this->error("添加失败",2);
+            }
 
+        }else{
+            $this->display();
+        }
+    }
     function adv_list(){
         $db_site = D('home_adv');
         $data_site = $db_site->select();
@@ -79,23 +109,20 @@ class Site{
 
     function mod_adv(){
         $db_home_adv = D('home_adv');
-//        P($_POST);
         $data_home_adv = $db_home_adv->where(array('id'=>$_POST['adv_id']))->find();
-//        P($data_home_adv);
         $up = new FileUpload();
         $up->set('path','./public/uploads/home_adv');
         $result_up = $up->upload('ad_pic');
+        //如果新图片上传成功，删除原来的图片
         if($result_up){
-//            echo '上传成功';
+            unlink('./public/uploads/home_adv/'.$data_home_adv['img_path']);
             $file_name = $up->getFileName();
             $update['img_path'] = $file_name;
-        }else{
-//            echo '上传失败';
-            $up->getErrorMsg();
         }
-            $update['img_name'] = $_POST['ad_name'];
-            $update['img_desc'] = $_POST['ad_desc'];
-            $update['img_url'] = $_POST['ad_link'];
+        $update['img_name'] = $_POST['ad_name'];
+        $update['img_desc'] = $_POST['ad_desc'];
+        $update['img_url'] = $_POST['ad_link'];
+        $update['position'] = $_POST['position'];
         $result = $db_home_adv->where($_POST['adv_id'])->update($update);
         if($result){
             $this->success("修改成功",2,'site/adv_list');
@@ -222,20 +249,37 @@ class Site{
 //        P($_FILES);
 //        die();
         $db_site_setting = D("site_setting");
-        if(!$_FILES['site_logo']['name']){
+        //网站logo,如果上传新图片成功，删除原来的
+        if($_FILES['site_logo']['name']){
             $up = new FileUpload();
             $up->set('path','./public/uploads/home_adv');
             $result_up = $up->upload('site_logo');
             if($result_up){
-//            echo '上传成功';
+                $site_logo = $db_site_setting->where(array('site_key'=>'site_logo'))->find();
+                unlink('./public/uploads/home_adv/'.$site_logo['site_value']);
                 $file_name = $up->getFileName();
-//            P($file_name);
                 $update['site_value'] = $file_name;
 
                 $result['site_logo'] = $db_site_setting->where(array('site_key'=>'site_logo'))->update($update);
 
             }else{
-//            echo '上传失败';
+                $up->getErrorMsg();
+            }
+        }
+        //二维码上传,如果上传新图片成功，删除原来的
+        if($_FILES['site_code']['name']){
+            $up = new FileUpload();
+            $up->set('path','./public/uploads/home_adv');
+            $result_up = $up->upload('site_code');
+            if($result_up){
+                $site_code = $db_site_setting->where(array('site_key'=>'site_code'))->find();
+                unlink('./public/uploads/home_adv/'.$site_code['site_value']);
+                $file_name = $up->getFileName();
+                $update['site_value'] = $file_name;
+
+                $result['site_code'] = $db_site_setting->where(array('site_key'=>'site_code'))->update($update);
+                exit();
+            }else{
                 $up->getErrorMsg();
             }
         }

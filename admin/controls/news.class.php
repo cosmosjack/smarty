@@ -60,8 +60,7 @@ class news{
     // 添加资讯
     function add(){
         if(isset($_POST['sub'])){
-//            P($_POST);
-//            P($_FILES);
+            
             $db_news_cls = D('news_cls');
             $data_news_cls = $db_news_cls->where($_POST['goods_cls'])->find();
             $data_news_cls['news_cls_id'] = $data_news_cls['news_cls_id'] ? $data_news_cls['news_cls_id'] : "1";
@@ -80,25 +79,39 @@ class news{
             $db_news = D('news');
             $row = $db_news->insert($insert);
             if($row){
-//                echo '新建成功';
+                //echo '新建成功';
+                //封面图
                 $up = new FileUpload();
                 $up->set('path','./public/uploads/news');
                 $result_file = $up->upload('file');
-//                P($result_file);
+                //P($result_file);
                 if($result_file){
-//                    echo '上传图片成功';
-//                    P($up->getFileName());
                     $pic_name = $up->getFileName();
                     $update['news_pic'] = $pic_name;
                     $result = $db_news->where($row)->update($update);
-                    /*if($result){
-//                        echo '成功';
-                        $this->success('成功',2,"news/news_list");
-                    }else{
-//                        echo '不成功';
-                        $this->error('不成功');
-                    }*/
                 }
+                /* 轮播图上传 start */
+                $j=3;
+                for($i=0;$i<$j;$i++){
+                    $up = new FileUpload();
+                    $up->set('path','./public/uploads/news');
+                    $result_files = $up->upload('banner'.$i);
+                    if($result_files){
+                        $banner[$i] = $up->getFileName();
+                    }
+                }
+                if($banner){
+                    $update_new['news_banner'] = serialize($banner);
+                    $result = $db_news->where($row)->update($update_new);
+                }
+                // p($_FILES);
+                // p($banner);
+                // p($update_new);
+                // exit();
+                /* 轮播图上传 end */
+
+                //百度主动推送
+                tuisong_baidu(array(SHOP_SITE_URL.'/whshow?id='.$row));
                 $this->success('添加成功',2,"news/news_list");
             }else{
 //                P($insert);
@@ -107,7 +120,8 @@ class news{
             }
             /* 先插入数据 再上传图片 再修改内容 end */
         }else{
-            $cls_array = $this->get_cls_list();
+            //$cls_array = $this->get_cls_list();
+            $cls_array = getChildArr();
             $this->assign("cls_array",$cls_array);
             $this->display();
         }
@@ -117,20 +131,42 @@ class news{
 
         if(isset($_POST['sub'])){
 
-//            P($_POST);
+            $info = $db_news->where($_POST['goods_id'])->find();
+            // P($_POST);
             /* 如果有新的图片上传成功 则删除原来的图片 start */
             $up = new FileUpload();
             $up->set('path','./public/uploads/news');
 
             $result_file = $up->upload('file');
-//                P($result_file);
+            // P($result_file);
             if($result_file){
-//                echo '上传成功';
+                unlink('./public/uploads/news/'.$info['news_pic']);
                 $update['news_pic'] = $up->getFileName();
-
             }
             /* 如果有新的图片上传成功 则删除原来的图片 end */
 
+            /* 如果有新的轮播图上传成功 则删除原来的图片 start */
+            //每次必须要new一个新商场对象，不然会按日期重新生成文件夹
+            $j=3;
+            $banner = unserialize(htmlspecialchars_decode($info['news_banner']));
+            for($i=0;$i<$j;$i++){
+                $up = new FileUpload();
+                $up->set('path','./public/uploads/news');
+                $result_files = $up->upload('banner'.$i);
+                if($result_files){
+                    unlink('./public/uploads/news/'.$banner[$i]);
+                    $banner[$i] = $up->getFileName();
+                }
+            }
+            if($banner){
+                $update['news_banner'] = serialize($banner);
+            }
+            // p($banner);
+            // p($update);
+            // p($_FILES);
+            // exit();
+            /* 如果有新的轮播图上传成功 则删除原来的图片 end */
+            
             /* 整理需要更新的数据 start */
             $db_news_cls = D('news_cls');
             $data_news_cls = $db_news_cls->where($_POST['goods_cls'])->find();
@@ -144,25 +180,33 @@ class news{
                 $update['news_body'] = $_POST['content'];
                 $update['news_key'] = $_POST['goods_key'];
                 $update['label'] = $_POST['label'];
-//                $update['source'] = $_POST['goods_source'];
+                // $update['source'] = $_POST['goods_source'];
 
             /* 整理需要更新的数据 end */
             $result = $db_news->where($_POST['goods_id'])->update($update);
+
+            //百度主动推送
+            tuisong_baidu(array(SHOP_SITE_URL.'/whshow?id='.$_POST['goods_id']));
+            // exit();
             if($result){
-//                echo '修改成功';
+                // echo '修改成功';
                 $this->success('修改成功',2,"news/news_list");
             }else{
-//                echo '修改不成功';
+                // echo '修改不成功';
                 $this->error('无任何修改',2,"news/news_list");
-//                P($update);
+                // P($update);
             }
 
         }else{
             $data_news = $db_news->where($_GET['news_id'])->find();
             if($data_news){
-                $cls_array = $this->get_cls_list();
+                //$cls_array = $this->get_cls_list();
+                $cls_array = getChildArr();
                 $this->assign("cls_array",$cls_array);
                 $this->assign("data_news",$data_news);
+                $banner = unserialize(htmlspecialchars_decode($data_news['news_banner']));
+                //p($banner);
+                $this->assign("banner",$banner);
                 $this->display();
 
             }else{
@@ -196,17 +240,17 @@ class news{
                 $insert['news_cls_pic'] = $upload->getFileName();
             }
 
-                $insert['news_cls_name'] = $_POST['news_cls_name'];
-                $insert['news_cls_desc'] = $_POST['news_cls_desc'];
-                $insert['cls_pid'] = $_POST['cls_pid'];
-                $insert['level'] = $_POST['cls_pid'] ? 2:1;
-                $result = $db_news_cls->insert($insert);
+            $insert['news_cls_name'] = $_POST['news_cls_name'];
+            $insert['news_cls_desc'] = $_POST['news_cls_desc'];
+            $insert['cls_pid'] = $_POST['cls_pid'];
+            $insert['level'] = $_POST['level'] ? $_POST['level']:2;
+            $result = $db_news_cls->insert($insert);
 
-                if($result){
-                    $this->success('新增成功',2,"news/cls_list",'self');
-                }else{
-                    $this->error("数据不完善",2);
-                }
+            if($result){
+                $this->success('新增成功',2,"news/cls_list",'self');
+            }else{
+                $this->error("数据不完善",2);
+            }
 
         }else{
             if(isset($_GET['pid'])){

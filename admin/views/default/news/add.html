@@ -73,8 +73,10 @@ $(function(){
                                 <{foreach $cls_array as $key=>$val}>
                                 <{if $val.level == 1}>
                                 <option value="<{$val.news_cls_id}>"><{$val.news_cls_name}></option>
-                                <{else}>
+                                <{elseif $val.level == 2}>
                                 <option value="<{$val.news_cls_id}>">--|--<{$val.news_cls_name}></option>
+                                <{else}>
+                                <option value="<{$val.news_cls_id}>">--|--|--<{$val.news_cls_name}></option>
                                 <{/if}>
                                 <{/foreach}>
                             </select>
@@ -103,7 +105,28 @@ $(function(){
                                     <div style="clear: both;"></div>
                                 </a>
                             </label>
+                            <span class="help-block m-b-none" style="color: #8b0000"><i class="fa fa-info-circle" ></i> 请上传276*250尺寸的图片</span>
                         </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    
+                    <div class="form-group" id="bannner">
+                        <label class="col-sm-2 control-label">轮播图</label>
+                        <{for $i=0 to 2}>
+                        <div class="col-sm-3">
+                            <label>
+                                <input type="file" multiple="multiple" id="input_img<{$i}>" style="display: none;" name="banner<{$i}>" value="" onchange="javascript:setImagePreview('input_img<{$i}>','preview<{$i}>','localImage<{$i}>');">
+                                <a style="text-align: center">
+                                    <div id="localImage<{$i}>">
+                                        <img id="preview<{$i}>" src="<{$res}>/bootstrap/img/a1.jpg" style="margin:0 auto .1rem;display: block; width: 200px; height: 200px;">
+                                    </div>
+                                    <h4>选择展示图</h4>
+                                    <div style="clear: both;"></div>
+                                </a>
+                            </label>
+                            <span class="help-block m-b-none" style="color: #8b0000"><i class="fa fa-info-circle" ></i> 请上传320*160尺寸的图片</span>
+                        </div>
+                        <{/for}>
                     </div>
                     <div class="hr-line-dashed"></div>
 

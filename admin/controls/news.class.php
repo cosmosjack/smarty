@@ -72,7 +72,7 @@ class news{
                 $attribute[$key]['name'] = $val;
                 $attribute[$key]['desc'] = $label_desc[$key];
             }
-            //p($attribute);p($serialize);exit();
+            //p($attribute);p(serialize($attribute));exit();
             $insert['attribute'] = serialize($attribute);
             /*产品属性 end*/
 
@@ -126,7 +126,7 @@ class news{
                 /* 轮播图上传 end */
 
                 //百度主动推送
-                $this->tuisong_baidu(array(SHOP_SITE_URL.'/whshow?id='.$row));
+                tuisong_baidu(array(SHOP_SITE_URL.'/whshow?id='.$row));
                 $this->success('添加成功',2,"news/news_list");
             }else{
 //                P($insert);
@@ -140,7 +140,7 @@ class news{
             $list_attr = $db_attribute->select();
             $this->assign('list_attr',$list_attr);
             //$cls_array = $this->get_cls_list();
-            $cls_array = $this->getChildArr();
+            $cls_array = getChildArr();
             $this->assign("cls_array",$cls_array);
             $this->display();
         }
@@ -162,7 +162,7 @@ class news{
                 $attribute[$key]['name'] = $val;
                 $attribute[$key]['desc'] = $label_desc[$key];
             }
-            //p($attribute);p($serialize);exit();
+            //p($attribute);p(serialize($attribute));exit();
             $update['attribute'] = serialize($attribute);
 
             /*产品属性 end*/
@@ -221,7 +221,7 @@ class news{
             $result = $db_news->where($_POST['goods_id'])->update($update);
 
             //百度主动推送
-            $this->tuisong_baidu(array(SHOP_SITE_URL.'/whshow?id='.$_POST['goods_id']));
+            tuisong_baidu(array(SHOP_SITE_URL.'/whshow?id='.$_POST['goods_id']));
             // exit();
             if($result){
                 // echo '修改成功';
@@ -237,7 +237,7 @@ class news{
             if($data_news){
                 //取所有分类
                 //$cls_array = $this->get_cls_list();
-                $cls_array = $this->getChildArr();
+                $cls_array = getChildArr();
                 $this->assign("cls_array",$cls_array);
                 $this->assign("data_news",$data_news);
 

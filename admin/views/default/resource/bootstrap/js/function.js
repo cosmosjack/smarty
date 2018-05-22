@@ -110,3 +110,50 @@ function getUrlParam(name){
 
 }
 /* 获取 URL 参数 end */
+
+/* 两边字符去除 start */
+//str 要去除的字符串
+//character 特殊的字符
+//option left rigth both
+function wipe_str_out(str,character,option){
+    var str_length = str.length;
+    var start_str = str.substring(0,1);
+    var end_str = str.substring(str_length-1,str_length);
+    //console.log(start_str);
+    //console.log(end_str);
+    switch (option){
+        case "right":
+            if(end_str == character){
+                str = str.substring(0,str_length-1);
+            }
+            break;
+        case "left":
+            if(start_str == character){
+                str = str.substring(1,str_length);
+            }
+            break;
+        case "both":
+            if(end_str == character){
+                str = str.substring(0,str_length-1);
+            }
+            str_length = str.length;
+            if(start_str == character){
+                str = str.substring(1,str_length);
+            }
+            break;
+    }
+    return str;
+}
+/* 两边字符去除 end */
+/* 元素在数组中出现的位置 start */
+function position_of_array(str,array){
+    for(var i=0;i<array.length;i++){
+        if(str == array[i]){
+            return i;
+            break;
+        }else{
+            continue;
+        }
+    }
+}
+/* 元素在数组中出现的位置 end */

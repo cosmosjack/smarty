@@ -60,7 +60,22 @@ class news{
     // 添加资讯
     function add(){
         if(isset($_POST['sub'])){
-            
+            /*产品属性 start*/
+            //p($_POST);
+            $label_list = explode('|',$_POST['label_list']);
+            $label_list_id = explode('|',$_POST['label_list_id']);
+            $label_desc = $_POST['label_desc'];
+            //p($label_list);p($label_list_id);
+            $attribute = array();
+            foreach ($label_list as $key => $val) {
+                $attribute[$key]['id'] = $label_list_id[$key];
+                $attribute[$key]['name'] = $val;
+                $attribute[$key]['desc'] = $label_desc[$key];
+            }
+            //p($attribute);p($serialize);exit();
+            $insert['attribute'] = serialize($attribute);
+            /*产品属性 end*/
+
             $db_news_cls = D('news_cls');
             $data_news_cls = $db_news_cls->where($_POST['goods_cls'])->find();
             $data_news_cls['news_cls_id'] = $data_news_cls['news_cls_id'] ? $data_news_cls['news_cls_id'] : "1";
@@ -111,7 +126,7 @@ class news{
                 /* 轮播图上传 end */
 
                 //百度主动推送
-                tuisong_baidu(array(SHOP_SITE_URL.'/whshow?id='.$row));
+                $this->tuisong_baidu(array(SHOP_SITE_URL.'/whshow?id='.$row));
                 $this->success('添加成功',2,"news/news_list");
             }else{
 //                P($insert);
@@ -120,8 +135,12 @@ class news{
             }
             /* 先插入数据 再上传图片 再修改内容 end */
         }else{
+            //获取产品属性
+            $db_attribute = D('attribute');
+            $list_attr = $db_attribute->select();
+            $this->assign('list_attr',$list_attr);
             //$cls_array = $this->get_cls_list();
-            $cls_array = getChildArr();
+            $cls_array = $this->getChildArr();
             $this->assign("cls_array",$cls_array);
             $this->display();
         }
@@ -130,7 +149,23 @@ class news{
         $db_news = D('news');
 
         if(isset($_POST['sub'])){
+            
+            /*产品属性 start*/
+            //p($_POST);
+            $label_list = explode('|',$_POST['label_list']);
+            $label_list_id = explode('|',$_POST['label_list_id']);
+            $label_desc = $_POST['label_desc'];
+            //p($label_list);p($label_list_id);
+            $attribute = array();
+            foreach ($label_list as $key => $val) {
+                $attribute[$key]['id'] = $label_list_id[$key];
+                $attribute[$key]['name'] = $val;
+                $attribute[$key]['desc'] = $label_desc[$key];
+            }
+            //p($attribute);p($serialize);exit();
+            $update['attribute'] = serialize($attribute);
 
+            /*产品属性 end*/
             $info = $db_news->where($_POST['goods_id'])->find();
             // P($_POST);
             /* 如果有新的图片上传成功 则删除原来的图片 start */
@@ -186,7 +221,7 @@ class news{
             $result = $db_news->where($_POST['goods_id'])->update($update);
 
             //百度主动推送
-            tuisong_baidu(array(SHOP_SITE_URL.'/whshow?id='.$_POST['goods_id']));
+            $this->tuisong_baidu(array(SHOP_SITE_URL.'/whshow?id='.$_POST['goods_id']));
             // exit();
             if($result){
                 // echo '修改成功';
@@ -200,13 +235,33 @@ class news{
         }else{
             $data_news = $db_news->where($_GET['news_id'])->find();
             if($data_news){
+                //取所有分类
                 //$cls_array = $this->get_cls_list();
-                $cls_array = getChildArr();
+                $cls_array = $this->getChildArr();
                 $this->assign("cls_array",$cls_array);
                 $this->assign("data_news",$data_news);
+
+                //获取产品所有属性
+                $db_attribute = D('attribute');
+                $list_attr = $db_attribute->select();
+                $this->assign('list_attr',$list_attr);
+
+                //轮播图
                 $banner = unserialize(htmlspecialchars_decode($data_news['news_banner']));
                 //p($banner);
                 $this->assign("banner",$banner);
+                //产品属性
+                if(!empty($data_news['attribute']))
+                    $attribute = unserialize(htmlspecialchars_decode($data_news['attribute']));
+                else
+                    $attribute = array();
+                if(!empty($attribute)){
+                    $label_list = implode('|', array_column($attribute,'name'));
+                    $label_list_id = implode('|', array_column($attribute,'id'));
+                    $this->assign('label_list',$label_list);
+                    $this->assign('label_list_id',$label_list_id);
+                }
+                $this->assign('attribute',$attribute);
                 $this->display();
 
             }else{
@@ -346,6 +401,18 @@ class news{
         }
 //        P($data);
         return $data;
+    }
+    //添加属性
+    function attr_add(){
+        $db_attribute = D('attribute');
+        if(empty($_POST['name']))
+            ajaxReturn(array('code'=>0,'msg'=>'属性名不能为空'),"JSON");
+        $insert['name'] = $_POST['name'];
+        $result = $db_attribute->insert($insert); 
+        if($result)
+            ajaxReturn(array('code'=>200,'msg'=>'添加成功','result'=>$result),"JSON");
+        else
+            ajaxReturn(array('code'=>0,'msg'=>'添加失败'),"JSON");
     }
     function test(){
         $json_data = array_merge($_POST,$_FILES);

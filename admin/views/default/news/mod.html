@@ -116,26 +116,7 @@ $(function(){
                     </div>
                     <div class="hr-line-dashed"></div>
 
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">轮播图</label>
-                        <{for $i=0 to 2}>
-                        <div class="col-sm-3">
-                            <label>
-                                <input type="file" multiple="multiple" id="input_img<{$i}>" style="display: none;" name="banner<{$i}>" value="" onchange="javascript:setImagePreview('input_img<{$i}>','preview<{$i}>','localImage<{$i}>');">
-                                <a style="text-align: center">
-                                    <div id="localImage<{$i}>">
-                                        <img id="preview<{$i}>" src="<{if $banner[$i] !=''}> <{$public}>/uploads/news/<{$banner[$i]}> <{else}><{$res}>/bootstrap/img/a1.jpg<{/if}>" style="margin:0 auto .1rem;display: block; width: 200px; height: 200px;">
-                                    </div>
-                                    <h4>选择展示图</h4>
-                                    <div style="clear: both;"></div>
-                                </a>
-                            </label>
-                            <span class="help-block m-b-none" style="color: #8b0000"><i class="fa fa-info-circle" ></i> 请上传320*160尺寸的图片</span>
-                        </div>
-                        <{/for}>
-                        
-                    </div>
-                    <div class="hr-line-dashed"></div>
+                    
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label">资讯关键词</label>
@@ -151,6 +132,64 @@ $(function(){
                             <input type="text" name="label" placeholder="标签" value="<{$data_news.label}>" class="form-control">
                         </div>
 
+                    </div>
+                    <div class="hr-line-dashed"></div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">是否是产品</label>
+                        <div class="col-sm-8">
+                            <input onchange="pro_info(this);" type="checkbox" name="my-checkbox" checked>
+                        </div>
+                    </div>
+
+                    <div id="pro_info" style="display: none;">
+                        <div class="form-group" id="bannner">
+                            <label class="col-sm-2 control-label">轮播图</label>
+                            <{for $i=0 to 2}>
+                            <div class="col-sm-3">
+                                <label>
+                                    <input type="file" multiple="multiple" id="input_img<{$i}>" style="display: none;" name="banner<{$i}>" value="" onchange="javascript:setImagePreview('input_img<{$i}>','preview<{$i}>','localImage<{$i}>');">
+                                    <a style="text-align: center">
+                                        <div id="localImage<{$i}>">
+                                            <img id="preview<{$i}>" src="<{if $banner[$i] !=''}> <{$public}>/uploads/news/<{$banner[$i]}> <{else}><{$res}>/bootstrap/img/a1.jpg<{/if}>" style="margin:0 auto .1rem;display: block; width: 200px; height: 200px;">
+                                        </div>
+                                        <h4>选择展示图</h4>
+                                        <div style="clear: both;"></div>
+                                    </a>
+                                </label>
+                                <span class="help-block m-b-none" style="color: #8b0000"><i class="fa fa-info-circle" ></i> 请上传320*160尺寸的图片</span>
+                            </div>
+                            <{/for}>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">产品属性</label>
+                            <div class="col-sm-8">
+                                <input  name="label_list" class="form-control" type="text" readonly="true"  value="<{$label_list}>">
+                                <input  name="label_list_id" class="form-control" type="hidden" value="<{$label_list_id}>" >
+                                <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 请点选下方的属性或者新增属性</span>
+                                <div id="label_list" class="col-sm-12">
+                                    <{foreach $list_attr as $val}>
+                                    <label class="btn btn-sm btn-primary" onclick="chose_label(this)"  is_choose="0" index="<{$val.id}>"><{$val.name}></label>   
+                                    <{/foreach}>                            
+                                    </div>
+                                <div class="col-sm-12">
+                                    <div class="form-inline">
+                                        <input type="text" id="new_label" class="form-control" placeholder="新属性" />
+                                        <label onclick="add_label();" class="btn btn-success btn-sm">添 加</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <{foreach $attribute as $val}>
+                        <div class="form-group pro_attr<{$val['id']}>">
+                        <label class="col-sm-2 control-label"><{$val['name']}></label>
+                            <div class="col-sm-4">
+                                <input type="text" name="label_desc[]" placeholder="<{$val['name']}>" class="form-control" value="<{$val['desc']}>">
+                           </div>
+                        </div>
+                        <{/foreach}>  
                     </div>
                     <div class="hr-line-dashed"></div>
 
@@ -176,12 +215,159 @@ $(function(){
 <script src="<{$res}>/bootstrap/js/plugins/chosen/chosen.jquery.js"></script>
 <script src="<{$res}>/bootstrap/js/bootstrap.min.js"></script>
 <script src="<{$res}>/bootstrap/js/content.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="<{$res}>/bootstrap/css/bootstrap-switch.css">
+<script type="text/javascript" src="<{$res}>/bootstrap/js/bootstrap-switch.js"></script>
+
 <script type="text/javascript">
     function getContent(){
         if(UE.getEditor("editor").queryCommandState('source')!=0)//判断编辑模式状态:0表示【源代码】HTML视图；1是【设计】视图,即可见即所得；-1表示不可用
             UE.getEditor("editor").execCommand('source'); //切换到【设计】视图
     }
     var ue = UE.getEditor('editor');
+</script>
+<script type="text/javascript">
+    $(function(){
+        //滑动按钮展示
+        $("[name='my-checkbox']").bootstrapSwitch({
+            "state":false,
+            "offColor":"danger"
+        });
+        //默认当前已经被选中的标签变成红颜色
+        var default_label_id_list = "<{$label_list_id}>";
+        default_label_id_list = default_label_id_list.split("|");
+        // console.log(default_label_id_list);
+        $("#label_list").children("label").each(function(k,v){
+            var now_label_id = $(v).attr("index");
+            for(var i=0;i<default_label_id_list.length;i++){
+                if(now_label_id == default_label_id_list[i]){
+                    //改变样式
+                    $(v).attr("is_choose",1)
+                    $(v).removeClass("btn-primary");
+                    $(v).addClass("btn-danger");
+                }
+            }
+           // console.log(this);
+        });
+    })
+
+    //显示产品信息
+    function pro_info(e){
+        var is_wx = $(e).is(':checked');
+        if(is_wx){
+            $("#pro_info").css({"display":"block"});
+        }else{
+            $("#pro_info").css({"display":"none"});
+        }
+    }
+
+    //属性添加
+    function add_label(){
+        var label_name = $("#new_label").val();
+        console.log(label_name);
+        $.ajax({
+            url:"<{$url}>/attr_add",
+            type:"POST",
+            data:{"name":label_name},
+            async:false,
+            success:function(msg){
+                console.log(msg);
+                if(msg.code == 200){
+                    // var html = '';
+                    // html += '<div class="form-group pro_attr'+msg.result+'">';
+                    // html += '    <label class="col-sm-2 control-label">'+label_name+'</label>';
+                    // html += '        <div class="col-sm-4">';
+                    // html += '            <input type="text" name="label_desc[]" placeholder="'+label_name+'" class="form-control">';
+                    // html += '        </div>';
+                    // html += '    </div>';
+                    // $('#pro_info').append(html);
+
+                    var label_html = '<label class="btn btn-sm btn-primary" onclick="chose_label(this)"  is_choose="0" index="'+msg.result+'">'+label_name+'</label> ';
+                    $('#label_list').append(label_html);
+
+                    $('#new_label').val('');
+                    
+                }
+            },
+            error:function(){
+                console.log("http error");
+            }
+        });
+    }
+
+    //属性选择
+    function chose_label(e){
+        var is_choose = $(e).attr("is_choose");
+        var label_name = $(e).text();
+        var label_id = $(e).attr("index");
+        var now_label_name = $("input[name='label_list']").val();
+        var now_label_id = $("input[name='label_list_id']").val();
+
+        if(is_choose >= 1){
+            //改变样式
+            $(e).attr("is_choose",0)
+            $(e).removeClass("btn-danger");
+            $(e).addClass("btn-primary");
+
+            //减少数据
+            var now_label_arr = now_label_name.split("|");
+            var now_label_id_arr = now_label_id.split("|");
+            var now_label_length = now_label_arr.length;
+
+            var label_position = position_of_array(label_id,now_label_id_arr);
+               // console.log(label_position);
+            now_label_arr.splice(label_position,1);
+            now_label_id_arr.splice(label_position,1);
+               // console.log(now_label_arr);
+            new_label_name = now_label_arr.join("|");
+            new_label_id = now_label_id_arr.join("|");
+               // console.log(now_label_name);
+            
+            //减少产品属性文本框
+            $('.pro_attr'+label_id).remove();
+        }else{
+        
+            var now_label_arr = now_label_name.split("|");
+            var now_label_id_arr = now_label_id.split("|");
+            var now_label_length = now_label_arr.length;
+            //添加数据
+            var new_label_name = now_label_name+"|"+label_name;
+            var new_label_id = now_label_id+"|"+label_id;
+               // console.log(new_label_name);
+               // console.log(new_label_id);
+            if(now_label_length>0){
+                   // console.log(now_label_length);
+                for(var j=0;j<now_label_id_arr.length;j++){
+                    if (label_id == now_label_id_arr[j]){
+                        return false;
+                    }
+                }
+            }
+            
+            //添加产品属性文本框
+            var html = '';
+            html += '<div class="form-group pro_attr'+label_id+'">';
+            html += '    <label class="col-sm-2 control-label">'+label_name+'</label>';
+            html += '        <div class="col-sm-4">';
+            html += '            <input type="text" name="label_desc[]" placeholder="'+label_name+'" class="form-control">';
+            html += '        </div>';
+            html += '    </div>';
+            
+            $('#pro_info').append(html);
+
+            //改变样式
+            $(e).attr("is_choose",1)
+            $(e).removeClass("btn-primary");
+            $(e).addClass("btn-danger");
+            new_label_name = wipe_str_out(new_label_name,"|","both");
+            new_label_id = wipe_str_out(new_label_id,"|","both");
+        }
+        // console.log(now_label_name);
+        // console.log(new_label_id);
+
+        $("input[name='label_list']").val(new_label_name);
+        $("input[name='label_list_id']").val(new_label_id);
+    }
 </script>
 </body>
 

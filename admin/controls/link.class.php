@@ -43,13 +43,38 @@ class link{
         }
         $this->display();
     }
+    //修改合作商外链
     function mod(){
-        echo '修改合作商家信息';
-        $this->display();
 
+        if(isset($_POST['link_id'])){
+            // P($_POST);
+            // P($_FILES);
+            $upload = new FileUpload();
+            $upload->set('path','./uploads/links');
+            $result_upload = $upload->upload('link_pic');
+
+            if($result_upload){
+                $_POST['link_pic'] = $upload->getFileName();
+            }
+            $db_link = D("link");
+            $result = $db_link->where($_POST['link_id'])->update($_POST);
+            if($result){
+                $this->success('修改成功',2,"link/index");
+            }else{
+                $this->error('无任何修改',2,"link/index");
+            }
+        }
     }
+    //删除合作商
     function del(){
-        echo '删除合作商家';
-        $this->display();
+        if(!empty($_POST['link_id'])){
+            $db_link = D("link");
+            $result = $db_link->where($_POST['link_id'])->delete();
+            if($result){
+                ajaxReturn(array('control'=>'del','code'=>200,'msg'=>'删除成功'),"JSON");
+            }else{
+                ajaxReturn(array('control'=>'del','code'=>0,'msg'=>'删除失败'),"JSON");
+            }
+        }
     }
 }

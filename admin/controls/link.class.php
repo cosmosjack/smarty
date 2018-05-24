@@ -49,14 +49,16 @@ class link{
         if(isset($_POST['link_id'])){
             // P($_POST);
             // P($_FILES);
+            $db_link = D("link");
+            $info = $db_link->where($_POST['link_id'])->find();
             $upload = new FileUpload();
             $upload->set('path','./uploads/links');
             $result_upload = $upload->upload('link_pic');
 
             if($result_upload){
+                unlink('./uploads/links/'.$info['link_pic']);
                 $_POST['link_pic'] = $upload->getFileName();
             }
-            $db_link = D("link");
             $result = $db_link->where($_POST['link_id'])->update($_POST);
             if($result){
                 $this->success('修改成功',2,"link/index");

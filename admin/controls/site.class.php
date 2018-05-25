@@ -312,7 +312,7 @@ class Site{
                 $update['site_value'] = $file_name;
 
                 $result['site_code'] = $db_site_setting->where(array('site_key'=>'site_code'))->update($update);
-                exit();
+                // exit();
             }else{
                 $up->getErrorMsg();
             }

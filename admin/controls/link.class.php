@@ -45,38 +45,39 @@ class link{
     }
     //修改合作商外链
     function mod(){
+        if(empty($_POST['link_id']))
+            $this->error('参数错误',2,"link/index");
+        $db_link = D("link");
+        $info = $db_link->where($_POST['link_id'])->find();
+        $upload = new FileUpload();
+        $upload->set('path','./uploads/links');
+        $result_upload = $upload->upload('link_pic');
 
-        if(isset($_POST['link_id'])){
-            // P($_POST);
-            // P($_FILES);
-            $db_link = D("link");
-            $info = $db_link->where($_POST['link_id'])->find();
-            $upload = new FileUpload();
-            $upload->set('path','./uploads/links');
-            $result_upload = $upload->upload('link_pic');
-
-            if($result_upload){
-                unlink('./uploads/links/'.$info['link_pic']);
-                $_POST['link_pic'] = $upload->getFileName();
-            }
-            $result = $db_link->where($_POST['link_id'])->update($_POST);
-            if($result){
-                $this->success('修改成功',2,"link/index");
-            }else{
-                $this->error('无任何修改',2,"link/index");
-            }
+        if($result_upload){
+            unlink('./uploads/links/'.$info['link_pic']);
+            $_POST['link_pic'] = $upload->getFileName();
         }
+        $result = $db_link->where($_POST['link_id'])->update($_POST);
+        if($result){
+            $this->success('修改成功',2,"link/index");
+        }else{
+            $this->error('无任何修改',2,"link/index");
+        }
+        
     }
     //删除合作商
     function del(){
-        if(!empty($_POST['link_id'])){
-            $db_link = D("link");
-            $result = $db_link->where($_POST['link_id'])->delete();
-            if($result){
-                ajaxReturn(array('control'=>'del','code'=>200,'msg'=>'删除成功'),"JSON");
-            }else{
-                ajaxReturn(array('control'=>'del','code'=>0,'msg'=>'删除失败'),"JSON");
-            }
+        if(empty($_POST['link_id']))
+            ajaxReturn(array('control'=>'del','code'=>0,'msg'=>'参数错误'),"JSON");
+        $db_link = D("link");
+        $info = $db_link->where($_POST['link_id'])->find();
+        $result = $db_link->where($_POST['link_id'])->delete();
+        if($result){
+            unlink('./uploads/links/'.$info['link_pic']);
+            ajaxReturn(array('control'=>'del','code'=>200,'msg'=>'删除成功'),"JSON");
+        }else{
+            ajaxReturn(array('control'=>'del','code'=>0,'msg'=>'删除失败'),"JSON");
         }
+        
     }
 }

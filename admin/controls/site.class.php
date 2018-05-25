@@ -21,12 +21,18 @@ class Site{
         /* 公司信息 end */
 
         /* 当前首页的10个产品推荐 start */
-            $data_10_recommend = explode("|",$data['home_10_recommend']);
+        $data_10_recommend = explode("|",$data['home_10_recommend']);
         if($data_10_recommend[0]){
             $this->assign("data_10_recommend",$data_10_recommend);
         }
-
         /* 当前首页的10个产品推荐 end */
+
+        /* 首页的热门搜索 start */
+        $home_hot_keywords = explode("|",$data['home_hot_keywords']);
+        if($home_hot_keywords[0]){
+            $this->assign("home_hot_keywords",$home_hot_keywords);
+        }
+        /* 首页的热门搜索 end */
 
 /* 栏目列表 start */
         // 获取level 为1的为 一级 再获通过cls_id 获取自己的下级
@@ -59,7 +65,7 @@ class Site{
 
         $this->display();
     }
-    //添加首页轮播图广告
+    //添加广告
     function add_adv(){
         if($_POST['sub'] == 'ok'){
             if(empty($_POST['ad_name']))
@@ -78,6 +84,7 @@ class Site{
             $insert['img_desc'] = $_POST['ad_desc']; 
             $insert['img_url'] = $_POST['ad_link'];
             $insert['position'] = $_POST['position'];
+            $insert['cls_id'] = $_POST['cls_id'];
             $db_home_adv = D('home_adv');
             $result = $db_home_adv->insert($insert);
             if($result){
@@ -87,6 +94,12 @@ class Site{
             }
 
         }else{
+            //查询一级栏目
+            $db_column = D('column');
+            $column = $db_column->field('cls_id,cls_name')->where(array('level'=>1))->select();
+            array_unshift($column, array('cls_id'=>0,'cls_name'=>'首页'));
+            // p($column);
+            $this->assign('column',$column);
             $this->display();
         }
     }
@@ -100,16 +113,22 @@ class Site{
                 $data_site[$i]['pic_url'] = $GLOBALS["public"]."uploads/home_adv"."/".$data_site[$i]['img_path'];
             }
         }
-//        P($data_site);
-
+        // P($data_site);
+        //查询一级栏目
+        $db_column = D('column');
+        $column = $db_column->field('cls_id,cls_name')->where(array('level'=>1))->select();
+        array_unshift($column, array('cls_id'=>0,'cls_name'=>'首页'));
+        // p($column);
+        $this->assign('column',$column);
         $this->assign("data_site",$data_site);
-
         $this->display();
     }
-
+    //广告图修改
     function mod_adv(){
+        if(empty($_POST['adv_id']))
+            $this->error("参数错误",2,'site/adv_list');
         $db_home_adv = D('home_adv');
-        $data_home_adv = $db_home_adv->where(array('id'=>$_POST['adv_id']))->find();
+        $data_home_adv = $db_home_adv->where($_POST['adv_id'])->find();
         $up = new FileUpload();
         $up->set('path','./public/uploads/home_adv');
         $result_up = $up->upload('ad_pic');
@@ -123,11 +142,26 @@ class Site{
         $update['img_desc'] = $_POST['ad_desc'];
         $update['img_url'] = $_POST['ad_link'];
         $update['position'] = $_POST['position'];
+        $update['cls_id'] = $_POST['cls_id'];
         $result = $db_home_adv->where($_POST['adv_id'])->update($update);
         if($result){
             $this->success("修改成功",2,'site/adv_list');
         }else{
             $this->error("没有任何修改",2,'site/adv_list');
+        }
+    }
+    //广告图删除
+    function del_adv(){
+        if(empty($_POST['adv_id']))
+            ajaxReturn(array('control'=>'del_adv','code'=>0,'msg'=>'参数错误'),"JSON");
+        $db_home_adv = D('home_adv');
+        $info = $db_home_adv->where($_POST['adv_id'])->find();
+        $result = $db_home_adv->where($_POST['adv_id'])->delete();
+        if($result){
+            unlink('./public/uploads/home_adv/'.$info['img_path']);
+            ajaxReturn(array('control'=>'del_adv','code'=>200,'msg'=>'删除成功'),"JSON");
+        }else{
+            ajaxReturn(array('control'=>'del_adv','code'=>0,'msg'=>'删除失败'),"JSON");
         }
     }
 
@@ -278,7 +312,7 @@ class Site{
                 $update['site_value'] = $file_name;
 
                 $result['site_code'] = $db_site_setting->where(array('site_key'=>'site_code'))->update($update);
-                // exit();
+                exit();
             }else{
                 $up->getErrorMsg();
             }

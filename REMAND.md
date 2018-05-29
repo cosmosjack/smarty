@@ -1,6 +1,6 @@
 ﻿*上拉加载下拉刷新插件*
 
-demo存放地址：public\resource\dist\index.html
+demo存放地址：public\resource\plugins\dist\index.html
 
 使用说明：
 

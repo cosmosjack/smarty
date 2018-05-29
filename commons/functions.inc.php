@@ -46,6 +46,11 @@ function getChildArr($pid=0,$init_cid=false,$data_cls=array(),$level=0){
         ->field('news_cls_id,news_cls_name,cls_pid,level,news_cls_pic')
         ->where(array("cls_pid"=>$pid))
         ->select(); //21 产品
+    //返回结果集
+    if($init_cid){
+        $data_init = $db_cls->where(array('news_cls_id'=>$init_cid))->find();
+        array_unshift($data_cls,$data_init);
+    }
     //p($rows);return false;exit();
     //判断程序执行的条件
     if(!empty($rows) && $level<20){
@@ -57,11 +62,6 @@ function getChildArr($pid=0,$init_cid=false,$data_cls=array(),$level=0){
             $data_cls=getChildArr($pid,$init_cid=false,$data_cls,$next_level);
         }
     }
-    //返回结果集
-    if($init_cid){
-        $data_init = $db_cls->where(array('news_cls_id'=>$init_cid))->find();
-        array_unshift($data_cls,$data_init);
-    }
     return $data_cls;
 }
 /*  通过cls_id  来查询自己的下级cls_id  列表 默认是产品ID 21 start */
@@ -72,15 +72,16 @@ function tuisong_baidu($urls){
     //     'http://www.example.com/1.html',
     //     'http://www.example.com/2.html',
     // );
-    $api = 'http://data.zz.baidu.com/urls?site=https://www.shikexu.com&token=oLeKZk0QV85zoxXF';
+    // $api = 'http://data.zz.baidu.com/urls?site=https://www.shikexu.com&token=oLeKZk0QV85zoxXF';
     $ch = curl_init();
     $options =  array(
-        CURLOPT_URL => $api,
+        CURLOPT_URL => BAIDU_API,
         CURLOPT_POST => true,
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_POSTFIELDS => implode("\n", $urls),
         CURLOPT_HTTPHEADER => array('Content-Type: text/plain'),
     );
+    // p($options);
     curl_setopt_array($ch, $options);
     $result = curl_exec($ch);
     return $result;

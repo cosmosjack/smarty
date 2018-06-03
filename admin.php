@@ -2,6 +2,7 @@
 	/**
 	 * 单一入口文件
 	 */
+
     define(DS,DIRECTORY_SEPARATOR);
     define("SHOP_SITE_URL","http://".$_SERVER['HTTP_HOST']);
     define("BAIDU_API", "http://data.zz.baidu.com/urls?site=www.hzjftsp.com&token=qHlho16rlfwHhPXJ");//

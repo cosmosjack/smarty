@@ -4,7 +4,7 @@
 <p color="#dd0000">获取详情页的面包屑</p>
 <h3>参数:&nbsp;&nbsp;&nbsp;<font size="5" color="#006600">文章或内容或产品ID,返回class 的名字</font></h3>
 <h3>返回值:&nbsp;&nbsp;&nbsp;<font size="5" color="#006600">面包屑的html代码 默认div 的class 为 whshow_position</font></h3>
-```php
+<pre>
 function whshow_position($id=1,$class='whshow_position'){
     $db_news = D('news');
     $data_news = $db_news->where(array('news_id'=>$id))->find();
@@ -20,7 +20,7 @@ function whshow_position($id=1,$class='whshow_position'){
 
     return $str;
 }
-```
+</pre>
 <hr color="#006600">
 
 <h2 align='center'>get_pre_next</h2>

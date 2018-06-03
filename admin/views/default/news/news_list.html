@@ -20,13 +20,11 @@
             var data = table_data.row($(e).parent().parent('tr')).data();
             var news_id = data['news_id'];
             console.log(news_id);
-            window.open("<{$root}>/index.php/goods_list/show/type/news/goods_id/"+news_id);
+            window.open("<{$root}>/whshow?id="+news_id);
         }
         /* 查看资讯 end */
         /* 修改资讯 start */
         function mod_news(e){
-
-
             var table_data = $('.dataTables-example').DataTable();
             var data = table_data.row($(e).parent().parent('tr')).data();
             var news_id = data['news_id'];
@@ -45,6 +43,32 @@
         }
         /* 删除 end */
 
+        //将时间戳格式化 
+        function getMyDate(time){  
+            // console.log(time);
+            time = parseInt(time)*1000;
+            // console.log(time);
+            if(typeof(time)=="undefined"){
+                return "";
+            }
+            var oDate = new Date(time),  
+                oYear = oDate.getFullYear(),  
+                oMonth = oDate.getMonth()+1,  
+                oDay = oDate.getDate(),  
+                oHour = oDate.getHours(),  
+                oMin = oDate.getMinutes(),  
+                oSen = oDate.getSeconds(),  
+                oTime = oYear +'-'+ getzf(oMonth) +'-'+ getzf(oDay) +' '+ getzf(oHour) +':'+ getzf(oMin) +':'+getzf(oSen);//最后拼接时间      
+            return oTime;  
+        };
+            
+        //补0操作,当时间数据小于10的时候，给该数据前面加一个0  
+        function getzf(num){  
+            if(parseInt(num) < 10){  
+                num = '0'+num;  
+            }  
+            return num;  
+        }
 
         $(function(){
             $('.dataTables-example').DataTable(//创建一个Datatable
@@ -66,7 +90,11 @@
                             { data: 'news_name' }, //名字
                             { data: 'news_cls_name' },//类别名字
                             { data: 'news_key' },//关键词
-                            { data: 'add_times' },//添加时间
+                            { data: 'add_times',
+                                render:function(data,type,row){
+                                    return getMyDate(data);
+                                }
+                            },//添加时间
                             { data: 'open_times' },//点击量
                             { data: 'source' },//资讯来源
                             {data:"null","defaultContent":"<a onclick='mod_news(this)'><i class='fa fa-edit'></i>修改</a><a onclick='show_news(this)'><i class='fa fa-paper-plane-o'></i>查看</a><a style='margin-left: 3px;' class='pull-right' onclick='del_news(this)'><i class='fa fa-trash-o'>删除</i></a>",

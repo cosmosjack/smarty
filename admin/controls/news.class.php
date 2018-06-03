@@ -361,7 +361,8 @@ class news{
         $where = array("news_name like"=>"%{$_GET['search']['value']}%");
         /* 查询条件 end */
         /* 排序条件 start */
-        $column = array("id","member_name","city","add_time","member_phone","last_login_ip","is_teacher","integral");
+        // $column = array("news_id","member_name","city","add_time","member_phone","last_login_ip","is_teacher","integral");
+        $column = array_column($_GET['columns'], 'data');
         $column_key = intval($_GET['order'][0]['column']);
         $choose_column = $column[$column_key];
         $choose_sort = $_GET['order'][0]['dir'];
@@ -376,7 +377,7 @@ class news{
         $db_limit = $db_start.",".$db_length;
 
         $db_total = $db_news->where($where)->total();
-        $data_news = $db_news->where($where)->limit($db_limit)->select();
+        $data_news = $db_news->where($where)->limit($db_limit)->order($order)->select();
 
         ajaxReturn(array('draw'=>$db_draw,'recordsTotal'=>$db_total,'recordsFiltered'=>$db_total,'data'=>$data_news),"json");
 

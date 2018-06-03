@@ -1,4 +1,4 @@
-dddd
+<center> ssss</center >
 ```php
 function get_pre_next($id=1,$class='wh_pre_next'){
     $str = '';

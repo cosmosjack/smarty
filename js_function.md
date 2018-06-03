@@ -1,5 +1,8 @@
-# 一级标题
-
+# 这是这个框架的后台公共方法的说明
+### 获取详情页的上一篇和下一篇
+#### get_pre_next
+##### 参数:![文章的ID],![返回DIV的class名字]
+##### 返回值:![自带链接的上一篇下一篇html代码]
 ```php
 function get_pre_next($id=1,$class='wh_pre_next'){
     $str = '';
@@ -28,3 +31,4 @@ function get_pre_next($id=1,$class='wh_pre_next'){
     return $str;
 }
 ```
+---

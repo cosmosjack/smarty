@@ -27,7 +27,7 @@ function whshow_position($id=1,$class='whshow_position'){
 <p color="#dd0000">获取详情页的上一篇和下一篇</p>
 <h3>参数:&nbsp;&nbsp;&nbsp;<font size="5" color="#006600">文章或内容或产品ID,返回外层DIV 的class 名字</font></h3>
 <h3>返回值:&nbsp;&nbsp;&nbsp;<font size="5" color="#006600">返回html代码自带链接,默认 div 的class 为wh_pre_next</font></h3>
-```php
+<pre>
 function get_pre_next($id=1,$class='wh_pre_next'){
     $str = '';
     $str .= '<div class="'.$class.'">';
@@ -55,5 +55,5 @@ function get_pre_next($id=1,$class='wh_pre_next'){
     return $str;
 }
 
-```
+<pre>
 <hr color="#006600">

@@ -116,3 +116,21 @@ function get_pre_next($id=1,$class='wh_pre_next'){
     return $str;
 }
 /* 根据内容ID获取上一篇 和下一篇 end */
+
+/* 获取详情页的定位 面包屑 start */
+function whshow_position($id=1,$class='whshow_position'){
+    $db_news = D('news');
+    $data_news = $db_news->where(array('news_id'=>$id))->find();
+    if(!$data_news){
+     $data_news = $db_news->find();
+    }
+    $str = "";
+    $str .="<div class='{$class}'>";
+    $str .="<a href='".SHOP_SITE_URL."'>首页</a>";
+    $str .="<a href='".SHOP_SITE_URL."/whlist?cid={$data_news['news_cls_id']}'>".$data_news['news_cls_name']."</a>";
+    $str .="<a href='".SHOP_SITE_URL."/whshow?cid={$data_news['news_id']}'>".$data_news['news_name']."</a>";
+    $str .="</div>";
+
+    return $str;
+}
+/* 获取详情页的定位 面包屑 end */

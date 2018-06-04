@@ -69,6 +69,32 @@
             }  
             return num;  
         }
+        /* 输出选中的 id列表 start */
+        function get_checked(){
+            var id_arr = [];
+            $.each($('input[name="news_id"]:checked'),function(){
+                id_arr.push($(this).val());
+            });
+//            console.log(id_arr);
+            /* 弹出模态框 start */
+
+            /* 弹出模态框 end */
+        }
+        /* 输出选中的 id列表 end */
+
+        /* 全部选中或全部不选中 start */
+        function select_all(){
+            var now_state = $("#select-all").is(':checked');
+//            console.log(now_state);
+            if(now_state){
+                $("input[name='news_id']").prop("checked", true);
+
+            }else{
+                $("input[name='news_id']").removeAttr("checked");
+            }
+
+        }
+        /* 全部选中或全部不选中 end */
 
         $(function(){
             $('.dataTables-example').DataTable(//创建一个Datatable
@@ -86,6 +112,9 @@
                         serverSide: true,//如果是服务器方式，必须要设置为true
                         processing: true,//设置为true,就会有表格加载时的提示
                         columns : [
+                            {"data" : "null",render:function(data, type, row){
+                                return "<input type='checkbox' name='news_id' value='"+ row.news_id+"' />";
+                            }},
                             { data: 'news_id' },
                             { data: 'news_name' }, //名字
                             { data: 'news_cls_name' },//类别名字
@@ -103,7 +132,7 @@
                         ],
                         columnDefs : [ {
                             orderable:false,//禁用排序
-                            targets:[1,2,3]   //指定的列
+                            targets:[0,2,3,4]   //指定的列
                         }
                         ],
                         "language": {//国际化
@@ -124,11 +153,7 @@
                         }
                     });
         });
-
-
-
         function fnClickAddRow(){$("#editable").dataTable().fnAddData(["Custom row","New row","New row","New row","New row"])};
-
     </script>
     </head>
 
@@ -162,6 +187,7 @@
     <table class="table table-striped table-bordered table-hover dataTables-example" id="tpl_data">
     <thead>
     <tr>
+        <th><input type="checkbox" name="select_all" onchange="select_all();" id="select-all"></th>
     <th>文章ID</th>
     <th class="col-lg-2">资讯名字</th>
     <th>资讯类别</th>
@@ -186,7 +212,11 @@
 
 
     </tbody>
-
+        <tfoot>
+        <tr>
+            <th colspan="9"><label class="btn btn-danger btn-sm" onclick="get_checked();">修改</label></th>
+        </tr>
+        </tfoot>
     </table>
 
     </div>
@@ -651,8 +681,11 @@
     </div>
     </div>
     </div>-->
-    </div>
 
+
+
+
+    </div>
     </body>
 
 </html>

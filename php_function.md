@@ -122,24 +122,21 @@ function tuisong_baidu($urls = array()){
 ##### 参数:![第一个点的经度，第一个点的纬度,第二个点的经度，第二个点的纬度,单位 K]
 ##### 返回值:![距离单位（米）]
 ```php
-function tuisong_baidu($urls = array()){
-    // $urls = array(
-    //     'http://www.example.com/1.html',
-    //     'http://www.example.com/2.html',
-    // );
-    // $api = 'http://data.zz.baidu.com/urls?site=https://www.shikexu.com&token=oLeKZk0QV85zoxXF';
-    $ch = curl_init();
-    $options =  array(
-        CURLOPT_URL => BAIDU_API,
-        CURLOPT_POST => true,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_POSTFIELDS => implode("\n", $urls),
-        CURLOPT_HTTPHEADER => array('Content-Type: text/plain'),
-    );
-    // p($options);
-    curl_setopt_array($ch, $options);
-    $result = curl_exec($ch);
-    return $result;
+function distance($lat1, $lon1, $lat2, $lon2, $unit) {
+    $theta = $lon1 - $lon2;
+    $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+    $dist = acos($dist);
+    $dist = rad2deg($dist);
+    $miles = $dist * 60 * 1.1515;
+    $unit = strtoupper($unit);
+
+    if ($unit == "K") {
+        return ($miles * 1.609344);
+    } else if ($unit == "N") {
+        return ($miles * 0.8684);
+    } else {
+        return $miles;
+    }
 }
 ```
 ---

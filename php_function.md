@@ -56,3 +56,64 @@ function whshow_position($id=1,$class='whshow_position'){
 }
 ```
 ---
+
+### 获取某个分类的信息和它所有子分类的信息，不传参数则默认查所有分类信息
+#### getChildArr
+##### 参数:![分类的父级id，0查所有],![当前分类的id，有的话就会返回当前分类信息，否则只返回所有子类信息]
+##### ![递归返回的分类数组信息，可不用传]，![递归的层级，可不用传]
+##### 返回值:![分类的数组信息]
+```php
+function getChildArr($pid=0,$init_cid=false,$data_cls=array(),$level=0){
+    $db_cls = D('news_cls');
+    $rows = $db_cls
+        ->field('news_cls_id,news_cls_name,cls_pid,level,news_cls_pic')
+        ->where(array("cls_pid"=>$pid))
+        ->select(); //21 产品
+    //返回结果集
+    if($init_cid){
+        $data_init = $db_cls->where(array('news_cls_id'=>$init_cid))->find();
+        array_unshift($data_cls,$data_init);
+    }
+    //p($rows);return false;exit();
+    //判断程序执行的条件
+    if(!empty($rows) && $level<20){
+        //递归调用，得到下一级的节点集
+        foreach($rows as $key=>$value){
+            $data_cls[]=$value;
+            $pid=$value['news_cls_id'];
+            $next_level=$level+1;
+            $data_cls=getChildArr($pid,$init_cid=false,$data_cls,$next_level);
+        }
+    }
+    return $data_cls;
+}
+```
+---
+
+### 百度主动推送接口，在使用时需在admin.php里面定义常量BAIDU_API，这是百度推送的接口地址
+### 登录百度站长后可以获取到
+#### tuisong_baidu
+##### 参数:![要推送的链接，数组形式]
+##### 返回值:![推送的结果，数组形式]
+```php
+function tuisong_baidu($urls = array()){
+    // $urls = array(
+    //     'http://www.example.com/1.html',
+    //     'http://www.example.com/2.html',
+    // );
+    // $api = 'http://data.zz.baidu.com/urls?site=https://www.shikexu.com&token=oLeKZk0QV85zoxXF';
+    $ch = curl_init();
+    $options =  array(
+        CURLOPT_URL => BAIDU_API,
+        CURLOPT_POST => true,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POSTFIELDS => implode("\n", $urls),
+        CURLOPT_HTTPHEADER => array('Content-Type: text/plain'),
+    );
+    // p($options);
+    curl_setopt_array($ch, $options);
+    $result = curl_exec($ch);
+    return $result;
+}
+```
+---

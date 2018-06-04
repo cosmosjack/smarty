@@ -117,3 +117,29 @@ function tuisong_baidu($urls = array()){
 }
 ```
 ---
+### 根据经纬度获取点与点之间的距离
+#### distance
+##### 参数:![第一个点的经度，第一个点的纬度,第二个点的经度，第二个点的纬度,单位 K]
+##### 返回值:![距离单位（米）]
+```php
+function tuisong_baidu($urls = array()){
+    // $urls = array(
+    //     'http://www.example.com/1.html',
+    //     'http://www.example.com/2.html',
+    // );
+    // $api = 'http://data.zz.baidu.com/urls?site=https://www.shikexu.com&token=oLeKZk0QV85zoxXF';
+    $ch = curl_init();
+    $options =  array(
+        CURLOPT_URL => BAIDU_API,
+        CURLOPT_POST => true,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POSTFIELDS => implode("\n", $urls),
+        CURLOPT_HTTPHEADER => array('Content-Type: text/plain'),
+    );
+    // p($options);
+    curl_setopt_array($ch, $options);
+    $result = curl_exec($ch);
+    return $result;
+}
+```
+---

@@ -409,12 +409,26 @@ class news{
         if(empty($_POST['name']))
             ajaxReturn(array('code'=>0,'msg'=>'属性名不能为空'),"JSON");
         $insert['name'] = $_POST['name'];
-        $result = $db_attribute->insert($insert); 
+        $result = $db_attribute->insert($insert);
         if($result)
             ajaxReturn(array('code'=>200,'msg'=>'添加成功','result'=>$result),"JSON");
         else
             ajaxReturn(array('code'=>0,'msg'=>'添加失败'),"JSON");
     }
+    /* 获取标签  标签位置 public/tag.txt start */
+    function get_tag(){
+        $tag_path = $GLOBALS['public'].'tag.txt';
+        $tag_path = $_SERVER['DOCUMENT_ROOT'].$tag_path;
+        if(is_file($tag_path)){
+            $tag_str = file_get_contents($tag_path);
+            $tag_array = explode("\r\n", $tag_str);
+            ajaxReturn(array('control'=>'get_tag','code'=>200,'msg'=>'成功','data'=>$tag_array),"JSON");
+        }else{
+            ajaxReturn(array('control'=>'get_tag','code'=>0,'msg'=>'无任何标签'),"JSON");
+        }
+
+    }
+    /* 获取标签  标签位置 public/tag.txt end */
     function test(){
         $json_data = array_merge($_POST,$_FILES);
         ajaxReturn($json_data,"JSON");

@@ -8,7 +8,7 @@
 				parent::__construct();
 			//如果有子类Common，调用这个类的init()方法 做权限控制
 			if(method_exists($this, "init")){
-				call_user_func(array($this, "init"));		
+				call_user_func(array($this, "init"));
 			}
 
 			//根据动作去找对应的方法

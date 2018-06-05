@@ -267,7 +267,7 @@
 		Structure::controler($srccontrolerfile, $controlerpath, $_GET["m"]); 
 
 		$className=ucfirst($_GET["m"])."Action";
-		
+
 		$controler=new $className();
 		$controler->run();
 

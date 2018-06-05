@@ -14,12 +14,13 @@
     <script src="<{$res}>/bootstrap/js/config.js"></script>
     <script src="<{$res}>/bootstrap/js/tpl/user_list.js"></script>
     <script>
+        var id_arr = [];
         /* 查看资讯 start */
         function show_news(e){
             var table_data = $('.dataTables-example').DataTable();
             var data = table_data.row($(e).parent().parent('tr')).data();
             var news_id = data['news_id'];
-            console.log(news_id);
+//            console.log(news_id);
             window.open("<{$root}>/whshow?id="+news_id);
         }
         /* 查看资讯 end */
@@ -28,7 +29,7 @@
             var table_data = $('.dataTables-example').DataTable();
             var data = table_data.row($(e).parent().parent('tr')).data();
             var news_id = data['news_id'];
-            console.log(news_id);
+//            console.log(news_id);
             window.location.href = "<{$url}>/mod/news_id/"+news_id;
         }
         /* 修改资讯 end */
@@ -38,7 +39,7 @@
             var table_data = $('.dataTables-example').DataTable();
             var data = table_data.row($(e).parent().parent('tr')).data();
             var news_id = data['news_id'];
-            console.log(news_id);
+//            console.log(news_id);
             window.location.href = "<{$url}>/del/news_id/"+news_id;
         }
         /* 删除 end */
@@ -55,6 +56,39 @@
             }
         }
         /* 选中标签 end */
+
+        /* 整理选中的数据 start */
+        function data_post(){
+//            console.log($("#select_body >select").find("option:selected").val());
+            //选中的类别ID
+            var cls_id = $("#select_body >select").find("option:selected").val();
+            //选中的 标签 数组
+            var choose_tag = [];
+            $(".tag_choose").each(function(){
+//                console.log($(this).attr("state"));
+                if($(this).attr("state") ==2){
+                    choose_tag.push($(this).text());
+                }
+            });
+//            console.log(choose_tag);
+            // 获取所有的选中的值
+
+
+            $.ajax({
+                url:AdminUrl+"/news/ajax_mod_news",
+                type:"POST",
+                data:{"cls_id":cls_id,"choose_tag":choose_tag,"id_arr":id_arr},
+                success:function(msg){
+//                    console.log(msg);
+                    alert(msg.msg);
+                },
+                error:function(){
+                    console.log('http error');
+                }
+            });
+
+        }
+        /* 整理选中的数据 end */
 
         //将时间戳格式化 
         function getMyDate(time){  
@@ -84,7 +118,7 @@
         }
         /* 输出选中的 id列表 start */
         function get_checked(){
-            var id_arr = [];
+
             $.each($('input[name="news_id"]:checked'),function(){
                 id_arr.push($(this).val());
             });
@@ -96,12 +130,12 @@
                     type:'GET',
                     data:{},
                     success:function(msg){
-                        console.log(msg);
+//                        console.log(msg);
                         if(msg.code == 200){
                             // append
                             $("#tag_list").empty();
                             for(var i=0;i<msg.data.length;i++){
-                                $("#tag_list").append('<label state="1" onclick="choose_tag(this);" class="btn btn-sm btn-success pull-left" style="margin: 5px;">'+msg.data[i]+'</label>');
+                                $("#tag_list").append('<label state="1" onclick="choose_tag(this);" class="btn btn-sm btn-success pull-left tag_choose" style="margin: 5px;">'+msg.data[i]+'</label>');
                             }
 
                         }
@@ -788,7 +822,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary">保存</button>
+                <button type="button" onclick="data_post();" class="btn btn-primary">保存</button>
             </div>
         </div>
     </div>

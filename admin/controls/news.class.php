@@ -435,9 +435,42 @@ class news{
     }
     /* 获取标签  标签位置 public/tag.txt end */
 
+    /* 获取分类列表 start */
     function ajax_cls_list(){
         $cls_list = get_cls_html();
         ajaxReturn(array('control'=>'ajax_cls_list','code'=>200,'msg'=>'成功','data'=>$cls_list),"JSON");
+    }
+    /* 获取分类列表 end */
+
+    function ajax_mod_news(){
+        if(isset($_POST['id_arr']) && !empty($_POST['id_arr'])){
+            $db = D('news');
+            $num = count($_POST['id_arr']);
+            if($num <= 0){
+                ajaxReturn(array('control'=>'ajax_mod_news','code'=>0,'msg'=>'非法请求'),"JSON");
+                die();
+            }
+            $tag_str = implode("|",$_POST['choose_tag']);
+            $where['news_id'] = $_POST['id_arr'];
+            $db_cls = D('news_cls');
+            $data_cls = $db_cls->where(array('news_cls_id'=>$_POST['cls_id']))->find();
+            if(!$data_cls){
+                ajaxReturn(array('control'=>'ajax_mod_news','code'=>0,'msg'=>'非法请求'),"JSON");
+                die();
+            }
+            $update['news_cls_id'] = $data_cls['news_cls_id'];
+            $update['news_cls_name'] = $data_cls['news_cls_name'];
+            $update['tag'] = $tag_str;
+            $result = $db->where($where)->update($update);
+            if($result){
+                ajaxReturn(array('control'=>'ajax_mod_news','code'=>200,'msg'=>'修改成功'),"JSON");
+            }else{
+                ajaxReturn(array('control'=>'ajax_mod_news','code'=>0,'msg'=>'修改失败'),"JSON");
+            }
+        }else{
+            ajaxReturn(array('control'=>'ajax_mod_news','code'=>0,'msg'=>'非法请求'),"JSON");
+        }
+
     }
 
     function test(){

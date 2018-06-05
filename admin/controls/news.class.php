@@ -175,7 +175,8 @@ class news{
             $result_file = $up->upload('file');
             // P($result_file);
             if($result_file){
-                unlink('./public/uploads/news/'.$info['news_pic']);
+                if($info['news_pic'] != 'logo.png')
+                    unlink('./public/uploads/news/'.$info['news_pic']);
                 $update['news_pic'] = $up->getFileName();
             }
             /* 如果有新的图片上传成功 则删除原来的图片 end */
@@ -335,8 +336,12 @@ class news{
     // 删除 咨询
     function del(){
         $db_news = D('news');
+        $info = $db_news->where($_GET['news_id'])->find();
         $result = $db_news->where($_GET['news_id'])->delete();
+        
         if($result){
+            if($info['news_pic'] != 'logo.png')
+                unlink('./public/uploads/news/'.$info['news_pic']);
             $this->success("已删除",2,"news/news_list");
 
         }else{

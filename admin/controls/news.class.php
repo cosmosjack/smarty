@@ -429,7 +429,12 @@ class news{
 
     }
     /* 获取标签  标签位置 public/tag.txt end */
+
     function test(){
+        $cls_list = get_cls_html();
+        p($cls_list);
+        die();
+
         $json_data = array_merge($_POST,$_FILES);
         ajaxReturn($json_data,"JSON");
     }

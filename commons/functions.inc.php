@@ -154,3 +154,50 @@ function distance($lat1, $lon1, $lat2, $lon2, $unit) {
 }
 // 根据经纬度获取 之间的距离 end
 
+
+/* 获取无限级分类方法 start */
+function get_cls_html($cls_id=0,$level=1,&$data=array()){
+    $db = D('news_cls');
+    if($level == 1){
+        $data = $db->where(array('level'=>$level))->order("sort asc")->select();
+        if($data){
+            foreach($data as $k=>$v){
+                $temp_data = $db->where(array('cls_pid'=>$v['news_cls_id']))->order("sort asc")->select();
+                if($temp_data){
+                    $son_level = $temp_data[0]['level'];
+                    $data[$k]['son'] = get_cls_html($cls_id,$son_level,$temp_data);
+                }
+            }
+            return $data;
+        }
+    }else{
+        $data = $data;
+        foreach($data as $k=>$v){
+            $temp_data = $db->where(array('cls_pid'=>$v['news_cls_id']))->order("sort asc")->select();
+            if($temp_data){
+                $son_level = $temp_data[0]['level'];
+                $data[$k]['son'] = get_cls_html($cls_id,$son_level,$temp_data);
+            }
+        }
+        return $data;
+    }
+
+}
+/* 获取无限级分类方法 end */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -84,12 +84,21 @@
                     data:{},
                     success:function(msg){
                         console.log(msg);
+                        if(msg.code == 200){
+                            // append
+
+                        }
                     },
                     error:function(){
                         console.log('http error');
                     }
                 });
                 /* 获取当前的标签 和分类  end */
+
+                /* 获取当前的所有分类 start */
+
+                /* 获取当前的所有分类 end */
+
                 /* 弹出模态框 start */
                 $("#myModal2").modal('show');
                 /* 弹出模态框 end */

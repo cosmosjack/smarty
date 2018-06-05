@@ -322,7 +322,7 @@ class news{
 
     }
     // 修改分类
-    function edit_cls(){
+    function edit_cls(){ 
         $db_news_cls = D('news_cls');
         $update['news_cls_name'] = $_GET['cls_name'];
         $update['news_cls_desc'] = $_GET['cls_desc'];

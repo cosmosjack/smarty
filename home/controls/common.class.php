@@ -39,7 +39,7 @@
             $index_page['type'] = '1';
             $index_page['sort'] = '0';
             $index_page['level'] = '1';
-            $index_page['url'] = $GLOBALS["app"];
+            $index_page['url'] = $GLOBALS["root"];
             $index_page['cls_pid'] = 0;
             $index_page['son_data'] = array();
             array_unshift($data_column,$index_page);

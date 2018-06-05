@@ -432,8 +432,7 @@ class news{
 
     function ajax_cls_list(){
         $cls_list = get_cls_html();
-        p($cls_list);
-
+        ajaxReturn(array('control'=>'ajax_cls_list','code'=>200,'msg'=>'成功','data'=>$cls_list),"JSON");
     }
 
     function test(){

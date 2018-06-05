@@ -43,6 +43,19 @@
         }
         /* 删除 end */
 
+        /* 选中标签 start */
+        function choose_tag(e){
+            // 1 没选中 2 选中
+//            console.log($(e).attr('state'));
+            var now_state = $(e).attr('state');
+            if(now_state == 1){
+                $(e).attr('state',2).removeClass("btn-success").addClass("btn-danger");
+            }else{
+                $(e).attr('state',1).removeClass("btn-danger").addClass("btn-success");
+            }
+        }
+        /* 选中标签 end */
+
         //将时间戳格式化 
         function getMyDate(time){  
             // console.log(time);
@@ -86,6 +99,10 @@
                         console.log(msg);
                         if(msg.code == 200){
                             // append
+                            $("#tag_list").empty();
+                            for(var i=0;i<msg.data.length;i++){
+                                $("#tag_list").append('<label state="1" onclick="choose_tag(this);" class="btn btn-sm btn-success pull-left" style="margin: 5px;">'+msg.data[i]+'</label>');
+                            }
 
                         }
                     },
@@ -96,7 +113,22 @@
                 /* 获取当前的标签 和分类  end */
 
                 /* 获取当前的所有分类 start */
-
+                $.ajax({
+                    url:AdminUrl+'/news/ajax_cls_list',
+                    type:'GET',
+                    data:{},
+                    success:function(msg){
+                        console.log(msg);
+                        if(msg.code == 200){
+                            // append
+                            $("#select_body").empty();
+                            $("#select_body").append(msg.data);
+                        }
+                    },
+                    error:function(){
+                        console.log('http error');
+                    }
+                });
                 /* 获取当前的所有分类 end */
 
                 /* 弹出模态框 start */
@@ -730,26 +762,28 @@
                             <option value="dd">分类名字</option>
                         </select>
                     </div>
-                    <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
-                    <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
-                    <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
-                    <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
-                    <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
-                    <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
-                    <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
-                    <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
-                    <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
-                    <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
-                    <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
-                    <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
-                    <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
-                    <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
-                    <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
-                    <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
-                    <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
-                    <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
-                    <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
-                    <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                    <div id="tag_list">
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                        <label class="btn btn-sm btn-success pull-left" style="margin: 5px;">标签</label>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">

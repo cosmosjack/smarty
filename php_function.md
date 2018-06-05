@@ -140,3 +140,78 @@ function distance($lat1, $lon1, $lat2, $lon2, $unit) {
 }
 ```
 ---
+### 根据选中类别ID，返回数据格式，获取无限极分类数据
+#### get_cls_html
+##### 参数:![默认选中的分类ID不填为0，类型为1时返回HTML代码，类型为2时返回数组数据]
+##### 返回值:![HTML代码 或 数组]
+```php
+/* 获取无限级分类方法 start */
+function get_cls_html($cls_id=0,$type=1,$level=1,&$data=array()){
+    $db = D('news_cls');
+    // type 1 是 HTML 数据  2 是原始数据
+    if($level == 1){
+        //原始初级
+        $data = $db->where(array('level'=>$level))->order("sort asc")->select();
+        //html 数据
+        $data_html = '<select name="test" class="form-control">';
+
+        if($data){
+            foreach($data as $k=>$v){
+                if($v['news_cls_id'] == $cls_id){
+//                    $data_html .= "<option selected value='".$v['news_cls_id']."'>{$v['level']}级".str_repeat(' ',$v['level']).$v['news_cls_name']."</option>";
+                    $data_html .= "<option selected value='".$v['news_cls_id']."'>".str_repeat(' ',$v['level']).$v['news_cls_name']."</option>";
+                }else{
+                    $data_html .= "<option value='".$v['news_cls_id']."'>".str_repeat(' ',$v['level']).$v['news_cls_name']."</option>";
+                }
+                $temp_data = $db->where(array('cls_pid'=>$v['news_cls_id']))->order("sort asc")->select();
+                if($temp_data){
+                    $son_level = $temp_data[0]['level'];
+                    if($type == 1){
+                        $data_html .= get_cls_html($cls_id,$type,$son_level,$temp_data);
+                    }else{
+                        $data[$k]['son'] = get_cls_html($cls_id,$type,$son_level,$temp_data);
+
+                    }
+                }
+            }
+            $data_html .= '</select>';
+            if($type == 1){
+                return $data_html;
+
+            }else{
+                return $data;
+            }
+
+        }
+    }else{
+        $data = $data;
+        $data_html = '';
+        foreach($data as $k=>$v){
+            if($v['news_cls_id'] == $cls_id){
+                $data_html .= "<option selected value='".$v['news_cls_id']."'>".str_repeat(' |-',$v['level']).$v['news_cls_name']."</option>";
+            }else{
+                $data_html .= "<option value='".$v['news_cls_id']."'>".str_repeat(' |-',$v['level']).$v['news_cls_name']."</option>";
+            }
+            $temp_data = $db->where(array('cls_pid'=>$v['news_cls_id']))->order("sort asc")->select();
+            if($temp_data){
+                $son_level = $temp_data[0]['level'];
+                if($type == 1){
+                    $data_html .= get_cls_html($cls_id,$type,$son_level,$temp_data);
+                }else{
+                    $data[$k]['son'] = get_cls_html($cls_id,$type,$son_level,$temp_data);
+
+                }
+            }
+        }
+        if($type == 1){
+            return $data_html;
+
+        }else{
+            return $data;
+        }
+    }
+
+}
+/* 获取无限级分类方法 end */
+```
+---

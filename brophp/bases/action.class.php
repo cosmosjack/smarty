@@ -8,7 +8,7 @@
 				parent::__construct();
 			//如果有子类Common，调用这个类的init()方法 做权限控制
 			if(method_exists($this, "init")){
-				call_user_func(array($this, "init"));
+				call_user_func(array($this, "init"));		
 			}
 
 			//根据动作去找对应的方法
@@ -16,7 +16,14 @@
 			if(method_exists($this, $method)){
 				call_user_func(array($this, $method));
 			}else{
-                $this->redirect("index/index");
+                /* 判断 404.html 是否存在 不存在则调转 首页 start */
+                if(is_file($_SERVER['DOCUMENT_ROOT'].DS.'404.html')){
+                    $url_404 = SHOP_SITE_URL.DS."404.html";
+                }else{
+                    $url_404 = SHOP_SITE_URL;
+                }
+                header('Location: '.$url_404);
+                /* 判断 404.html 是否存在 不存在则调转 首页 end */
                 Debug::addmsg("<font color='red'>没有{$_GET["a"]}这个操作！</font>");
 			}	
 		}

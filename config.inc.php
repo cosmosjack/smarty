@@ -10,6 +10,7 @@
 	define("TABPREFIX", "bro_");                           //数据表前缀
 	define("CSTART", 0);                                  //缓存开关 1开启，0为关闭
 	define("CTIME", 60*60*24*7);                          //缓存时间
+    define("SHOP_SITE_URL","http://".$_SERVER['HTTP_HOST']);
 
 
 

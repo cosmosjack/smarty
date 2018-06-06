@@ -267,11 +267,20 @@
 		Structure::controler($srccontrolerfile, $controlerpath, $_GET["m"]); 
 
 		$className=ucfirst($_GET["m"])."Action";
-
+		
 		$controler=new $className();
 		$controler->run();
 
 	}else{
+        /* 判断 404.html 是否存在 不存在则调转 首页 start */
+        if(is_file($_SERVER['DOCUMENT_ROOT'].DS.'404.html')){
+            $url_404 = SHOP_SITE_URL.DS."404.html";
+        }else{
+            $url_404 = SHOP_SITE_URL;
+        }
+        header('Location: '.$url_404);
+        /* 判断 404.html 是否存在 不存在则调转 首页 end */
+
 		Debug::addmsg("<font color='red'>对不起!你访问的模块不存在,应该在".APP_PATH."controls目录下创建文件名为".strtolower($_GET["m"]).".class.php的文件，声明一个类名为".ucfirst($_GET["m"])."的类！</font>");
 	}
 	//设置输出Debug模式的信息

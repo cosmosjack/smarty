@@ -12,10 +12,6 @@
 	define("CTIME", 60*60*24*7);                          //缓存时间
     define("SHOP_SITE_URL","http://".$_SERVER['HTTP_HOST']);
 
-
-
-
-
 //	$memServers = array("localhost", 11211);	     //使用memcache服务器
 	/*
 	如果有多台memcache服务器可以使用二维数组

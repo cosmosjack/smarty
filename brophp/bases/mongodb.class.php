@@ -18,11 +18,11 @@ class Mongodb {
      * 构造方法
      */
     public function __construct() {
-        $server = DBSERVER;
-        $user = DBUSER;
-        $password = DBPASS;
-        $port = DBPORT;
-        $database = DBNAME;
+        $server = MONGODB_SERVER;
+        $user = MONGODB_USER;
+        $password = MONGODB_PASS;
+        $port = MONGODB_PORT;
+        $database = MONGODB_NAME;
         $mongo = $this->getInstance($server, $user, $password, $port);
         $this->database = $mongo->$database;
     }

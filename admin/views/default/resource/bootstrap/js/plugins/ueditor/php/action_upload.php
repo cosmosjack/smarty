@@ -65,4 +65,5 @@ $up = new Uploader($fieldName, $config, $base64);
 /* 返回数据 */
 // 第一个值 true  则 前边加 http://www.smarty.com  false则不加
 //第二个值 true  则 为 https  false 则为 http  默认为 http
-return json_encode($up->getFileInfo(true,false));
+//第三个值 为手动添加的前缀  如  https://www.wh2013.net/smarty.com
+return json_encode($up->getFileInfo(true,false,''));

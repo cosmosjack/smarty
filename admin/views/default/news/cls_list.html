@@ -1,4 +1,5 @@
 <{include "public/header.html"}>
+<script type="text/javascript" src="<{$res}>/bootstrap/js/function.js"></script>
 <style>
     .label{
         font-size: 16px;
@@ -115,6 +116,7 @@
     <div class="modal inmodal" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content animated flipInY">
+            <form class="form-horizontal m-t" target="_self" enctype="multipart/form-data" method="post" action="<{$url}>/edit_cls">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title">修改资讯类别</h4>
@@ -123,7 +125,7 @@
                     </small>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal">
+                    <!-- <form class="form-horizontal"> -->
 
                         <div class="form-group">
                             <label class="col-sm-2 control-label">类别名字</label>
@@ -134,6 +136,25 @@
                         </div>
                         <div class="hr-line-dashed"></div>
 
+                        <!-- 新添加修改图片start -->
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">类别图：</label>
+                            <div class="col-sm-4">
+                                <label>
+                                    <input type="file" multiple="multiple" id="input_img" style="display: none;" name="news_cls_pic" value="" onchange="javascript:setImagePreview('input_img','preview','localImage');">
+                                    <a style="text-align: center">
+                                        <div id="localImage">
+                                            <img id="preview" src="<{$res}>/bootstrap/img/a1.jpg" style="margin:0 auto .1rem;display: block; width: 200px; height: 200px;">
+                                        </div>
+                                        <h4>选择类别图</h4>
+                                        <div style="clear: both;"></div>
+                                    </a>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <!-- 新添加修改图片end -->
+
                         <div class="form-group">
                             <label class="col-sm-2 control-label">类别介绍</label>
                             <div class="col-sm-4">
@@ -142,12 +163,14 @@
                         </div>
                         <div class="hr-line-dashed"></div>
 
-                    </form>
+                    <!-- </form> -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
-                    <button type="button" onclick="ajax_get()" class="btn btn-primary">保存</button>
+                    <!-- <button type="button" onclick="ajax_get()" class="btn btn-primary">保存</button> -->
+                    <button type="submit" class="btn btn-primary">保存</button>
                 </div>
+            </form>
             </div>
         </div>
     </div>

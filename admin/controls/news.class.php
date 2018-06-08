@@ -322,15 +322,30 @@ class news{
 
     }
     // 修改分类
-    function edit_cls(){ 
+    function edit_cls(){
         $db_news_cls = D('news_cls');
-        $update['news_cls_name'] = $_GET['cls_name'];
-        $update['news_cls_desc'] = $_GET['cls_desc'];
-        $result = $db_news_cls->where($_GET['cls_id'])->update($update);
+
+        /* 如果有新的图片上传成功 则删除原来的图片 start */
+        $info = $db_news_cls->where(['news_cls_id'=>$_POST['cls_id']])->find();
+        $up = new FileUpload();
+        $up->set('path','./uploads/news');
+        $result_file = $up->upload('news_cls_pic');
+//         P($result_file);p($_POST);die;
+        if($result_file){
+            unlink('./uploads/news/'.$info['news_cls_pic']);
+            $update['news_cls_pic'] = $up->getFileName();
+        }
+        /* 如果有新的图片上传成功 则删除原来的图片 end */
+
+        $update['news_cls_name'] = $_POST['cls_name'];
+        $update['news_cls_desc'] = $_POST['cls_desc'];
+        $result = $db_news_cls->where($_POST['cls_id'])->update($update);
         if($result){
-            ajaxReturn(array('control'=>'edit_cls','code'=>200,'msg'=>'成功'),"JSON");
+            $this->success('修改成功',2,"news/cls_list");
+            /*ajaxReturn(array('control'=>'edit_cls','code'=>200,'msg'=>'成功'),"JSON");*/
         }else{
-            ajaxReturn(array('control'=>'edit_cls','code'=>0,'msg'=>'失败','data'=>$_GET),"JSON");
+            $this->error('无任何修改',2,"news/cls_list");
+            /*ajaxReturn(array('control'=>'edit_cls','code'=>0,'msg'=>'失败','data'=>$_GET),"JSON");*/
         }
     }
     // 删除 咨询

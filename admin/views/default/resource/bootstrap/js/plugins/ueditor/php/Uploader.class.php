@@ -123,6 +123,7 @@ class Uploader
         } else { //移动成功
             $this->stateInfo = $this->stateMap[0];
         }
+
     }
 
     /**
@@ -357,8 +358,11 @@ class Uploader
      * 获取当前上传成功文件的各项信息
      * @return array
      */
-    public function getFileInfo()
+    public function getFileInfo($is_http=false)
     {
+        if($is_http){
+            $this->fullName = 'http://'.$_SERVER['SERVER_NAME'].$this->fullName;
+        }
         return array(
             "state" => $this->stateInfo,
             "url" => $this->fullName,

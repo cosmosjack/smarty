@@ -358,10 +358,15 @@ class Uploader
      * 获取当前上传成功文件的各项信息
      * @return array
      */
-    public function getFileInfo($is_http=false)
+    public function getFileInfo($is_pre=false,$is_https=false)
     {
-        if($is_http){
-            $this->fullName = 'http://'.$_SERVER['SERVER_NAME'].$this->fullName;
+        if($is_https){
+            $http = 'https://';
+        }else{
+            $http = 'http://';
+        }
+        if($is_pre){
+            $this->fullName = $http.$_SERVER['SERVER_NAME'].$this->fullName;
         }
         return array(
             "state" => $this->stateInfo,

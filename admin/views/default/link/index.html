@@ -1,6 +1,18 @@
 <{include "public/header.html"}>
 <base target="_self">
 <script type="text/javascript" src="<{$res}>/bootstrap/js/function.js"></script>
+
+<!-- 分页控制不让在新页面打开 start -->
+<script src="<{$res}>/bootstrap/js/jquery.min.js"></script>
+<script>
+    $(function(){
+        $(".fpage_ul").children("li").children("a").attr("target",'_self');
+        $(".fpage_ul").children("b").children('li').children("a").attr("target",'_self');
+//        $(".fpage_ul>a").attr("target","_self");
+    });
+</script>
+<!-- 分页控制不让在新页面打开 end -->
+
 <body class="gray-bg" xmlns="http://www.w3.org/1999/html">
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">

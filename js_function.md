@@ -23,9 +23,9 @@
 	}
 	</style>
 //悬浮框对象,一定要放在body下，不能有父级包在中间
-#<div class="col-sm-4 elasticity">
-	#<img src=""  />
-#</div>
+><div class="col-sm-4 elasticity">
+	><img src=""  />
+></div>
 //悬浮框对象
     <script type="text/javascript" src="./jquery.min.js"></script><!-- 必须引用jq -->
     <script type="text/javascript">

@@ -1,46 +1,51 @@
-﻿# 这是这个框架的前台公共方法的说明
-//给悬浮框添加样式，其他样式可以不添加
-<style type="text/css">
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+	<title></title>
+	<style type="text/css">
 	html,body{
 	   height:2000px;
 	   padding: 0;
 	   margin: 0;
 	   overflow-x: hidden;
 	}
-	.elasticity{
-		background:#4081db;
-		position: absolute;<!-- 必须添加决定悬浮框的初始位置 -->
-		top: 0;<!-- 必须添加决定悬浮框的初始位置 -->
-		left: 0;<!-- 必须添加决定悬浮框的初始位置 -->
-		border-radius: 20px;
-		color:#FFF;
-	}
-	.elasticity>img{
-		display: block;
-		height: 80px;
-		width: 200px;
-		cursor: pointer;
-	}
+		.elasticity{
+			background:#4081db;
+			position: absolute;
+			top: 0;
+			left: 0;
+			border-radius: 20px;
+			color:#FFF;
+		}
+		.elasticity>img{
+			display: block;
+			height: 80px;
+			width: 200px;
+			cursor: pointer;
+		}
 	</style>
-//悬浮框对象,一定要放在body下，不能有父级包在中间
-<div class="col-sm-4 elasticity">
-	<img src="./test.jpg"  />
-</div>
-//悬浮框对象
-    <script type="text/javascript" src="./jquery.min.js"></script><!-- 必须引用jq -->
+</head>
+<body>
+    <div class="col-sm-4 elasticity">
+		<img src="./test.jpg"  />
+	</div>
+    <script type="text/javascript" src="./jquery.min.js"></script>
     <script type="text/javascript">
     		var Time = null;//定时器名称
-    		var body_h = document.documentElement.clientHeight;//获取当前屏幕的高度
-    		var t_judge0 = 0;//用于限制悬浮框移出到顶部的条件
-    		var t_judge1 = document.documentElement.clientHeight;//用于限制悬浮框移出到底部的条件
+    		var body_h = document.documentElement.clientHeight;
+    		var t_judge0 = 0;
+    		var t_judge1 = document.documentElement.clientHeight;
 
 		  	function elast(o,l,t){
 			  	var speed_left = l;//横向移动的速度
 			  	var speed_top = t;//纵向移动的速度
 			  	//设置定时器
-			  	var obj = o;//悬浮对象
+			  	var obj = o;
+			  	console.log(t_judge1 - obj.height())
 			  	Time = setInterval(function(){
 			  		//获取广告牌的left值和top值
+			  		
 			  		var obj_left =obj.position().left;
 			  		var obj_top =obj.position().top;
 			  		//------------------------------------
@@ -72,11 +77,16 @@
             //页面滚动监听
             $(document).ready(function(){
 				$(window).scroll(function(){
-                    clearInterval(Time);//滚动时清除定时器
-                    t_judge0 = $(window).scrollTop();//改变限制悬浮框移出到顶部的条件
-                    t_judge1 = body_h+$(window).scrollTop();//改变限制悬浮框移出到底部的条件
-                    $('.elasticity').css('top',$(window).scrollTop())//使悬浮框移动到当前屏幕的位置
-                    elast($('.elasticity'),5,3);//重新启动悬浮框移动函数
+                    clearInterval(Time);
+                    t_judge0 = $(window).scrollTop();
+                    t_judge1 = body_h+$(window).scrollTop();
+                    console.log(t_judge1,t_judge0);
+                    $('.elasticity').css('top',$(window).scrollTop())
+                    elast($('.elasticity'),5,3);
+                    console.log($(window).scrollTop())
+                    console.log(body_h+$(window).scrollTop());
 				});
 			});
     </script>
+</body>
+</html>

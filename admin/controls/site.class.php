@@ -388,6 +388,33 @@ class Site{
     }
     /* 获取所有没有被放在首页的栏目 end */
 
+    /* 获取当前栏目中没有被放在首页的子栏目 start */
+    function get_child_column(){
+        $db_column = D('column');
+        /*获取当前栏目中已经放在首页的资讯子栏目 start*/
+        $news_cls_array = $db_column->where(array('cls_pid'=>$_POST['colum_id']))->select();
+        $news_cls_array = array_column($news_cls_array, 'cls_id');
+        /*获取当前栏目中已经放在首页的资讯子栏目 end*/
+        // p($news_cls_array);
+        
+        /*计算剩余子栏目，先获取当前栏目的所有子分类 start*/
+        if($_POST['type'] == 2){
+            $table = 'pro_cls';
+        }else{
+            $table = 'news_cls';
+        }
+        $data_cls = getChildArr($_POST['cls_id'],false,$table);
+        foreach ($data_cls as $key => $val) {
+            if(in_array($val['news_cls_id'], $news_cls_array))
+                unset($data_cls[$key]);
+        }
+        /*计算剩余子栏目，获取当前栏目的所有子分类 end*/
+        $data_cls = array_values($data_cls);
+        // P($data_cls);
+        ajaxReturn($data_cls,"JSON");
+    }
+    /* 获取所有没有被放在首页的栏目 end */
+
     // 获取 分类列表ajax 从小到大 排序
     private function get_cls_list($db_name,$key_id,$pid_id,$sort_type){
 

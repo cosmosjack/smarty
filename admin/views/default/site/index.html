@@ -252,7 +252,7 @@
                                         <span onclick="edit_column('<{$val.id}>','<{$val.cls_name}>','<{$val.url}>');" data-toggle="modal" data-target="#myModal3" class="label label-danger pull-right">
                                             <i class=" fa fa-pencil "></i>
                                         </span>
-                                        <span onclick="" class="label label-success pull-right">
+                                        <span onclick="add_colum('<{$val.id}>','<{$val.cls_id}>','<{$val.type}>');" class="label label-success pull-right" data-toggle="modal" data-target="#myModal2">
                                             <i class="fa fa-plus "></i>
                                         </span>
                                 </div>
@@ -262,7 +262,7 @@
                                         <div class="dd-handle">
                                             <span class="label label-info"><i class="fa fa-map-signs"></i></span>
                                             <{$second_val.cls_name}>
-                                            <input type="text" name="sort" class="input-sm" style="width: 50px;" index="<{$second_val.cls_id}>" value="<{$second_val.sort}>">
+                                            <input type="text" name="sort" class="input-sm" style="width: 50px;" index="<{$second_val.id}>" value="<{$second_val.sort}>">
 
                                             <span onclick="del_column('<{$second_val.id}>');" class="label label-primary pull-right">
                                             <i class="fa fa-trash-o "></i>
@@ -490,6 +490,46 @@
         });
         /* 获取所有没有被放在首页的栏目 end */
     }
+
+    /*新增栏目 start*/
+    function add_colum(colum_id,cls_id,type){
+        //清空之前的数据
+        $("select[name='column_select']").children().remove();
+        $("select[name='column_select']").append('<option value="1" type_name="news">暂无栏目可选</option>');
+        // 展示添加栏目的框框 // 最多添加 7个栏目
+        console.log('添加新的栏目');
+        /* 获取所有没有被放在首页的子栏目 start */
+        $.ajax({
+            url:"<{$url}>/get_child_column",
+            type:"POST",
+            data:{colum_id:colum_id,cls_id:cls_id,type:type},
+            dataType:'json',
+            success:function(msg){
+                console.log(msg,msg.length);
+                if(msg.length > 0){
+                    $("select[name='column_select']").children().remove();
+                    for(var i=0;i<msg.length;i++){
+                        if(msg[i].type == 1){
+                            var type_name = 'news';
+                        }else{
+                            var type_name = 'pro';
+                        }
+                        if(msg[i].level == 2){
+                            var level_str = "--|--";
+                        }else{
+                            var level_str = '';
+                        }
+                        $("select[name='column_select']").append('<option value="'+msg[i].news_cls_id+'" type_name="'+type_name+'" type_id="'+msg[i].type+'">'+level_str+msg[i].news_cls_name+'</option>');
+                    }
+                }
+            },
+            error:function(){
+                console.log("http error");
+            }
+        });
+        /* 获取所有没有被放在首页的栏目 end */
+    }
+    /*新增栏目 end*/
 
     /* 类别伸缩 start  */
     function column_i(e){

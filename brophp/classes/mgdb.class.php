@@ -10,7 +10,7 @@
 /*
  * mongodb 数据库操作
  */
-class Mongodb {
+class Mgdb {
     protected $database    = '';
     protected $mo;
 
@@ -39,20 +39,20 @@ class Mongodb {
         if (isset($this->mo)) {
             return $this->mo;
         } else {
-
             if (!empty($server)) {
                 if (!empty($port)) {
-
                     if (!empty($user) && !empty($password)) {
-                        $this->mo = new Mongo("mongodb://{$user}:{$password}@{$server}:{$port}");
+
+                        $this->mo = new MongoClient("mongodb://{$user}:{$password}@{$server}:{$port}");
                     } else {
-                        $this->mo = new Mongo("mongodb://{$server}:{$port}");
+                        $this->mo = new MongoClient("mongodb://{$server}:{$port}");
                     }
                 } else {
-                    $this->mo = new Mongo("mongodb://{$server}");
+                    $this->mo = new MongoClient("mongodb://{$server}");
+
                 }
             } else {
-                $this->mo = new Mongo();
+                $this->mo = new MongoClient();
             }
             return $this->mo;
         }
@@ -209,6 +209,25 @@ class Mongodb {
 
         $data = $this->database->command($where);
         return $data['values'];
+    }
+    /*
+     * 列出现有的数据库
+     */
+    public function get_db_list(){
+        $data = $this->mo->listDBs();
+        return $data;
+    }
+    /*
+     * 列出某个数据库中的所有集合
+     */
+    public function get_table_list($db=''){
+        if(!empty($db)){
+            $db = $db;
+        }else{
+            $db = MONGODB_NAME;
+        }
+        $data = $this->mo->$db->getCollectionNames();
+        return $data;
     }
 }
 ?>

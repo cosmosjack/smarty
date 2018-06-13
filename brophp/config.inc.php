@@ -9,10 +9,10 @@
 
 /* 定义mongodb 数据库 start */
 define("MONGODB_SERVER", "127.0.0.1");                       //数据地址
-define("MONGODB_USER", "root");                       //数据地址
-define("MONGODB_PASS", "root");                       //数据地址
-define("MONGODB_PORT", "6869");                       //数据地址
-define("MONGODB_NAME", "smarty");                       //数据地址
+define("MONGODB_USER", "");                       //数据地址
+define("MONGODB_PASS", "");                       //数据地址
+define("MONGODB_PORT", "");                       //数据地址
+define("MONGODB_NAME", "yunzhuanma");                       //数据地址
 
 /* 定义mongodb 数据库 end */
 

@@ -116,8 +116,10 @@
 ###<script src="path/to/jquery.js"></script>必须引用jquery.js
 ###<script type="text/javascript" src="../swiper-3.4.2.min.js"></script>引用swiper.min.js
 html写上这段代码
+<!-- 此处是轮播图 -->
 《div class="swiper-container">
     《div class="swiper-wrapper">
+	<!-- 此处是图片 -->
         《div class="swiper-slide">Slide 1《/div>
         《div class="swiper-slide">Slide 2《/div>
         《div class="swiper-slide">Slide 3《/div>

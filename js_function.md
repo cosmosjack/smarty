@@ -103,8 +103,7 @@
             });  
             wow.init();//调用函数
         },
-//调用方法：只需给对象加上类名即可，如：
-###<button class=" wow bounceInUp"><a href="">更多</a></button>//改按钮便会从底部移动上来
+//调用<span class=" wow bounceInUp">更多</span>//改按钮便会从底部移动上来
 //动画效果有多种，具体请查看new WOW()动画文档
 
 ### 动画插件 ------------

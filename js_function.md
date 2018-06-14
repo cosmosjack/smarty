@@ -110,6 +110,70 @@
 ### 动画插件 ------------
 ### 发布者：奔腾的骆驼
 
+###轮播图插件Swiper,本人使用的是Swiper3版本
+###参数：o:作用对象 ,l:滚动方向等等
+###<link rel="stylesheet" href="../swiper-3.4.2.min.css">引用swiper.min.css
+###<script src="path/to/jquery.js"></script>必须引用jquery.js
+###<script type="text/javascript" src="../swiper-3.4.2.min.js"></script>引用swiper.min.js
+html写上这段代码
+《div class="swiper-container">
+    《div class="swiper-wrapper">
+        《div class="swiper-slide">Slide 1《/div>
+        《div class="swiper-slide">Slide 2《/div>
+        《div class="swiper-slide">Slide 3《/div>
+    《/div>
+    <!-- 如果需要分页器 -->
+    《div class="swiper-pagination">《/div>
+    
+    <!-- 如果需要导航按钮 -->
+    《div class="swiper-button-prev">《/div>
+    《div class="swiper-button-next">《/div>
+    
+    <!-- 如果需要滚动条 -->
+    《div class="swiper-scrollbar">《/div>
+《/div>
+//------------------------------
+JS添加
+<script> 
+function oSwiper(o,l){
+	var mySwiper = new Swiper (o, {
+    direction: l,
+    loop: true,//是否循环
+    
+    // 如果需要分页器
+    pagination: '.swiper-pagination',
+    
+    // 如果需要前进后退按钮
+    nextButton: '.swiper-button-next',
+    prevButton: '.swiper-button-prev',
+    
+    // 如果需要滚动条
+    scrollbar: '.swiper-scrollbar',
+  })        
+}
+  
+  </script>
+//---------------------------------------
+### 轮播图插件Swiper ------------
+### 发布者：奔腾的骆驼
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

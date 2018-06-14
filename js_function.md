@@ -1,4 +1,7 @@
 ﻿# 这是这个框架的前台公共方法的说明
+### 悬浮框插件
+### 参数是：移动对象，横向移动的速度，纵向移动的速度
+
 //给悬浮框添加样式，其他样式可以不添加
 <style type="text/css">
 	html,body{
@@ -21,11 +24,11 @@
 		width: 200px;
 		cursor: pointer;
 	}
-	</style>
+</style>
 //悬浮框对象,一定要放在body下，不能有父级包在中间
->  *<div class="col-sm-4 elasticity">
+><div class="col-sm-4 elasticity">
 	><img src=""  />
->  *</div>//悬浮框对象
+></div>//悬浮框对象
 //悬浮框对象
     <script type="text/javascript" src="./jquery.min.js"></script><!-- 必须引用jq -->
     <script type="text/javascript">
@@ -68,7 +71,7 @@
                     elast($('.elasticity'),5,3); //函数调用
 		    	})
 		    }
-            hover($('.elasticity'));
+            hover($('.elasticity'));//调用函数
             //页面滚动监听
             $(document).ready(function(){
 				$(window).scroll(function(){
@@ -80,3 +83,101 @@
 				});
 			});
     </script>
+
+### 悬浮框插件end-----------------------
+### 发布者：奔腾的骆驼
+
+### 动画插件
+### 参数是：移动对象，横向移动的速度，纵向移动的速度
+###<link rel="stylesheet" type="text/css" href="<{$res}>/css/animate.min.css" />引用animate.min.css
+###<script type="text/javascript" src="<{$res}>/js/wow.min.js"></script>引用wow.min.js
+	//动画设置
+        Animation:function(){
+            new WOW().init(); //new 一个动画对象
+            var wow = new WOW({  
+                boxClass: 'wow', //调用class名称 
+                animateClass: 'animated',   //// default 为animate.css触发css动画的库 
+                offset: 0,  // 滚动条与对象的距离触发
+                mobile: true,// 是否支持手机  
+                live: true  // 检查新元素
+            });  
+            wow.init();//调用函数
+        },
+//调用《span class=" wow bounceInUp"》
+更多《/span》//改按钮便会从底部移动上来
+//动画效果有多种，具体请查看new WOW()动画文档
+
+### 动画插件 ------------
+### 发布者：奔腾的骆驼
+
+###轮播图插件Swiper,本人使用的是Swiper3版本
+###参数：o:作用对象 ,l:滚动方向等等
+###<link rel="stylesheet" href="../swiper-3.4.2.min.css">引用swiper.min.css
+###<script src="path/to/jquery.js"></script>必须引用jquery.js
+###<script type="text/javascript" src="../swiper-3.4.2.min.js"></script>引用swiper.min.js
+html写上这段代码
+<!-- 此处是轮播图 -->
+《div class="swiper-container">
+    《div class="swiper-wrapper">
+	<!-- 此处是图片 -->
+        《div class="swiper-slide">Slide 1《/div>
+        《div class="swiper-slide">Slide 2《/div>
+        《div class="swiper-slide">Slide 3《/div>
+    《/div>
+    <!-- 如果需要分页器 -->
+    《div class="swiper-pagination">《/div>
+    
+    <!-- 如果需要导航按钮 -->
+    《div class="swiper-button-prev">《/div>
+    《div class="swiper-button-next">《/div>
+    
+    <!-- 如果需要滚动条 -->
+    《div class="swiper-scrollbar">《/div>
+《/div>
+//------------------------------
+JS添加
+<script> 
+function oSwiper(o,l){
+	var mySwiper = new Swiper (o, {
+    direction: l,
+    loop: true,//是否循环
+    
+    // 如果需要分页器
+    pagination: '.swiper-pagination',
+    
+    // 如果需要前进后退按钮
+    nextButton: '.swiper-button-next',
+    prevButton: '.swiper-button-prev',
+    
+    // 如果需要滚动条
+    scrollbar: '.swiper-scrollbar',
+  })        
+}
+  
+  </script>
+//---------------------------------------
+### 轮播图插件Swiper ------------
+### 发布者：奔腾的骆驼
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

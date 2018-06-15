@@ -26,9 +26,9 @@
 	}
 </style>
 //悬浮框对象,一定要放在body下，不能有父级包在中间
-><div class="col-sm-4 elasticity">
-	><img src=""  />
-></div>//悬浮框对象
+```<div class="col-sm-4 elasticity">
+	```<img src=""  />
+```</div>//悬浮框对象
 //悬浮框对象
     <script type="text/javascript" src="./jquery.min.js"></script><!-- 必须引用jq -->
     <script type="text/javascript">
@@ -103,8 +103,8 @@
             });  
             wow.init();//调用函数
         },
-//调用《span class=" wow bounceInUp"》
-更多《/span》//改按钮便会从底部移动上来
+```<span class=" wow bounceInUp">更多
+```</span>//改按钮便会从底部移动上来
 //动画效果有多种，具体请查看new WOW()动画文档
 
 ### 动画插件 ------------
@@ -117,23 +117,23 @@
 ###<script type="text/javascript" src="../swiper-3.4.2.min.js"></script>引用swiper.min.js
 html写上这段代码
 <!-- 此处是轮播图 -->
-《div class="swiper-container">
-    《div class="swiper-wrapper">
+```<div class="swiper-container">
+    <div class="swiper-wrapper">
 	<!-- 此处是图片 -->
-        《div class="swiper-slide">Slide 1《/div>
-        《div class="swiper-slide">Slide 2《/div>
-        《div class="swiper-slide">Slide 3《/div>
-    《/div>
+        <div class="swiper-slide">Slide 1</div>
+        <div class="swiper-slide">Slide 2</div>
+        <div class="swiper-slide">Slide 3</div>
+    </div>
     <!-- 如果需要分页器 -->
-    《div class="swiper-pagination">《/div>
+    <div class="swiper-pagination"></div>
     
     <!-- 如果需要导航按钮 -->
-    《div class="swiper-button-prev">《/div>
-    《div class="swiper-button-next">《/div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
     
     <!-- 如果需要滚动条 -->
-    《div class="swiper-scrollbar">《/div>
-《/div>
+    <div class="swiper-scrollbar"></div>
+```</div>
 //------------------------------
 JS添加
 <script> 

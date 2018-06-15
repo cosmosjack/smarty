@@ -88,12 +88,12 @@
 ### 悬浮框插件end-----------------------
 ### 发布者：奔腾的骆驼
 
-### 动画插件
+``` 动画插件
 ### 参数是：移动对象，横向移动的速度，纵向移动的速度
 ###<link rel="stylesheet" type="text/css" href="<{$res}>/css/animate.min.css" />引用animate.min.css
 ###<script type="text/javascript" src="<{$res}>/js/wow.min.js"></script>引用wow.min.js
 	//动画设置
-        Animation:function(){
+Animation:function(){
             new WOW().init(); //new 一个动画对象
             var wow = new WOW({  
                 boxClass: 'wow', //调用class名称 
@@ -104,7 +104,7 @@
             });  
             wow.init();//调用函数
         },
-```<span class=" wow bounceInUp">更多
+<span class=" wow bounceInUp">更多
 ```</span>//改按钮便会从底部移动上来
 //动画效果有多种，具体请查看new WOW()动画文档
 

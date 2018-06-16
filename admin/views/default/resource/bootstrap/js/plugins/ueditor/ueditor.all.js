@@ -55,7 +55,7 @@ var browser = UE.browser = function(){
          * }
          * ```
          */
-        ie		:  /(msie\s|trident.*rv:)([\w.]+)/.test(agent),
+        ie      :  /(msie\s|trident.*rv:)([\w.]+)/.test(agent),
 
         /**
          * @property {boolean} opera 检测当前浏览器是否为Opera
@@ -66,7 +66,7 @@ var browser = UE.browser = function(){
          * }
          * ```
          */
-        opera	: ( !!opera && opera.version ),
+        opera   : ( !!opera && opera.version ),
 
         /**
          * @property {boolean} webkit 检测当前浏览器是否是webkit内核的浏览器
@@ -77,7 +77,7 @@ var browser = UE.browser = function(){
          * }
          * ```
          */
-        webkit	: ( agent.indexOf( ' applewebkit/' ) > -1 ),
+        webkit  : ( agent.indexOf( ' applewebkit/' ) > -1 ),
 
         /**
          * @property {boolean} mac 检测当前浏览器是否是运行在mac平台下
@@ -88,7 +88,7 @@ var browser = UE.browser = function(){
          * }
          * ```
          */
-        mac	: ( agent.indexOf( 'macintosh' ) > -1 ),
+        mac : ( agent.indexOf( 'macintosh' ) > -1 ),
 
         /**
          * @property {boolean} quirks 检测当前浏览器是否处于“怪异模式”下
@@ -237,7 +237,7 @@ var browser = UE.browser = function(){
      * ```
      */
     if(/(\d+\.\d)?(?:\.\d)?\s+safari\/?(\d+\.\d+)?/i.test(agent) && !/chrome/i.test(agent)){
-    	browser.safari = + (RegExp['\x241'] || RegExp['\x242']);
+        browser.safari = + (RegExp['\x241'] || RegExp['\x242']);
     }
 
 
@@ -8384,21 +8384,21 @@ UE.ajax = function() {
          * } );
          * ```
          */
-		request:function(url, opts) {
+        request:function(url, opts) {
             if (opts && opts.dataType == 'jsonp') {
                 doJsonp(url, opts);
             } else {
                 doAjax(url, opts);
             }
-		},
+        },
         getJSONP:function(url, data, fn) {
             var opts = {
                 'data': data,
                 'oncomplete': fn
             };
             doJsonp(url, opts);
-		}
-	};
+        }
+    };
 
 
 }();
@@ -17523,7 +17523,7 @@ UE.plugins['autofloat'] = function() {
         docStyle.backgroundImage = 'url("about:blank")';
         docStyle.backgroundAttachment = 'fixed';
     }
-    var	bakCssText,
+    var bakCssText,
         placeHolder = document.createElement('div'),
         toolbarBox,orgTop,
         getPosition,
@@ -17656,15 +17656,19 @@ UE.plugins['video'] = function (){
                 str = '<img ' + (id ? 'id="' + id+'"' : '') + ' width="'+ width +'" height="' + height + '" _url="'+url+'" class="' + classname.replace(/\bvideo-js\b/, '') + '"'  +
                     ' src="' + me.options.UEDITOR_HOME_URL+'themes/default/images/spacer.gif" style="background:url('+me.options.UEDITOR_HOME_URL+'themes/default/images/videologo.gif) no-repeat center center; border:1px solid gray;'+(align ? 'float:' + align + ';': '')+'" />'
                 break;
+            // case 'embed':
+            //     str = '<embed type="application/x-shockwave-flash" class="' + classname + '" pluginspage="http://www.macromedia.com/go/getflashplayer"' +
+            //         ' src="' +  utils.html(url) + '" width="' + width  + '" height="' + height  + '"'  + (align ? ' style="float:' + align + '"': '') +
+            //         ' wmode="transparent" play="true" loop="false" menu="false" allowscriptaccess="never" allowfullscreen="true" >';
+            //     break;
             case 'embed':
-                str = '<embed type="application/x-shockwave-flash" class="' + classname + '" pluginspage="http://www.macromedia.com/go/getflashplayer"' +
-                    ' src="' +  utils.html(url) + '" width="' + width  + '" height="' + height  + '"'  + (align ? ' style="float:' + align + '"': '') +
-                    ' wmode="transparent" play="true" loop="false" menu="false" allowscriptaccess="never" allowfullscreen="true" >';
+                str = '<embed  src="' +  utils.html(url) + '" width="' + width  + '" height="' + height  + '"'  + (align ? ' style="float:' + align + '"': '') +
+                    ' wmode="transparent" play="true" loop="false" controls  menu="false" allowscriptaccess="never" allowfullscreen="true" >';
                 break;
             case 'video':
                 var ext = url.substr(url.lastIndexOf('.') + 1);
                 if(ext == 'ogv') ext = 'ogg';
-                str = '<video' + (id ? ' id="' + id + '"' : '') + ' poster="https://www.shikexu.com/wp-content/uploads/2018/05/cropped-psb1.jpg" class="' + classname + ' video-js" ' + (align ? ' style="float:' + align + '"': '') +
+                str = '<video onclick="this.play();" ' + 'poster="' + me.options.UEDITOR_HOME_URL+'themes/default/images/video.jpg" ' + (id ? ' id="' + id + '"' : '') + ' class="' + classname + ' video-js" ' + (align ? ' style="float:' + align + '"': '') +
                     ' controls preload="none" width="' + width + '" height="' + height + '" src="' + url + '" data-setup="{}">' +
                     '<source src="' + url + '" type="video/' + ext + '" /></video>';
                 break;
@@ -17676,7 +17680,7 @@ UE.plugins['video'] = function (){
         utils.each(root.getNodesByTagName(img2video ? 'img' : 'embed video'),function(node){
             var className = node.getAttr('class');
             if(className && className.indexOf('edui-faked-video') != -1){
-                var html = creatInsertStr( img2video ? node.getAttr('_url') : node.getAttr('src'),node.getAttr('width'),node.getAttr('height'),null,node.getStyle('float') || '',className,img2video ? 'embed':'image');
+                var html = creatInsertStr( img2video ? node.getAttr('_url') : node.getAttr('src'),node.getAttr('width'),node.getAttr('height'),null,node.getStyle('float') || '',className,img2video ? 'video':'image');
                 node.parentNode.replaceChild(UE.uNode.createElement(html),node);
             }
             if(className && className.indexOf('edui-upload-video') != -1){
@@ -24817,75 +24821,75 @@ UE.plugin.register('insertfile', function (){
 
 UE.plugins.xssFilter = function() {
 
-	var config = UEDITOR_CONFIG;
-	var whitList = config.whitList;
+    var config = UEDITOR_CONFIG;
+    var whitList = config.whitList;
 
-	function filter(node) {
+    function filter(node) {
 
-		var tagName = node.tagName;
-		var attrs = node.attrs;
+        var tagName = node.tagName;
+        var attrs = node.attrs;
 
-		if (!whitList.hasOwnProperty(tagName)) {
-			node.parentNode.removeChild(node);
-			return false;
-		}
+        if (!whitList.hasOwnProperty(tagName)) {
+            node.parentNode.removeChild(node);
+            return false;
+        }
 
-		UE.utils.each(attrs, function (val, key) {
+        UE.utils.each(attrs, function (val, key) {
 
-			if (whitList[tagName].indexOf(key) === -1) {
-				node.setAttr(key);
-			}
-		});
-	}
+            if (whitList[tagName].indexOf(key) === -1) {
+                node.setAttr(key);
+            }
+        });
+    }
 
-	// 添加inserthtml\paste等操作用的过滤规则
-	if (whitList && config.xssFilterRules) {
-		this.options.filterRules = function () {
+    // 添加inserthtml\paste等操作用的过滤规则
+    if (whitList && config.xssFilterRules) {
+        this.options.filterRules = function () {
 
-			var result = {};
+            var result = {};
 
-			UE.utils.each(whitList, function(val, key) {
-				result[key] = function (node) {
-					return filter(node);
-				};
-			});
+            UE.utils.each(whitList, function(val, key) {
+                result[key] = function (node) {
+                    return filter(node);
+                };
+            });
 
-			return result;
-		}();
-	}
+            return result;
+        }();
+    }
 
-	var tagList = [];
+    var tagList = [];
 
-	UE.utils.each(whitList, function (val, key) {
-		tagList.push(key);
-	});
+    UE.utils.each(whitList, function (val, key) {
+        tagList.push(key);
+    });
 
-	// 添加input过滤规则
-	//
-	if (whitList && config.inputXssFilter) {
-		this.addInputRule(function (root) {
+    // 添加input过滤规则
+    //
+    if (whitList && config.inputXssFilter) {
+        this.addInputRule(function (root) {
 
-			root.traversal(function(node) {
-				if (node.type !== 'element') {
-					return false;
-				}
-				filter(node);
-			});
-		});
-	}
-	// 添加output过滤规则
-	//
-	if (whitList && config.outputXssFilter) {
-		this.addOutputRule(function (root) {
+            root.traversal(function(node) {
+                if (node.type !== 'element') {
+                    return false;
+                }
+                filter(node);
+            });
+        });
+    }
+    // 添加output过滤规则
+    //
+    if (whitList && config.outputXssFilter) {
+        this.addOutputRule(function (root) {
 
-			root.traversal(function(node) {
-				if (node.type !== 'element') {
-					return false;
-				}
-				filter(node);
-			});
-		});
-	}
+            root.traversal(function(node) {
+                if (node.type !== 'element') {
+                    return false;
+                }
+                filter(node);
+            });
+        });
+    }
 
 };
 

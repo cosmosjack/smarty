@@ -9,12 +9,6 @@
  */
 class whshow {
     public function index(){
-        /* 判断是否是手机端 start */
-        if($GLOBALS['is_mobile']){
-            $this->mobile_index();
-            die();
-        }
-        /* 判断是否是手机端 end */
         $db_news = D("news");
 
         $default_column = $this->get_default_column();
@@ -30,7 +24,7 @@ class whshow {
         }
         $json_data['left_data'] = $data_news_cls;
         //左侧数据 end
-        
+
         $data_news = $db_news->where(array('news_id'=>$_GET['id']))->find();
         $data_news['news_body'] = htmlspecialchars_decode($data_news['news_body']);
         $json_data['data_news'] = $data_news;

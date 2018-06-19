@@ -202,7 +202,7 @@ class Site{
                 $insert['type'] = $data['type'];
                 $insert['sort'] = $_POST['column_sort'];
                 $insert['level'] = 1;
-                $insert['url'] = "http://".$GLOBALS["_SERVER"]['SERVER_NAME'].'/whlist?cid='.$insert['cls_id'];
+                $insert['url'] = "http://".$GLOBALS["_SERVER"]['SERVER_NAME'].B_ROOT.'/whlist?cid='.$insert['cls_id'];
                 $insert['cls_pid'] = $data['cls_pid'];
                 $result = $db_column->insert($insert);
                 if($result){
@@ -215,7 +215,7 @@ class Site{
                             $insert_son['type'] = $cls_son_array[$i]['type'];
                             $insert_son['sort'] = $cls_son_array[$i]['sort'];
                             $insert_son['level'] = 2;
-                            $insert_son['url'] = "http://".$GLOBALS["_SERVER"]['SERVER_NAME'].'/whlist?cid='.$cls_son_array[$i]['news_cls_id'];
+                            $insert_son['url'] = "http://".$GLOBALS["_SERVER"]['SERVER_NAME'].B_ROOT.'/whlist?cid='.$cls_son_array[$i]['news_cls_id'];
                             $insert_son['cls_pid'] = $data['news_cls_id'];
                             $result_son[] = $db_column->insert($insert_son);
                             $array_insert[]= $insert_son;
@@ -238,7 +238,7 @@ class Site{
                 $insert['type'] = $data['type'];
                 $insert['sort'] = $_POST['column_sort'];
                 $insert['level'] = 1;
-                $insert['url'] = "http://".$GLOBALS["_SERVER"]['SERVER_NAME'].'/whlist?cid='.$insert['cls_id'];
+                $insert['url'] = "http://".$GLOBALS["_SERVER"]['SERVER_NAME'].B_ROOT.'/whlist?cid='.$insert['cls_id'];
                 $insert['cls_pid'] = $data['cls_pid'];
 //                ajaxReturn($insert);
                 $result = $db_column->insert($insert);

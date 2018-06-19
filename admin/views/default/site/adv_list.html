@@ -32,6 +32,9 @@
                                 </span>
                                 <span style="margin-left: 20px;">
                                     请上传<{if $val['position']==2}>320*160<{else if $val['cls_id']!=0}>1000*250<{else}>1920*520<{/if}>像素的图片</span>
+                                <span style="margin-left: 50px;">
+                                    <{if $val['position']==1}>PC端<{else}>手机端<{/if}>图片
+                                </span>
                             </li>
                         <{/foreach}>
                     </ul>

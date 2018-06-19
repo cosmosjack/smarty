@@ -9,7 +9,6 @@
  */
 class user{
     function index(){
-
     }
     // 添加会员
     function add_user(){

@@ -1,0 +1,89 @@
+<{include "public/header.html"}>
+<style>
+    .fpage_ul{
+        position: relative;
+        top: -10px;
+    }
+
+</style>
+<link rel="shortcut icon" href="favicon.ico">
+
+<!-- Data Tables -->
+<base target="_self">
+<script src="<{$res}>/bootstrap/js/jquery.min.js"></script>
+<script src="<{$res}>/bootstrap/js/bootstrap.min.js"></script>
+<script src="<{$res}>/bootstrap/js/content.min.js"></script>
+<script src="<{$res}>/bootstrap/js/config.js"></script>
+<script src="<{$res}>/bootstrap/js/tpl/user_list.js"></script>
+<script>
+    $(function(){
+        $(".fpage_ul").children("li").children("a").attr("target",'_self');
+        $(".fpage_ul").children("b").children('li').children("a").attr("target",'_self');
+//        $(".fpage_ul>a").attr("target","_self");
+    });
+</script>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <div class="col-sm-2">
+                    <input type="phone" name="activity_title" value="" placeholder="视频名字" class="form-control">
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control" id="order_state" name="order_state">
+                        <option value="1">视频分类</option>
+                        <option value="2">电视剧</option>
+                        <option value="3">电影</option>
+                        <option value="4">动漫</option>
+                    </select>
+                </div>
+                <div class="col-sm-1">
+                    <label class="btn btn-sm btn-info">标签</label>
+                </div>
+                <div class="col-sm-2">
+                    <label class="btn btn-sm btn-success">搜索</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+
+    <div class="row">
+
+        <{foreach $data_video as $key=>$val}>
+            <div class="col-sm-4">
+                <div class="contact-box">
+                    <a href="#">
+                        <div class="col-sm-4">
+                            <div class="text-center">
+                                <img alt="image" class=" m-t-xs img-responsive" src="<{$res}>/bootstrap/img/a2.jpg">
+                                <div class="m-t-xs font-bold">
+                                    <label class="btn btn-sm btn-success">多集</label>
+                                    <label class="btn btn-sm btn-success">单集</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <h3><strong>奔波儿灞</strong><label class="btn " >查看KEY</label></h3>
+                            <p><i class="fa fa-map-marker"></i> 甘肃·兰州</p>
+                            <address>
+                                <strong>Baidu, Inc.</strong><br>
+                                E-mail:xxx@baidu.com<br>
+                                Weibo:<a href="">http://weibo.com/xxx</a><br>
+                                <abbr title="Phone">Tel:</abbr> (123) 456-7890
+                            </address>
+                        </div>
+                        <div class="clearfix"></div>
+                    </a>
+                </div>
+            </div>
+        <{/foreach}>
+
+        <{$fpage}>
+
+    </div>
+</div>
+</body>
+
+</html>

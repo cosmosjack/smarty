@@ -34,7 +34,20 @@
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
+                    <div class="btn-group">
                     <h5>基本 <small>分类，查找</small></h5>
+                      <button type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        入驻状态筛选 <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li><a class="J_menuItem" href="<{$app}>/user/user_list" target="_self">全部</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a class="J_menuItem" href="<{$app}>/user/user_list?zhuangtai=0" target="_self">待确认</a></li>
+                        <li><a class="J_menuItem" href="<{$app}>/user/user_list?zhuangtai=1" target="_self">已入驻</a></li>
+                        <li><a class="J_menuItem" href="<{$app}>/user/user_list?zhuangtai=2" target="_self">已拒绝</a></li>
+                      </ul>
+                    </div>
+                
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -54,17 +67,16 @@
                     </div>
                 </div>
                 <div class="ibox-content" >
-
                     <table class="table table-striped table-bordered table-hover dataTables-example" id="tpl_data">
                         <thead>
                         <tr>
                             <th>会员ID</th>
                             <th class="col-lg-2">会员名字</th>
-                            <th>Email</th>
-                            <th>QQ</th>
+                            <th>性别</th>
                             <th>手机</th>
-                            <th class="col-sm-1">上次登录时间</th>
-                            <th>积分</th>
+                            <th>业务描述</th>
+                            <th>申请入驻时间</th>
+                            <th>入驻状态</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -73,12 +85,12 @@
                             <tr class="gradeX">
                                 <td><{$val.id}></td>
                                 <td><{$val.user_name}></td>
-                                <td><{$val.email}></td>
-                                <td><{$val.qq}></td>
+                                <td><{$val.user_sex}></td> 
                                 <td ><{$val.phone}></td>
-                                <td ><{$val.last_login_time}></td>
-                                <td><{$val.integral}></td>
-                                <td><a>查询</a><a style="margin-left: 10px;color: #8b0000">删除</a></td>
+                                <td><{$val.user_desc}></td>
+                                <td><{$val.add_times|date_format:"Y-m-d H:i:s"}></td>
+                                <td><{$val.readnum}></td>
+                                <td><a onclick="ruzhu_user('<{$val.id}>')" style="margin-left: 10px;">入驻</a> | <a onclick="jujue_user('<{$val.id}>')" style="margin-left: 10px;">拒绝</a> | <a onclick="del_user('<{$val.id}>')" style="margin-left: 10px;color: #8b0000">删除</a></td>
                             </tr>
                         <{/foreach}>
 
@@ -548,6 +560,77 @@
     </div>
     </div>-->
 </div>
+
+
+<script>
+    //删除会员 start
+    function del_user(id){ 
+        var r=confirm("是否删除");
+        if (r==true){
+            $.ajax({
+                url:"<{$url}>/del_user",
+                type:"POST",
+                data:{user_id:id},
+                success:function(msg){
+                    if(msg.code==200){
+                        alert(msg.msg);
+                    }else{
+                        alert(msg.msg);
+                    }
+                    window.location.reload();
+                },
+                error:function(){
+                    console.log("http error");
+                }
+            });
+        }
+        return false;
+    }
+    //删除会员 end
+    
+    //入驻会员 start
+    function ruzhu_user(id){
+        $.ajax({
+            url:"<{$url}>/ruzhu_user",
+            type:"POST",
+            data:{user_id:id},
+            success:function(msg){
+                if(msg.code==200){
+                    alert(msg.msg);
+                }else{
+                    alert(msg.msg);
+                }
+                window.location.reload();
+            },
+            error:function(){
+                console.log("http error");
+            }
+        });
+    }
+    //入驻会员 end
+    
+    //拒绝入驻 start
+    function jujue_user(id){
+        $.ajax({
+            url:"<{$url}>/jujue_user",
+            type:"POST",
+            data:{user_id:id},
+            success:function(msg){
+                if(msg.code==200){
+                    alert(msg.msg);
+                }else{
+                    alert(msg.msg);
+                }
+                window.location.reload();
+            },
+            error:function(){
+                console.log("http error");
+            }
+        });
+    }
+    //拒绝入驻 end
+</script>
+
 
 </body>
 

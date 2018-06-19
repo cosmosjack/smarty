@@ -13,7 +13,6 @@ class user{
     }
     // 添加会员
     function add_user(){
-
         if(isset($_POST['sub'])){
 //            P($_POST);
 //            die;
@@ -32,14 +31,77 @@ class user{
     // 会员列表
     function user_list(){
         $db_user = D('users');
-        $page = new Page($db_user->total(),8);
-
-        $data_user = $db_user->limit($page->limit)->select();
+        $rz_zhuangtai = $_GET['zhuangtai'];
+        if ($rz_zhuangtai == '0') {
+            $ruzhu1['readnum'] = 0;
+        } elseif ($rz_zhuangtai == '1') {
+            $ruzhu1['readnum'] = 1;
+        } elseif ($rz_zhuangtai == '2') {
+            $ruzhu1['readnum'] = 2;
+        } else {
+            $ruzhu1['readnum'] = [0,1,2];
+        }
+        $ruzhu = ['0'=>'待确认','1'=>'已入驻','2'=>'已拒绝'];
+        $page = new Page($db_user->where($ruzhu1)->total(),8);
+        $data_user = $db_user->where($ruzhu1)->limit($page->limit)->select();
+        foreach ($data_user as $key => $value) {
+            $data_user[$key]['readnum'] = $ruzhu[$value['readnum']];
+        }
+//        p($data_user);
         $this->assign('data_user',$data_user);
         $this->assign('fpage',$page->fpage());
         $this->display();
 
     }
+
+    //删除会员 start
+    function del_user(){
+        $db_user = D('users');
+        $id = $_POST['user_id'];
+        if (empty($_POST['user_id'])) {
+            ajaxReturn(array('control'=>'del','code'=>0,'msg'=>'参数错误'),"JSON");
+        }
+        $result = $db_user->where(['id'=>$id])->delete();
+        if ($result > 0) {
+            ajaxReturn(array('control'=>'del','code'=>200,'msg'=>'删除成功'),"JSON");
+        } else {
+            ajaxReturn(array('control'=>'del','code'=>0,'msg'=>'删除失败'),"JSON");
+        }
+    }
+    //删除会员 end
+
+    //入驻会员 start
+    function ruzhu_user(){
+        $db_user = D('users');
+        $id = $_POST['user_id'];
+        if (empty($_POST['user_id'])) {
+            ajaxReturn(array('control'=>'del','code'=>0,'msg'=>'参数错误'),"JSON");
+        }
+        $result = $db_user->where(['id'=>$id])->update("readnum=1");
+        if ($result > 0) {
+            ajaxReturn(array('control'=>'del','code'=>200,'msg'=>'入驻成功'),"JSON");
+        } else {
+            ajaxReturn(array('control'=>'del','code'=>0,'msg'=>'入驻失败'),"JSON");
+        }
+    }
+    //入驻会员 end
+
+    //拒绝入驻 start
+    function jujue_user(){
+        $db_user = D('users');
+        $id = $_POST['user_id'];
+        if (empty($_POST['user_id'])) {
+            ajaxReturn(array('control'=>'del','code'=>0,'msg'=>'参数错误'),"JSON");
+        }
+        $result = $db_user->where(['id'=>$id])->update("readnum=2");
+        if ($result > 0) {
+            ajaxReturn(array('control'=>'del','code'=>200,'msg'=>'拒绝入驻成功'),"JSON");
+        } else {
+            ajaxReturn(array('control'=>'del','code'=>0,'msg'=>'拒绝入驻失败'),"JSON");
+        }
+    }
+    //拒绝入驻 end
+
     // 会员修改
     function mod_user(){
         echo '修改会员信息';

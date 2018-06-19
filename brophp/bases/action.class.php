@@ -17,12 +17,12 @@
 				call_user_func(array($this, $method));
 			}else{
                 /* 判断 404.html 是否存在 不存在则调转 首页 start */
-                if(is_file($_SERVER['DOCUMENT_ROOT'].DS.'404.html')){
-                    $url_404 = SHOP_SITE_URL.DS."404.html";
-                }else{
-                    $url_404 = SHOP_SITE_URL;
-                }
-                header('Location: '.$url_404);
+                if(is_file($_SERVER['DOCUMENT_ROOT'].B_ROOT.DS.'404.html')){
+		            $url_404 = SHOP_SITE_URL.B_ROOT.DS."404.html";
+		        }else{
+		            $url_404 = SHOP_SITE_URL.B_ROOT."/index";
+		        }
+		        header('Location: '.$url_404);
                 /* 判断 404.html 是否存在 不存在则调转 首页 end */
                 Debug::addmsg("<font color='red'>没有{$_GET["a"]}这个操作！</font>");
 			}	

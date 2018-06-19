@@ -25,7 +25,7 @@
 
 
 
-	define('IN_BROSHOP', true);   //每个通过框架加载的文件，都需要判断这个常量是否存在
+	define('IN_COSMOS', true);   //每个通过框架加载的文件，都需要判断这个常量是否存在
 
 
 

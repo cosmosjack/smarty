@@ -118,7 +118,7 @@
         $("input[name='link_name']").val(link_name);
         $("input[name='link_pname']").val(link_pname);
         $("input[name='link_url']").val(link_url);
-        $("#preview").attr('src','http://'+window.location.host+'/uploads/links/'+link_pic);
+        $("#preview").attr('src','http://'+window.location.host+'<{$root}>'+'/uploads/links/'+link_pic);
     }
     function del_adv(link_id){
         console.log(link_id);

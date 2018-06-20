@@ -44,12 +44,11 @@ class news{
 //        p($data_news_cls);
         $this->assign("data_news_cls",$data_news_cls);
         $this->display();
-
     }
     // 删除类别
     function del_cls(){
         $db_cls = D("news_cls");
-        $result = $db_cls->where(array('news_cls_id'=>$_GET['cls_id']))->delete();
+        $result = $db_cls->where(array('news_cls_id'=>$_GET['cls_id']),array('cls_pid'=>$_GET['cls_id']))->delete();
         if($result){
             ajaxReturn(array('control'=>'del_cls','code'=>200,'msg'=>'删除成功'),"JSON");
         }else{

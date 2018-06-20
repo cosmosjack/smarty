@@ -392,7 +392,7 @@ class Site{
     function get_child_column(){
         $db_column = D('column');
         /*获取当前栏目中已经放在首页的资讯子栏目 start*/
-        $news_cls_array = $db_column->where(array('cls_pid'=>$_POST['colum_id']))->select();
+        $news_cls_array = $db_column->where(array('cls_pid'=>$_POST['cls_id']))->select();
         $news_cls_array = array_column($news_cls_array, 'cls_id');
         /*获取当前栏目中已经放在首页的资讯子栏目 end*/
         // p($news_cls_array);

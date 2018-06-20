@@ -240,7 +240,7 @@
 		private function createFolder($path) {
  			if (!file_exists($path)) {
 				$this->createFolder(dirname($path));
-				@mkdir($path, 0755);
+				@mkdir($path, 0775);
 			}
 		}
 

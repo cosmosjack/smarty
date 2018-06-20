@@ -335,8 +335,11 @@ class news{
             $update['news_cls_pic'] = $up->getFileName();
         }
         /* 如果有新的图片上传成功 则删除原来的图片 end */
-
-        $update['news_cls_name'] = $_POST['cls_name'];
+        /* 如果是顶级则不能被修改 start */
+        if($info['level'] != 1){
+            $update['news_cls_name'] = $_POST['cls_name'];
+        }
+        /* 如果是顶级则不能被修改 end */
         $update['news_cls_desc'] = $_POST['cls_desc'];
         $result = $db_news_cls->where($_POST['cls_id'])->update($update);
         if($result){

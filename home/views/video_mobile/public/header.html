@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>
+        <{$site_title}>
+    </title>
+    <meta name="description" content="大连机床就选大连机床长，大连机床集团，大连机床集团有限责任公司">
+    <meta name="keywords" content=大连机床、大连机床厂、大连机床集团、大连机床集团有限责任公司>
+    <!--[if lt IE 9]>
+    <script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js">
+    </script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="<{$res}>/css/style.css">
+    <link rel="stylesheet" type="text/css" href="<{$res}>/css/df.css">
+    <script src="<{$res}>/js/h5.js" type="text/javascript">
+    </script>
+    <script src="<{$res}>/js/jquery.js" type="text/javascript">
+    </script>
+    <script type="text/javascript" src="<{$res}>/js/jquery-ui.js">
+    </script>
+    <script type="text/javascript" src="<{$res}>/js/fwslider.js">
+    </script>
+
+    <script>
+        //    var _hmt = _hmt || []; (function() {
+        //      var hm = document.createElement("script");
+        //      hm.src = "//hm.baidu.com/hm.js?8ba1608c7532722adab8f82f29298009";
+        //      var s = document.getElementsByTagName("script")[0];
+        //      s.parentNode.insertBefore(hm, s);
+        //    })();
+    </script>
+</head>
+<body>
+<header id="header">
+    <div class="head_box">
+        <div class="logo">
+            <a href="javascrpt:">
+                <img src="<{$public}>/uploads/home_adv/<{$data_site.site_logo}>">
+            </a>
+        </div>
+        <div class="head_right clearfix">
+            <a href="javascrpt:&id=24" class="btn">
+                优惠活动
+            </a>
+            <img src="<{$res}>/img/tel.png">
+            TEL:<{$data_site.company_tel}>
+        </div>
+    </div>
+</header>
+<nav id="nav">
+    <ul>
+        <{foreach $data_column as $key=>$val}>
+            <li <{if $key== $smarty.get.choose}> class = "on" <{/if}> >
+                <a href="<{$val.url}>/choose/<{$key}>" target="">
+                    <{$val.cls_name}>
+                </a>
+            </li>
+        <{/foreach}>
+    </ul>
+</nav>

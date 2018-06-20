@@ -284,6 +284,10 @@ class news{
         $db_news_cls = D('news_cls');
 
         if($_POST['sub']){
+            if($_POST['level'] == 1){
+                $this->error("目前不能增加顶级分类",2);
+                die();
+            }
             if(empty($_POST['news_cls_name'])){
                 $this->error("栏目为空或重复",2);
             }

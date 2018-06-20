@@ -237,7 +237,7 @@ class Site{
                 $insert['cls_id'] = $data['news_cls_id'];
                 $insert['type'] = $data['type'];
                 $insert['sort'] = $_POST['column_sort'];
-                $insert['level'] = 1;
+                $insert['level'] = 2;
                 $insert['url'] = "http://".$GLOBALS["_SERVER"]['SERVER_NAME'].B_ROOT.'/whlist?cid='.$insert['cls_id'];
                 $insert['cls_pid'] = $data['cls_pid'];
 //                ajaxReturn($insert);

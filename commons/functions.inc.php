@@ -43,7 +43,7 @@ function is_mobile_request()
 function getChildArr($pid=0,$init_cid=false,$table='news_cls',$data_cls=array(),$level=0){
     $db_cls = D($table);
     $rows = $db_cls
-        ->field('news_cls_id,news_cls_name,cls_pid,level,news_cls_pic')
+        ->field('news_cls_id,news_cls_name,cls_pid,level,news_cls_pic,type')
         ->where(array("cls_pid"=>$pid))
         ->select(); //21 产品
     //返回结果集

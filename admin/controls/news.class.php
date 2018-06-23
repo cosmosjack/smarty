@@ -303,6 +303,7 @@ class news{
             $insert['news_cls_desc'] = $_POST['news_cls_desc'];
             $insert['cls_pid'] = $_POST['cls_pid'];
             $insert['level'] = $_POST['level'] ? $_POST['level']:2;
+            $insert['url'] = $_POST['cls_url'];
             $result = $db_news_cls->insert($insert);
 
             if($result){
@@ -345,6 +346,7 @@ class news{
         }
         /* 如果是顶级则不能被修改 end */
         $update['news_cls_desc'] = $_POST['cls_desc'];
+        $update['url'] = $_POST['cls_url'];
         $result = $db_news_cls->where($_POST['cls_id'])->update($update);
         if($result){
             $this->success('修改成功',2,"news/cls_list");

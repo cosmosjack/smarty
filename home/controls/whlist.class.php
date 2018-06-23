@@ -20,6 +20,13 @@ class whlist {
     }
 
     function mobile_index(){
+        // 分类直接用的是中文
+        // is_more 是否有跟多部
+        // tag 标签
+        // 名字
+        /* 根据传进来的值获取视频列表 可以有关键词 和标签 分类 只搜素第一集 start */
+
+        /* 根据传进来的值获取视频列表 可以有关键词 和标签 分类 end */
         $this->display('index');
     }
 

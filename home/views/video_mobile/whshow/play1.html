@@ -11,12 +11,13 @@
     <link rel="stylesheet" href="<{$res}>/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="<{$res}>/css/main.css"/>
     <link rel="stylesheet" href="<{$res}>/css/swiper.min.css"/>
-    <link rel="stylesheet" href="<{$res}>/css/video.css?v=bcd2ce1385" rel="stylesheet">
 
     <title>播放</title>
 </head>
 <body>
 <!--通用顶部-->
+
+
 <header>
     <ul class="header">
         <li class="both_header"><a href="JavaScript:history.Go(-1)" class="icon_return"></a></li>
@@ -25,9 +26,7 @@
     </ul>
 </header>
 <section>
-    <video id="roomVideo" class="video-js vjs-default-skin vjs-big-play-centered" x-webkit-airplay="allow" poster="" webkit-playsinline playsinline x5-video-player-type="h5" x5-video-player-fullscreen="true" preload="auto">
-        <source src="http://smarty.com/demos/9Ig6MLgQ/index.m3u8"  type="application/x-mpegURL">
-    </video>
+    <div id="mediaplayer"></div>
     <div class="Episode_style ">
         <a href="javascript:" class="btn Episode_link "><i class="triangle-left "></i>上一集</a>
         <a href="javascript:" class="btnLight on btn Episode_link ">关灯</a>
@@ -166,123 +165,78 @@
         </div>
     </div>
 </section>
-<script src="<{$res}>/js/jquery-2.1.js"></script>
-<script src="<{$res}>/js/video.js?v=fc5104a2ab23"></script>
-<script src="<{$res}>/js/videojs-contrib-hls.js?v=c726b94b9923"></script>
+<script type="text/javascript" src="<{$res}>/js/jwplayer/jwplayer.js"></script>
+<script type="text/javascript">
+    jwplayer('mediaplayer').setup({
+        'flashplayer': 'js/jwplayer/jwplayer.flash.swf',
+        'image': 'images/d1.jpg',
+        'id': 'playerID',
+        'width': '100%',
+        'aspectratio':'16:9',
+        'file': 'https://acornmedia.herokuapp.com/media/tears_of_steel_480.mp4'
+    });
+</script>
 </body>
 </html>
-
-<script type="text/javascript">
-    var myPlayer = videojs('roomVideo',{
-        autoplay:false,
-        controls:true,
-        preload:'metadata',
-        bigPlayButton : true,
-        textTrackDisplay : true,
-        posterImage: true,
-        errorDisplay : true,
-        controlBar : true
-    },function(){
-        console.log(this)
-        this.on('loadedmetadata',function(){
-            console.log('loadedmetadata');
-            //加载到元数据后开始播放视频
-            startVideo();
-        })
-
-        this.on('ended',function(){
-            console.log('ended')
-//				window.location.href = "./0520.html";
-        })
-        this.on('firstplay',function(){
-            console.log('firstplay')
-        })
-        this.on('loadstart',function(){
-            //开始加载
-            console.log('loadstart')
-        })
-        this.on('loadeddata',function(){
-            console.log('loadeddata')
-        })
-        this.on('seeking',function(){
-            //正在去拿视频流的路上
-            console.log('seeking')
-        })
-        this.on('seeked',function(){
-            //已经拿到视频流,可以播放
-            console.log('seeked')
-        })
-        this.on('waiting',function(){
-            console.log('waiting')
-        })
-        this.on('pause',function(){
-            console.log('pause');
-            /* 暂停 start */
-            clearInterval(isVideoBreak);
-            myPlayer.pause();
-            /* 暂停 end */
-        })
-        this.on('play',function(){
-            console.log('play');
-            startVideo();
-
-
-        })
-
+<script src="<{$res}>/js/jquery-1.11.2.min.js"></script>
+<script>
+    $(".arrow_link").click(function(){
+        if($(this).hasClass("arrow_down")){
+            $(this).removeClass("arrow_down").addClass("arrow_up");
+            $(".panel_style").show();
+        }else{
+            $(this).removeClass("arrow_up").addClass("arrow_down");
+            $(".panel_style").hide();
+        }
     });
 
-    var isVideoBreak;
-    function startVideo() {
-
-        myPlayer.play();
-
-        //微信内全屏支持
-        document.getElementById('roomVideo').style.width = window.screen.width + "px";
-        document.getElementById('roomVideo').style.height = window.screen.height + "px";
-
-
-        //判断开始播放视频，移除高斯模糊等待层
-        var isVideoPlaying = setInterval(function(){
-            var currentTime = myPlayer.currentTime();
-            if(currentTime > 0){
-                $('.vjs-poster').remove();
-                clearInterval(isVideoPlaying);
-            }
-        },200)
-
-        //判断视频是否卡住，卡主3s重新load视频
-        var lastTime = -1,
-                tryTimes = 0;
-
-        clearInterval(isVideoBreak);
-        isVideoBreak = setInterval(function(){
-            var currentTime = myPlayer.currentTime();
-            console.log('currentTime'+currentTime+'lastTime'+lastTime);
-
-            if(currentTime == lastTime){
-                //此时视频已卡主3s
-                //设置当前播放时间为超时时间，此时videojs会在play()后把currentTime设置为0
-                myPlayer.currentTime(currentTime+10000);
-                myPlayer.play();
-
-                //尝试5次播放后，如仍未播放成功提示刷新
-                if(++tryTimes > 5){
-                    alert('您的网速有点慢，刷新下试试');
-                    tryTimes = 0;
-                }
-            }else{
-                lastTime = currentTime;
-                tryTimes = 0;
-            }
-        },3000)
-
-    }
-
-    /* 发送弹幕 start */
-    function send_danmu(){
-        console.log(myPlayer.currentTime());
-    }
-    /* 发送弹幕 end */
 </script>
+<script src="<{$res}>/js/main.js"></script>
+<script>
+    //关灯
+    $('.btnLight').click(function(e) {
+        e = e || window.event;
+        if ($(this).hasClass('on')) {
+            $(this).removeClass('on');
+            $('body').append('<div class="overlay"></div>');
+            $('.overlay').css({
+                'position': 'fixed',
+                'width': 100 + '%',
+                'height': $(document).height(),
+                'background': '#000',
+                'opacity': 1,
+                'top': 0,
+                'left': 0,
+                'z-index': 999
+            });
+            $('.playContent').css({
+                'z-index': 1000
+            });
+            $('.playControll').css({
+                'bottom': -48,
+                'z-index': 1000
+            });
+
+            $('.playContent').hover(function() {
+                $('.playControll').stop().animate({
+                    'height': 48,
+                },500);
+            }, function() {
+                setTimeout(function() {
+                    $('.playControll').stop().animate({
+                        'height': 0,
+                    }, 500);
+                }, 2000)
+            });
+        } else {
+            $(this).addClass('on');
+            $('.overlay').remove();
+            $('.playControll').css({
+                'bottom': 0,
+            });
+        }
+        e.stopPropagation();
+        e.preventDefault();
+    });
 
 </script>

@@ -17,6 +17,11 @@ class whshow {
         $this->display('index');
     }
     function play(){
+        /* 根据传递进来的 obj_id 获取视频信息 或者直接传递所有的视频信息 start */
+
+        /* 根据传递进来的 obj_id 获取视频信息 或者直接传递所有的视频信息 end */
         $this->display();
     }
+
+
 }

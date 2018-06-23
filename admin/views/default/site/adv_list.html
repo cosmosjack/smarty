@@ -35,6 +35,11 @@
                                 <span style="margin-left: 50px;">
                                     <{if $val['position']==1}>PC端<{else}>手机端<{/if}>图片
                                 </span>
+                                <span style="margin-left: 80px;">
+                                    显示位置：<{foreach $column as $v}>
+                                                    <{if $val['cls_id']==$v['cls_id']}><{$v.cls_name}><{/if}>
+                                              <{/foreach}>
+                                </span>
                             </li>
                         <{/foreach}>
                     </ul>

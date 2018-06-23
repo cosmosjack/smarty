@@ -45,7 +45,7 @@
                                         <!--<span lower_count="<{count($val.son_data)}>" onclick="del_cls('<{$val.news_cls_id}>',this);" class="label label-primary pull-right">
                                         <i class="fa fa-trash-o "></i>
                                         </span>-->
-                                        <span onclick="edit_cls('<{$val.news_cls_id}>','<{$val.news_cls_name}>','<{$val.news_cls_desc}>');" data-toggle="modal" data-target="#myModal2" class="label label-danger pull-right">
+                                        <span onclick="edit_cls('<{$val.news_cls_id}>','<{$val.news_cls_name}>','<{$val.news_cls_desc}>','<{$val.news_cls_pic}>');" data-toggle="modal" data-target="#myModal2" class="label label-danger pull-right">
                                             <i class=" fa fa-pencil "></i>
                                         </span>
                                         <span onclick="window.location.href='<{$url}>/cls_add/pid/<{$val.news_cls_id}>';" class="label label-success pull-right">
@@ -65,10 +65,10 @@
                                             <{$second_val.news_cls_name}>
                                             <input type="text" name="sort" class="input-sm" style="width: 50px;" index="<{$second_val.news_cls_id}>" value="<{$second_val.sort}>">
                                             <span style="margin-left: 20px;">ID: <{$second_val.news_cls_id}></span>
-                                            <span onclick="del_cls('<{$second_val.news_cls_id}>');" class="label label-primary pull-right">
+                                            <!-- <span onclick="del_cls('<{$second_val.news_cls_id}>');" class="label label-primary pull-right">
                                             <i class="fa fa-trash-o "></i>
-                                            </span>
-                                            <span onclick="edit_cls('<{$second_val.news_cls_id}>','<{$second_val.news_cls_name}>','<{$second_val.news_cls_desc}>');" data-toggle="modal" data-target="#myModal2"  class="label label-danger pull-right ">
+                                            </span> -->
+                                            <span onclick="edit_cls('<{$second_val.news_cls_id}>','<{$second_val.news_cls_name}>','<{$second_val.news_cls_desc}>','<{$second_val.news_cls_pic}>');" data-toggle="modal" data-target="#myModal2"  class="label label-danger pull-right ">
                                                 <i class=" fa fa-pencil "></i>
                                             </span>
                                              <span onclick="window.location.href='<{$url}>/cls_add/pid/<{$second_val.news_cls_id}>';" class="label label-success pull-right">
@@ -259,12 +259,12 @@
     /* 删除类别 end */
 
     /* 修改类别 start */
-    function edit_cls(cls_id,cls_name,cls_desc){
+    function edit_cls(cls_id,cls_name,cls_desc,cls_pic){
         console.log(cls_id);
         $("input[name='cls_name']").val(cls_name);
         $("input[name='cls_id']").val(cls_id);
         $("input[name='cls_desc']").val(cls_desc);
-
+        $("#preview").attr('src','http://'+window.location.host+'<{$root}>'+'/uploads/news/'+cls_pic);
     }
     /* 修改类别 end */
 

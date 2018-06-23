@@ -54,10 +54,9 @@
         <{foreach $data_video as $key=>$val}>
             <div class="col-sm-4">
                 <div class="contact-box">
-                    <a href="#">
                         <div class="col-sm-4">
                             <div class="text-center">
-                                <img alt="image" class=" m-t-xs img-responsive" src="<{$res}>/bootstrap/img/a2.jpg">
+                                <img alt="image" class=" m-t-xs img-responsive" src="<{$video_path_pre}><{$val.rpath}>/<{$val.output.pic1|basename}>">
                                 <div class="m-t-xs font-bold">
                                     <label class="btn btn-sm btn-success">多集</label>
                                     <label class="btn btn-sm btn-success">单集</label>
@@ -65,17 +64,23 @@
                             </div>
                         </div>
                         <div class="col-sm-8">
-                            <h3><strong>奔波儿灞</strong><label class="btn btn-sm btn-primary pull-right" >查看KEY</label></h3>
-                            <p><i class="fa fa-map-marker"></i> 甘肃·兰州</p>
+                            <h3><strong><{$val.orgfile|regex_replace:"/\..*/":""}></strong><label class="btn btn-sm btn-primary pull-right" >查看KEY</label></h3>
+                            <p><i class="fa fa-map-marker"></i> 电视剧</p>
                             <address>
-                                <strong>Baidu, Inc.</strong><br>
-                                E-mail:xxx@baidu.com<br>
-                                Weibo:<a href="">http://weibo.com/xxx</a><br>
-                                <abbr title="Phone">Tel:</abbr> (123) 456-7890
+                                <strong>都市,搞笑,国产</strong>
+                                <hr>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-4"><label class="btn btn-sm btn-info">第几集</label></div>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control"/>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="btn btn-sm btn-info">设置</label>
+                                    </div>
+                                </div>
                             </address>
                         </div>
                         <div class="clearfix"></div>
-                    </a>
                 </div>
             </div>
         <{/foreach}>

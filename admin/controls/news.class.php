@@ -44,12 +44,11 @@ class news{
 //        p($data_news_cls);
         $this->assign("data_news_cls",$data_news_cls);
         $this->display();
-
     }
     // 删除类别
     function del_cls(){
         $db_cls = D("news_cls");
-        $result = $db_cls->where(array('news_cls_id'=>$_GET['cls_id']))->delete();
+        $result = $db_cls->where(array('news_cls_id'=>$_GET['cls_id']),array('cls_pid'=>$_GET['cls_id']))->delete();
         if($result){
             ajaxReturn(array('control'=>'del_cls','code'=>200,'msg'=>'删除成功'),"JSON");
         }else{
@@ -285,6 +284,10 @@ class news{
         $db_news_cls = D('news_cls');
 
         if($_POST['sub']){
+            if($_POST['level'] == 1){
+                $this->error("目前不能增加顶级分类",2);
+                die();
+            }
             if(empty($_POST['news_cls_name'])){
                 $this->error("栏目为空或重复",2);
             }
@@ -336,8 +339,11 @@ class news{
             $update['news_cls_pic'] = $up->getFileName();
         }
         /* 如果有新的图片上传成功 则删除原来的图片 end */
-
-        $update['news_cls_name'] = $_POST['cls_name'];
+        /* 如果是顶级则不能被修改 start */
+        if($info['level'] != 1){
+            $update['news_cls_name'] = $_POST['cls_name'];
+        }
+        /* 如果是顶级则不能被修改 end */
         $update['news_cls_desc'] = $_POST['cls_desc'];
         $result = $db_news_cls->where($_POST['cls_id'])->update($update);
         if($result){

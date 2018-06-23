@@ -172,9 +172,11 @@
         $("input[name='ad_link']").val(img_url);
         //选择默认的类别
         if(position){
+            $("select[name='position']").find("option").attr("selected",false);
             $("select[name='position']").find("option[value='"+position+"']").attr("selected",true);
         }
         if(cls_id){
+            $("select[name='cls_id']").find("option").attr("selected",false);
             $("select[name='cls_id']").find("option[value='"+cls_id+"']").attr("selected",true);
         }
     }

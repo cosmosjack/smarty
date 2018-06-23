@@ -430,7 +430,8 @@
         var cls_type = $("select[name='column_select']").find("option:selected").attr('type_id'); // 类别ID
         var cls_type_name = $("select[name='column_select']").find("option:selected").attr('type_name'); // 类别ID
         var column_sort = $("input[name='column_sort']").val(); //栏目 排序
-        var json_data = {"cls_id":cls_id,"cls_type":cls_type,"cls_type_name":cls_type_name,"column_sort":column_sort};
+        var level = $("select[name='column_select']").find("option:selected").attr('level');//分类层级
+        var json_data = {"cls_id":cls_id,"cls_type":cls_type,"cls_type_name":cls_type_name,"column_sort":column_sort,"level":level};
         console.log(json_data);
 //        return false;
         $.ajax({
@@ -480,7 +481,7 @@
                         }else{
                             var level_str = '';
                         }
-                        $("select[name='column_select']").append('<option value="'+msg[i].news_cls_id+'" type_name="'+type_name+'" type_id="'+msg[i].type+'">'+level_str+msg[i].news_cls_name+'</option>');
+                        $("select[name='column_select']").append('<option value="'+msg[i].news_cls_id+'" type_name="'+type_name+'" type_id="'+msg[i].type+'" level="1">'+level_str+msg[i].news_cls_name+'</option>');
                     }
                 }
             },
@@ -519,7 +520,7 @@
                         }else{
                             var level_str = '';
                         }
-                        $("select[name='column_select']").append('<option value="'+msg[i].news_cls_id+'" type_name="'+type_name+'" type_id="'+msg[i].type+'">'+level_str+msg[i].news_cls_name+'</option>');
+                        $("select[name='column_select']").append('<option value="'+msg[i].news_cls_id+'" type_name="'+type_name+'" type_id="'+msg[i].type+'" level="2">'+level_str+msg[i].news_cls_name+'</option>');
                     }
                 }
             },

@@ -78,10 +78,10 @@
                                 <div class="col-sm-12">
                                     <div class="col-sm-4"><label class="btn btn-sm btn-info">第几集</label></div>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control"/>
+                                        <input type="text" name="num_<{$val.md5}>" value="<{$val.num}>" class="form-control"/>
                                     </div>
                                     <div class="col-sm-4">
-                                        <label class="btn btn-sm btn-info">设置</label>
+                                        <label onclick="set_num('<{$val.md5}>')" class="btn btn-sm btn-info">设置</label>
                                     </div>
                                 </div>
                             </address>
@@ -107,6 +107,13 @@
             <div class="modal-body">
 
                 <div class="row" id="tag_body">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">首集KEY</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="" placeholder="填写第一集的KEY" class="form-control">
+                        </div>
+                    </div>
+                    
                     <div id="select_body">
                         <select class="form-control">
                             <option value="dd">分类名字</option>
@@ -155,12 +162,21 @@
                 <small class="font-bold">修改内容的分类和标签</small>
             </div>
             <div class="modal-body">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">首集KEY</label>
-                        <div class="col-sm-4">
-                            <input type="text" name="first_key" placeholder="填写第一集的KEY" class="form-control">
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">首集KEY</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="first_key" placeholder="填写第一集的KEY" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">第几集</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="video_num" placeholder="填写这个是第几集" class="form-control">
+                            </div>
                         </div>
                     </div>
+
             </div>
             <div class="modal-footer">
                 <input type="hidden" name="choose_id" value=""/>
@@ -178,7 +194,7 @@
         $.each($('input[name="video_check"]:checked'),function(){
             id_arr.push($(this).val());
         });
-
+        $("#myModal2").modal("show");
         console.log(id_arr);
     }
     /* 获取所有选中的视频 end */
@@ -196,6 +212,7 @@
     function mod_dan(){
         // pid 修改为自己的 md5
         // is_more = 0
+
     }
     /* 修改为单集 end */
 
@@ -220,6 +237,10 @@
         if(type == 'duo'){
             var choose_id = $("input[name='choose_id']").val();
             var key = $("input[name='first_key']").val();
+            var num = $("input[name='video_num']").val();
+//            console.log(choose_id);
+//            console.log(key);
+
             if(!key || !choose_id){
                 swal({title:"修改视频",text:"数据不完善",type:"error"});
                 return false;
@@ -227,9 +248,19 @@
             $.ajax({
                 url:"<{$url}>/mod_video",
                 type:"POST",
-                data:{"choose_id":choose_id,"key":key},
+                data:{"choose_id":choose_id,"key":key,"type":type,"num":num},
                 success:function(msg){
                     console.log(msg);
+                    if(msg.code == 200){
+                        $("#myModal3").modal('hide');
+
+                        swal({title:"修改视频",text:"修改成功",type:"success"});
+                    }else{
+                        $("#myModal3").modal('hide');
+
+                        swal({title:"修改视频",text:msg.msg,type:"error"});
+
+                    }
                 },
                 error:function(){
                     swal({title:"修改视频",text:"网络错误",type:"error"});
@@ -240,6 +271,37 @@
 
     }
 /* 数据提交 end */
+
+    /* 快捷设置第几集 start */
+    function set_num(key){
+        var num = $("input[name='num_"+key+"']").val();
+        if(!key || !num){
+            swal({title:"修改视频",text:"数据不完善",type:"error"});
+            return false;
+        }
+        $.ajax({
+            url:"<{$url}>/mod_video",
+            type:"POST",
+            data:{"choose_id":key,"type":"set_num","num":num},
+            success:function(msg){
+                console.log(msg);
+                if(msg.code == 200){
+                    $("#myModal3").modal('hide');
+
+                    swal({title:"修改视频",text:"修改成功",type:"success"});
+                }else{
+                    $("#myModal3").modal('hide');
+
+                    swal({title:"修改视频",text:msg.msg,type:"error"});
+
+                }
+            },
+            error:function(){
+                swal({title:"修改视频",text:"网络错误",type:"error"});
+            }
+        });
+    }
+    /* 快捷设置第几集 end */
 
 </script>
 </html>

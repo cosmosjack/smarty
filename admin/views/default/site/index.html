@@ -206,6 +206,9 @@
                 <div class="ibox-title">
                     <h5>网站栏目修改</h5>
                     <div class="ibox-tools">
+                        <span  onclick="edit_colum_headerurl();" style="cursor:pointer;margin-left: 10px;" class="label label-success" >
+                        一键刷新栏目链接
+                        </span>
                         <span  onclick="add_top_colum();" style="cursor:pointer;margin-left: 10px;" class="label label-success" >
                         新增顶级栏目
                         </span>
@@ -491,6 +494,30 @@
         });
         /* 获取所有没有被放在首页的栏目 end */
     }
+
+    /*一键刷新所有栏目链接(首页栏目修改/栏目链接) start */
+    function edit_colum_headerurl(){
+        var r=confirm("栏目链接有误时刷新！是否刷新");
+        if (r==true){
+            $.ajax({
+                url:"<{$url}>/edit_colum_headerurl",
+                type:"post",
+                data:{"isheaderurl":"headerurl"},/*用于判断*/
+                success:function(msg){
+                    if (msg.code == 200) {
+                        alert(msg.msg);
+                        location.reload();
+                    } else {
+                        alert(msg.msg);
+                    }
+                },
+                error:function(){
+                    console.log("http error");
+                }
+            });
+        }
+    }
+    /*一键刷新所有栏目链接(首页栏目修改/栏目链接) end */
 
     /*新增栏目 start*/
     function add_colum(colum_id,cls_id,type){

@@ -258,6 +258,60 @@ class Site{
 //        ajaxReturn($data);
     }
 
+    /*一键刷新所有栏目链接(首页栏目修改/栏目链接) start*/
+    public function edit_colum_headerurl(){
+        if ($_POST['isheaderurl'] == "headerurl") {
+            $db_column = D("column");
+            /*获取所有控制器名 start*/
+            $header_url1 = $_SERVER['DOCUMENT_ROOT'].B_ROOT.'/home/controls';//文件的绝对路径
+            $header_url2 = $_SERVER['DOCUMENT_ROOT'].B_ROOT.'/admin/controls';
+            $files1=my_scandir($header_url1);//获取文件夹中所有文件名
+            $files2=my_scandir($header_url2);
+            $file = array_merge_recursive($files1,$files2);//把数组$files2放到$files1中形成一个新数组$files
+            $arr = [];
+            foreach ($file as $key => $value) {
+                $arr[] = strstr($value, '.', TRUE);//截取.之前的控制器名
+            }
+            $arr = array_unique($arr);//去除数组$arr中重复的值
+            sort($arr);//重新排序
+            /*获取所有控制器名 end*/
+
+            $data_column_all = $db_column->field('id,cls_id,url')->order('id asc')->select();
+            $num_column = 0;
+            for ($i=0; $i < count($data_column_all); $i++) {
+                $end_url = 'null';
+                //循环 判断 截取 控制器名之后的字符串 start
+                for ($j=0; $j < count($arr); $j++) { 
+                    $arr_url = strstr($data_column_all[$i]['url'],$arr[$j]);
+                    //p($arr_url);
+                    if ($arr_url) {
+                        $end_url = $arr_url;
+                    }
+                }
+                //循环 判断 截取 控制器名之后的字符串 end
+                
+                //控制器名不存在 则默认刚添加时的链接 控制器名存在 则使用控制器名后的字符串 start
+                if ($end_url=='null') {
+                    $update['url'] = "http://".$GLOBALS["_SERVER"]['SERVER_NAME'].B_ROOT."/"."whlist?cid=".$data_column_all[$i]['cls_id'];
+                } else {
+                    $update['url'] = "http://".$GLOBALS["_SERVER"]['SERVER_NAME'].B_ROOT."/".$end_url;
+                }
+                //控制器名不存在 则默认刚添加时的链接 控制器名存在 则使用控制器名后的字符串 end
+                
+                $row = $db_column->where(['id'=>$data_column_all[$i]['id']])->update($update);
+                if ($row > 0) {
+                    $num_column += 1;//作判断用
+                }
+            }
+            if ($num_column > 0) {
+                ajaxReturn(array('control'=>'edit_colum_headerurl','code'=>200,'msg'=>'刷新成功','data'=>'1'),"JSON");
+            } else {
+                ajaxReturn(array('control'=>'edit_colum_headerurl','code'=>0,'msg'=>'刷新失败','data'=>'0'),"JSON");
+            }
+        } 
+    }
+    /*一键刷新所有栏目链接(首页栏目修改/栏目链接) end*/
+
     /* 修改首页栏目的URL start */
     public function mod_column_url(){
         $db_column = D("column");

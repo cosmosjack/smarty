@@ -224,14 +224,29 @@ function get_cls_html($cls_id=0,$type=1,$level=1,&$data=array()){
 }
 /* 获取无限级分类方法 end */
 
-
-
-
-
-
-
-
-
+/*遍历一个目录下的所有文件 start*/
+function my_scandir($dir) {  
+    if(!is_dir($dir)) {  
+        return false;  
+    }  
+      
+    $files = array();  
+    $handle = opendir($dir);  
+    while(false !== ($filename = readdir($handle))) {  
+        if($filename == '.' || $filename == '..') {  
+            continue;  
+        }  
+        $file = $dir . '/' . $filename;  
+        if(is_dir($file)) {  
+            $files = array_merge($files, my_scandir($file));  
+        } else {  
+            $files[] = $filename;  
+        }  
+    }  
+    closedir($handle);  
+    return $files;  
+}  
+/*遍历一个目录下的所有文件 end*/
 
 
 

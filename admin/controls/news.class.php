@@ -371,6 +371,46 @@ class news{
             $this->error("未删除",2,"news/news_list");
         }
     }
+
+    //批量删除数据 start 
+    function del_piliang_news(){
+        if ($_POST['isdel'] == "del") {
+            $db_news = D('news');
+            $id_arr = $_POST['id_arr'];
+            $del_num = 0;
+            foreach ($id_arr as $key => $value) {
+                $info = $db_news->where(['news_id'=>$value])->field('news_id,news_pic,news_body')->find();
+                $row = $db_news->where(['news_id'=>$value])->delete();
+                if($row > 0){ //删除这一条数据成功
+                    $del_success_num += 1; 
+                    //查找出$info['news_body']里的所有图片 start
+                    $get_img_src = getImgs(htmlspecialchars_decode($info['news_body']),$order='ALL'); //该方法getImgs()在公共函数
+                    //查找出$info['news_body']里的所有图片 end
+                    if (!empty($get_img_src)) { //不为空时循环删除$info['news_body']里的所有图片
+                        for ($i=0; $i < count($get_img_src); $i++) { 
+                            unlink($_SERVER['CONTEXT_DOCUMENT_ROOT'].strstr($get_img_src[$i],'/ueditor/php'));//截取ueditor/php之后的全部
+                        }
+                    }
+                    
+                    if($info['news_pic'] != 'logo.png') { //如果是默认图片则不删除
+                        unlink('./public/uploads/news/'.$info['news_pic']);
+                    }
+                    
+                }else{ //删除这一条数据失败
+                    $fail_news_id .= ','.$value;
+                    $fail_news_id = ltrim($fail_news_id);//去除左边逗号（,）
+                    
+                }
+            }
+            if (count($id_arr) == $del_success_num) {
+                ajaxReturn(array('control'=>'del_piliang_news','code'=>200,'msg'=>'批量删除成功'),"JSON");
+            } else {
+                ajaxReturn(array('control'=>'del_piliang_news','code'=>0,'msg'=>'批量删除失败!文章ID='.$fail_news_id.'未被删除'),"JSON");
+            }
+        }
+    }
+    //批量删除数据 end
+    
     // 排序
     function sort(){
         $db_news_cls = D('news_cls');

@@ -173,6 +173,38 @@
         }
         /* 输出选中的 id列表 end */
 
+        /*批量删除数据 start*/
+        function del_piliang_news(){
+            $.each($('input[name="news_id"]:checked'),function(){
+                id_arr.push($(this).val());
+            });
+//            console.log(id_arr);
+            if(id_arr.length > 0){
+                var r=confirm("是否删除选中");
+                if (r==true){
+                    $.ajax({
+                        url:'<{$url}>/del_piliang_news',
+                        type:'POST',
+                        data:{"isdel":"del","id_arr":id_arr},
+                        success:function(msg){
+//                            console.log(msg);
+                            if(msg.code == 200){
+                                alert(msg.msg);
+                                window.location.reload();
+                            }else{
+                                alert(msg.msg);
+                                window.location.reload();
+                            }
+                        },
+                        error:function(){
+                            console.log('http error');
+                        }
+                    });
+                }
+            }
+        }
+        /*批量删除数据 end*/
+
         /* 全部选中或全部不选中 start */
         function select_all(){
             var now_state = $("#select-all").is(':checked');
@@ -305,7 +337,10 @@
     </tbody>
         <tfoot>
         <tr>
-            <th colspan="9"><label class="btn btn-danger btn-sm" onclick="get_checked();">修改</label></th>
+            <th colspan="9">
+                <label class="btn btn-danger btn-sm" onclick="get_checked();">修改</label> 
+                <label class="btn btn-danger btn-sm" onclick="del_piliang_news();">删除</label>
+            </th>
         </tr>
         </tfoot>
     </table>

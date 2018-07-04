@@ -248,7 +248,21 @@ function my_scandir($dir) {
 }  
 /*遍历一个目录下的所有文件 end*/
 
-
+/*获取内容中的所有图片 start*/
+function getImgs($content,$order='ALL'){
+    $pattern="/<img.*?src=[\'|\"](.*?(?:[\.gif|\.jpg|\.png]))[\'|\"].*?[\/]?>/";
+    preg_match_all($pattern,$content,$match);
+    if(isset($match[1])&&!empty($match[1])){
+        if($order==='ALL'){
+            return $match[1];
+        }
+        if(is_numeric($order)&&isset($match[1][$order])){
+            return $match[1][$order];
+        }
+    }
+    return '';
+}
+/*获取内容中的所有图片 end*/
 
 
 

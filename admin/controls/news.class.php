@@ -361,12 +361,17 @@ class news{
         $db_news = D('news');
         $info = $db_news->where($_GET['news_id'])->find();
         $result = $db_news->where($_GET['news_id'])->delete();
-        
         if($result){
-            if($info['news_pic'] != 'logo.png')
+            if($info['news_pic'] != 'logo.png') { //如果是默认图片则不删除
                 unlink('./public/uploads/news/'.$info['news_pic']);
+            }
+            $get_img_src = getImgs(htmlspecialchars_decode($info['news_body']),$order='ALL');//查找出$info['news_body']里的所有图片
+            if (!empty($get_img_src)) { //不为空时循环删除$info['news_body']里的所有图片
+                for ($i=0; $i < count($get_img_src); $i++) { 
+                    unlink($_SERVER['CONTEXT_DOCUMENT_ROOT'].strstr($get_img_src[$i],'/ueditor/php'));//截取ueditor/php之后的全部
+                }
+            }
             $this->success("已删除",2,"news/news_list");
-
         }else{
             $this->error("未删除",2,"news/news_list");
         }

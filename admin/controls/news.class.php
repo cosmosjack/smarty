@@ -368,7 +368,7 @@ class news{
             $get_img_src = getImgs(htmlspecialchars_decode($info['news_body']),$order='ALL');//查找出$info['news_body']里的所有图片
             if (!empty($get_img_src)) { //不为空时循环删除$info['news_body']里的所有图片
                 for ($i=0; $i < count($get_img_src); $i++) { 
-                    unlink($_SERVER['CONTEXT_DOCUMENT_ROOT'].strstr($get_img_src[$i],'/ueditor/php'));//截取ueditor/php之后的全部
+                    unlink("./".strstr($get_img_src[$i],'ueditor/php'));//截取ueditor/php之后的全部
                 }
             }
             $this->success("已删除",2,"news/news_list");
@@ -393,7 +393,7 @@ class news{
                     //查找出$info['news_body']里的所有图片 end
                     if (!empty($get_img_src)) { //不为空时循环删除$info['news_body']里的所有图片
                         for ($i=0; $i < count($get_img_src); $i++) { 
-                            unlink($_SERVER['CONTEXT_DOCUMENT_ROOT'].strstr($get_img_src[$i],'/ueditor/php'));//截取ueditor/php之后的全部
+                            unlink("./".strstr($get_img_src[$i],'ueditor/php'));//截取ueditor/php之后的全部
                         }
                     }
                     

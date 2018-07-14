@@ -44,12 +44,11 @@ class news{
 //        p($data_news_cls);
         $this->assign("data_news_cls",$data_news_cls);
         $this->display();
-
     }
     // 删除类别
     function del_cls(){
         $db_cls = D("news_cls");
-        $result = $db_cls->where(array('news_cls_id'=>$_GET['cls_id']))->delete();
+        $result = $db_cls->where(array('news_cls_id'=>$_GET['cls_id']),array('cls_pid'=>$_GET['cls_id']))->delete();
         if($result){
             ajaxReturn(array('control'=>'del_cls','code'=>200,'msg'=>'删除成功'),"JSON");
         }else{
@@ -285,6 +284,10 @@ class news{
         $db_news_cls = D('news_cls');
 
         if($_POST['sub']){
+            if($_POST['level'] == 1){
+                $this->error("目前不能增加顶级分类",2);
+                die();
+            }
             if(empty($_POST['news_cls_name'])){
                 $this->error("栏目为空或重复",2);
             }
@@ -300,6 +303,7 @@ class news{
             $insert['news_cls_desc'] = $_POST['news_cls_desc'];
             $insert['cls_pid'] = $_POST['cls_pid'];
             $insert['level'] = $_POST['level'] ? $_POST['level']:2;
+            $insert['url'] = $_POST['cls_url'];
             $result = $db_news_cls->insert($insert);
 
             if($result){
@@ -336,9 +340,13 @@ class news{
             $update['news_cls_pic'] = $up->getFileName();
         }
         /* 如果有新的图片上传成功 则删除原来的图片 end */
-
-        $update['news_cls_name'] = $_POST['cls_name'];
+        /* 如果是顶级则不能被修改 start */
+        if($info['level'] != 1){
+            $update['news_cls_name'] = $_POST['cls_name'];
+        }
+        /* 如果是顶级则不能被修改 end */
         $update['news_cls_desc'] = $_POST['cls_desc'];
+        $update['url'] = $_POST['cls_url'];
         $result = $db_news_cls->where($_POST['cls_id'])->update($update);
         if($result){
             $this->success('修改成功',2,"news/cls_list");
@@ -353,16 +361,61 @@ class news{
         $db_news = D('news');
         $info = $db_news->where($_GET['news_id'])->find();
         $result = $db_news->where($_GET['news_id'])->delete();
-        
         if($result){
-            if($info['news_pic'] != 'logo.png')
+            if($info['news_pic'] != 'logo.png') { //如果是默认图片则不删除
                 unlink('./public/uploads/news/'.$info['news_pic']);
+            }
+            $get_img_src = getImgs(htmlspecialchars_decode($info['news_body']),$order='ALL');//查找出$info['news_body']里的所有图片
+            if (!empty($get_img_src)) { //不为空时循环删除$info['news_body']里的所有图片
+                for ($i=0; $i < count($get_img_src); $i++) { 
+                    unlink("./".strstr($get_img_src[$i],'ueditor/php'));//截取ueditor/php之后的全部
+                }
+            }
             $this->success("已删除",2,"news/news_list");
-
         }else{
             $this->error("未删除",2,"news/news_list");
         }
     }
+
+    //批量删除数据 start 
+    function del_piliang_news(){
+        if ($_POST['isdel'] == "del") {
+            $db_news = D('news');
+            $id_arr = $_POST['id_arr'];
+            $del_num = 0;
+            foreach ($id_arr as $key => $value) {
+                $info = $db_news->where(['news_id'=>$value])->field('news_id,news_pic,news_body')->find();
+                $row = $db_news->where(['news_id'=>$value])->delete();
+                if($row > 0){ //删除这一条数据成功
+                    $del_success_num += 1; 
+                    //查找出$info['news_body']里的所有图片 start
+                    $get_img_src = getImgs(htmlspecialchars_decode($info['news_body']),$order='ALL'); //该方法getImgs()在公共函数
+                    //查找出$info['news_body']里的所有图片 end
+                    if (!empty($get_img_src)) { //不为空时循环删除$info['news_body']里的所有图片
+                        for ($i=0; $i < count($get_img_src); $i++) { 
+                            unlink("./".strstr($get_img_src[$i],'ueditor/php'));//截取ueditor/php之后的全部
+                        }
+                    }
+                    
+                    if($info['news_pic'] != 'logo.png') { //如果是默认图片则不删除
+                        unlink('./public/uploads/news/'.$info['news_pic']);
+                    }
+                    
+                }else{ //删除这一条数据失败
+                    $fail_news_id .= ','.$value;
+                    $fail_news_id = ltrim($fail_news_id);//去除左边逗号（,）
+                    
+                }
+            }
+            if (count($id_arr) == $del_success_num) {
+                ajaxReturn(array('control'=>'del_piliang_news','code'=>200,'msg'=>'批量删除成功'),"JSON");
+            } else {
+                ajaxReturn(array('control'=>'del_piliang_news','code'=>0,'msg'=>'批量删除失败!文章ID='.$fail_news_id.'未被删除'),"JSON");
+            }
+        }
+    }
+    //批量删除数据 end
+    
     // 排序
     function sort(){
         $db_news_cls = D('news_cls');

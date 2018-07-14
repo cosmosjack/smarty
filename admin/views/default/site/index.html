@@ -206,6 +206,9 @@
                 <div class="ibox-title">
                     <h5>网站栏目修改</h5>
                     <div class="ibox-tools">
+                        <span  onclick="edit_colum_headerurl();" style="cursor:pointer;margin-left: 10px;" class="label label-success" >
+                        一键刷新栏目链接
+                        </span>
                         <span  onclick="add_top_colum();" style="cursor:pointer;margin-left: 10px;" class="label label-success" >
                         新增顶级栏目
                         </span>
@@ -430,7 +433,8 @@
         var cls_type = $("select[name='column_select']").find("option:selected").attr('type_id'); // 类别ID
         var cls_type_name = $("select[name='column_select']").find("option:selected").attr('type_name'); // 类别ID
         var column_sort = $("input[name='column_sort']").val(); //栏目 排序
-        var json_data = {"cls_id":cls_id,"cls_type":cls_type,"cls_type_name":cls_type_name,"column_sort":column_sort};
+        var level = $("select[name='column_select']").find("option:selected").attr('level');//分类层级
+        var json_data = {"cls_id":cls_id,"cls_type":cls_type,"cls_type_name":cls_type_name,"column_sort":column_sort,"level":level};
         console.log(json_data);
 //        return false;
         $.ajax({
@@ -480,7 +484,7 @@
                         }else{
                             var level_str = '';
                         }
-                        $("select[name='column_select']").append('<option value="'+msg[i].news_cls_id+'" type_name="'+type_name+'" type_id="'+msg[i].type+'">'+level_str+msg[i].news_cls_name+'</option>');
+                        $("select[name='column_select']").append('<option value="'+msg[i].news_cls_id+'" type_name="'+type_name+'" type_id="'+msg[i].type+'" level="1">'+level_str+msg[i].news_cls_name+'</option>');
                     }
                 }
             },
@@ -490,6 +494,30 @@
         });
         /* 获取所有没有被放在首页的栏目 end */
     }
+
+    /*一键刷新所有栏目链接(首页栏目修改/栏目链接) start */
+    function edit_colum_headerurl(){
+        var r=confirm("栏目链接有误时刷新！是否刷新");
+        if (r==true){
+            $.ajax({
+                url:"<{$url}>/edit_colum_headerurl",
+                type:"post",
+                data:{"isheaderurl":"headerurl"},/*用于判断*/
+                success:function(msg){
+                    if (msg.code == 200) {
+                        alert(msg.msg);
+                        location.reload();
+                    } else {
+                        alert(msg.msg);
+                    }
+                },
+                error:function(){
+                    console.log("http error");
+                }
+            });
+        }
+    }
+    /*一键刷新所有栏目链接(首页栏目修改/栏目链接) end */
 
     /*新增栏目 start*/
     function add_colum(colum_id,cls_id,type){
@@ -519,7 +547,7 @@
                         }else{
                             var level_str = '';
                         }
-                        $("select[name='column_select']").append('<option value="'+msg[i].news_cls_id+'" type_name="'+type_name+'" type_id="'+msg[i].type+'">'+level_str+msg[i].news_cls_name+'</option>');
+                        $("select[name='column_select']").append('<option value="'+msg[i].news_cls_id+'" type_name="'+type_name+'" type_id="'+msg[i].type+'" level="2">'+level_str+msg[i].news_cls_name+'</option>');
                     }
                 }
             },

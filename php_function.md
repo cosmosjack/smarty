@@ -496,3 +496,52 @@ function bro_dirsize($dir_path)
 }
 ```
 ---
+
+### 遍历一个目录下的所有文件
+#### my_scandir
+##### 参数:![$dir 参数是文件路径]
+##### 返回值:![文件名]
+```php
+function my_scandir($dir) {  
+    if(!is_dir($dir)) {  
+        return false;  
+    }  
+    $files = array();  
+    $handle = opendir($dir);  
+    while(false !== ($filename = readdir($handle))) {  
+        if($filename == '.' || $filename == '..') {  
+            continue;  
+        }  
+        $file = $dir . '/' . $filename;  
+        if(is_dir($file)) {  
+            $files = array_merge($files, my_scandir($file));  
+        } else {  
+            $files[] = $filename;  
+        }  
+    }  
+    closedir($handle);  
+    return $files;  
+}
+```
+---
+
+### 获取内容中的所有图片
+#### getImgs
+##### 参数:![$content,$order='ALL' 第一个参数是内容，第二个参数可以获取指定第几个]
+##### 返回值:![默认是以数组形式返回所有图片路径，存在第二个参数则返回单个图片路径]
+```php
+function getImgs($content,$order='ALL'){
+    $pattern="/<img.*?src=[\'|\"](.*?(?:[\.gif|\.jpg|\.png]))[\'|\"].*?[\/]?>/";
+    preg_match_all($pattern,$content,$match);
+    if(isset($match[1])&&!empty($match[1])){
+        if($order==='ALL'){
+            return $match[1];
+        }
+        if(is_numeric($order)&&isset($match[1][$order])){
+            return $match[1][$order];
+        }
+    }
+    return '';
+}
+```
+---

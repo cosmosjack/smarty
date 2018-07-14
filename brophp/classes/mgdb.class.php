@@ -189,8 +189,8 @@ class Mgdb {
      * @param $data
      * @return bool
      */
-    public function toUpdate($table, $where, $data) {
-        $re = $this->database->$table->update($where, array('$set' => $data));
+    public function toUpdate($table, $where, $data,$upsert=false,$multiple=true) {
+        $re = $this->database->$table->update($where, array('$set' => $data),array("upsert"=>$upsert,"multiple"=>$multiple));
         return $re;
     }
 

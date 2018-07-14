@@ -14,7 +14,7 @@ class link{
         $page = new Page($db_link->total(),9);
         $data = $db_link->limit($page->limit)->select();
         for($i=0;$i<count($data);$i++){
-            $data[$i]['pic_url'] = SHOP_SITE_URL.DS."uploads".DS."links".DS.$data[$i]['link_pic'];
+            $data[$i]['pic_url'] = SHOP_SITE_URL.B_ROOT.DS."uploads".DS."links".DS.$data[$i]['link_pic'];
         }
         $this->assign("data",$data);
         $this->assign("fpage",$page->fpage());
@@ -24,8 +24,8 @@ class link{
     function add(){
 
         if(isset($_POST['sub'])){
-            P($_POST);
-            P($_FILES);
+            /*P($_POST);
+            P($_FILES);*/
             $upload = new FileUpload();
             $upload->set('path','./uploads/links');
             $result_upload = $upload->upload('link_pic');

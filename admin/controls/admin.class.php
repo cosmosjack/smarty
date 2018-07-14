@@ -90,8 +90,10 @@ class admin extends Action{
             $this->display();
         }
     }
-    //登出
-    function logout(){
-
+    function logout(){ //退出
+        $_SESSION['is_login'] = false;
+        $_SESSION['admin_user'] = '';
+        echo '<script>alert("退出成功");</script>';
+        $this->redirect('admin/login');
     }
 }

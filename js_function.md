@@ -160,6 +160,7 @@ function oSwiper(o,l){
 ### 轮播图插件Swiper ------------
 ### 发布者：奔腾的骆驼
 
+-------------------------------------------------------------------------------------------------------------------------
 
 
 ### 动画插件 ------------
@@ -226,6 +227,181 @@ function loadPredefinedPanorama(evt,img) {
 ### 发布者：奔腾的骆驼
 
 
+
+
+
+
+
+//---------------------------------------
+### 轮播图插件插件-带描述 ------------
+### 发布者：fangmiaoji
+
+
+... 轮播图插件插件-带描述,文件名(wab-sowing_map)
+
+### 参数：宽度，高度，during(轮播时间间隔)
+### <link rel="stylesheet" href="css/styles.css" type="text/css">
+### <script type="text/javascript" src="js/jquery.min.js"></script>
+### <script type="text/javascript" src="js/yxmobileslider.js"></script>
+html代码
+<!--效果html开始-->
+...<div class="slider">
+      <ul>
+	<li><a href="" target="_blank"><img src="image/1.jpg" title="111" alt=""></a></li>
+	<li><a href="" target="_blank"><img src="image/2.jpg" title="222" alt=""></a></li>
+	<li><a href="" target="_blank"><img src="image/3.jpg" title="333" alt=""></a></li>
+	<li><a href="" target="_blank"><img src="image/4.jpg" title="444" alt=""></a></li>
+	<li><a href="" target="_blank"><img src="image/5.jpg" title="555" alt=""></a></li>
+     </ul>
+...</div>
+
+
+//---------------------------------------
+js调用
+...<script>
+$(".slider").yxMobileSlider({width:640,height:320,during:3000})
+...</script>
+//---------------------------------------
+### 轮播图插件Swiper ------------
+### 发布者：fangmiaoji
+
+
+-----------------------------------------------------------上拉刷新下拉加载,文件名(dist)------------------
+
+
+... 上拉刷新下拉加载,文件名(dist)
+
+### 参数：loadUpFn(下拉刷新)，loadDownFn（上拉加载），me.lock();（锁定），me.noData();（无数据）
+### <script src='js/jquery-1.8.3.min.js' type="text/javascript"></script>
+### <link rel="stylesheet" type="text/css" href="css/style.css" />
+### <link rel="stylesheet" href="dist/dropload.css"> <!--插件样式-->
+### <script src="dist/dropload.min.js"></script>
+html代码
+<!--效果html开始-->
+...<div class="lists">
+      <!--内容-->
+...</div>
+
+
+//---------------------------------------
+js调用
+...<script>
+$(function(){
+
+    // dropload
+    var dropload = $('.inner').dropload({
+        domUp : {
+            domClass   : 'dropload-up',
+            domRefresh : '<div class="dropload-refresh">↓下拉刷新</div>',
+            domUpdate  : '<div class="dropload-update">↑释放更新</div>',
+            domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>'
+        },
+        domDown : {
+            domClass   : 'dropload-down',
+            domRefresh : '<div class="dropload-refresh">↑上拉加载更多</div>',
+            domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>'
+            domNoData  : '<div class="dropload-noData">暂无数据</div>'
+        },
+        //下拉刷新接口--数据调用
+        loadUpFn : function(me){
+            $.ajax({
+                type: 'GET',
+                url: 'json/update.json',
+                dataType: 'json',
+                success: function(data){
+                	console.log(data)
+                	var gayle=data.lists.length; //数据条数-- 判断需要
+                	var result = '';
+                	if(gayle>0){
+                		for(var i = 0; i < data.lists.length; i++){
+	                        result +=   '<a class="item opacity" href="'+data.lists[i].link+'">'
+	                                        +'<img src="'+data.lists[i].pic+'" alt="">'
+	                                        +'<h3>'+data.lists[i].title+'</h3>'
+	                                        +'<span class="date">'+data.lists[i].date+'</span>'
+	                                    +'</a>';
+	                    }
+                		if(gayle<6){ //数据条数达到屏幕高度判断 防止数据少时页面不断请求接口
+                			// 锁定
+	                        me.lock();
+	                        // 无数据
+	                        me.noData();
+                		}
+                		
+                	}else{
+                		// 锁定
+                        me.lock();
+                        // 无数据
+                        me.noData();
+                	}
+                    
+                    
+                    // 为了测试，延迟1秒加载
+                    setTimeout(function(){
+                        $('.lists').html(result);
+                        // 每次数据加载完，必须重置
+                        dropload.resetload();
+                    },1000);
+                },
+                error: function(xhr, type){
+                    alert('Ajax error!');
+                    // 即使加载出错，也得重置
+                    dropload.resetload();
+                }
+            });
+        },
+        //下拉刷新接口--数据调用
+        loadDownFn : function(me){
+            $.ajax({
+                type: 'GET',
+                url: 'json/more.json',
+                dataType: 'json',
+                success: function(data){
+                    console.log(data)
+                	var gayle=data.lists.length; //数据条数长度 -- 判断需要
+                	var result = '';
+                	console.log(gayle)
+                	if(gayle>0){
+                		for(var i = 0; i < data.lists.length; i++){
+	                        result +=   '<a class="item opacity" href="'+data.lists[i].link+'">'
+	                                        +'<img src="'+data.lists[i].pic+'" alt="">'
+	                                        +'<h3>'+data.lists[i].title+'</h3>'
+	                                        +'<span class="date">'+data.lists[i].date+'</span>'
+	                                    +'</a>';
+	                    }
+                		if(gayle<6){ //数据条数达到屏幕高度判断 防止数据少时页面不断请求接口
+                			// 锁定
+	                        me.lock();
+	                        // 无数据
+	                        me.noData();
+                		}
+                		
+                	}else{
+                		// 锁定
+                        me.lock();
+                        // 无数据
+                        me.noData();
+                	}
+                    // 为了测试，延迟1秒加载
+                    setTimeout(function(){
+                        $('.lists').append(result);
+                        // 每次数据加载完，必须重置
+                        dropload.resetload();
+                    },1000);
+                },
+                error: function(xhr, type){
+                    alert('Ajax error!');
+                    // 即使加载出错，也得重置
+                    dropload.resetload();
+                }
+            });
+        }
+        
+    });
+});
+...</script>
+//---------------------------------------
+### 上拉刷新下拉加载 ------------
+### 发布者：fangmiaoji
 
 
 

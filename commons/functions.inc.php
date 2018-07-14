@@ -43,7 +43,7 @@ function is_mobile_request()
 function getChildArr($pid=0,$init_cid=false,$table='news_cls',$data_cls=array(),$level=0){
     $db_cls = D($table);
     $rows = $db_cls
-        ->field('news_cls_id,news_cls_name,cls_pid,level,news_cls_pic')
+        ->field('news_cls_id,news_cls_name,cls_pid,level,news_cls_pic,type')
         ->where(array("cls_pid"=>$pid))
         ->select(); //21 产品
     //返回结果集
@@ -224,16 +224,45 @@ function get_cls_html($cls_id=0,$type=1,$level=1,&$data=array()){
 }
 /* 获取无限级分类方法 end */
 
+/*遍历一个目录下的所有文件 start*/
+function my_scandir($dir) {  
+    if(!is_dir($dir)) {  
+        return false;  
+    }  
+      
+    $files = array();  
+    $handle = opendir($dir);  
+    while(false !== ($filename = readdir($handle))) {  
+        if($filename == '.' || $filename == '..') {  
+            continue;  
+        }  
+        $file = $dir . '/' . $filename;  
+        if(is_dir($file)) {  
+            $files = array_merge($files, my_scandir($file));  
+        } else {  
+            $files[] = $filename;  
+        }  
+    }  
+    closedir($handle);  
+    return $files;  
+}  
+/*遍历一个目录下的所有文件 end*/
 
-
-
-
-
-
-
-
-
-
+/*获取内容中的所有图片 start*/
+function getImgs($content,$order='ALL'){
+    $pattern="/<img.*?src=[\'|\"](.*?(?:[\.gif|\.jpg|\.png]))[\'|\"].*?[\/]?>/";
+    preg_match_all($pattern,$content,$match);
+    if(isset($match[1])&&!empty($match[1])){
+        if($order==='ALL'){
+            return $match[1];
+        }
+        if(is_numeric($order)&&isset($match[1][$order])){
+            return $match[1][$order];
+        }
+    }
+    return '';
+}
+/*获取内容中的所有图片 end*/
 
 
 

@@ -162,6 +162,71 @@ function oSwiper(o,l){
 
 
 
+### 动画插件 ------------
+### 发布者：奔腾的骆驼
+
+###3D全景图片展示
+###参数：img全景图片,evt可有可无
+###<script type="text/javascript" src="three.min.js"></script>必须引用three.min.js
+###<script type="text/javascript" src="photo-sphere-viewer.min.js"></script>引用photo-sphere-viewer.min.js
+html写上这段代码
+```<div id="box"></div>
+
+//------------------------------
+JS添加
+<script> 
+function loadPredefinedPanorama(evt,img) {
+			evt.preventDefault();
+			var loader = document.createElement('div');
+			loader.className = 'loader';
+
+			// 全景显示的容器
+			var div = document.getElementById('box');
+			div.style.height = '30px';
+			var PSV = new PhotoSphereViewer({
+				// 全景图片的路径
+				panorama: img,
+
+				// 容器
+				container: div,
+
+				// 停用动画
+				time_anim: false,
+
+				// 显示导航栏
+				navbar: true,
+
+				// 调整全景大小
+				size: {
+					width: '100%',
+					height: '500px'
+				},
+
+				// HTML加载器
+				loading_html: loader,
+
+				// 覆盖
+				overlay: {
+					image: 'overlay.png',
+					size: {
+						width: '42px'
+					},
+					position: {
+						x: 'right',
+						y: 'top'
+					}
+				}
+			});
+		}        
+}
+  loadPredefinedPanorama();
+  </script>
+//---------------------------------------
+### 3D全景图片展示 ------------
+### 发布者：奔腾的骆驼
+
+
+
 
 
 

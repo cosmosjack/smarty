@@ -178,7 +178,7 @@ JS添加
 function loadPredefinedPanorama(evt,img) {
 			evt.preventDefault();
 			var loader = document.createElement('div');
-			loader.className = 'loader';
+			loader.className = 'loader';//++
 
 			// 全景显示的容器
 			var div = document.getElementById('box');

@@ -58,6 +58,18 @@ class news{
 
     // 添加资讯
     function add(){
+        $db_news = D('news');
+
+        //判断$_POST['goods_name']标题是否已经存在 start
+        if ($_POST['sub_name'] == 'sub_name') {
+            $name_isexist = $db_news->where(['news_name'=>$_POST['goods_name']])->field('news_name')->find();
+            if ($name_isexist) {
+                ajaxReturn(array('control'=>'add','code'=>0,'msg'=>'资讯标题已存在，换一个吧！'),"JSON");
+                exit();
+            }
+        }
+        //判断$_POST['goods_name']标题是否已经存在 end
+        
         if(isset($_POST['sub'])){
             /*产品属性 start*/
             //p($_POST);
@@ -90,7 +102,7 @@ class news{
 
             $insert['add_times'] = time();
             $insert['source'] = $_POST['goods_source'];
-            $db_news = D('news');
+            
             $row = $db_news->insert($insert);
             if($row){
                 //echo '新建成功';
@@ -146,6 +158,17 @@ class news{
     }
     function mod(){
         $db_news = D('news');
+
+        //判断$_POST['goods_name']标题是否已经存在 start
+        if ($_POST['sub_name'] == 'sub_name') {
+            $name_isexist = $db_news->where(['news_name'=>$_POST['goods_name']])->field('news_name')->find();
+            if ($name_isexist) {
+                /*echo '<script>alert("资讯标题存在，换一个吧！");history.go(-1);</script>';exit();*/
+                ajaxReturn(array('control'=>'add','code'=>0,'msg'=>'资讯标题已存在，换一个吧！'),"JSON");
+                exit();
+            }
+        }
+        //判断$_POST['goods_name']标题是否已经存在 end
 
         if(isset($_POST['sub'])){
             
@@ -220,11 +243,10 @@ class news{
             /* 整理需要更新的数据 end */
             $result = $db_news->where($_POST['goods_id'])->update($update);
 
-            //百度主动推送
-            tuisong_baidu(array(SHOP_SITE_URL.'/whshow?id='.$_POST['goods_id']));
-            // exit();
             if($result){
                 // echo '修改成功';
+                //百度主动推送
+                tuisong_baidu(array(SHOP_SITE_URL.'/whshow?id='.$_POST['goods_id']));
                 $this->success('修改成功',2,"news/news_list");
             }else{
                 // echo '修改不成功';

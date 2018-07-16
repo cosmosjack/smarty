@@ -41,18 +41,43 @@
         }
     </style>
 
-    <script>
+<script>
 
 $(function(){
     //选择默认的类别
-
     var cls_id = $("input[name='default_cls']").val();
     if(cls_id){
         $("select[name='goods_cls']").find("option[value='"+cls_id+"']").attr("selected",true);
     }
 })
 
-    </script>
+//给资讯标题一个失去焦点事件验证标题是否存在 start
+$(document).ready(function(){ 
+    var blurid = $("#goods_name"); 
+    blurid.blur(function(){ 
+        var thisval = $(this).val(); 
+        //alert(thisval);
+        if ('<{$data_news.news_name}>' !== thisval) { //标题无改动不执行操作
+            $.ajax({
+                url:"<{$url}>/add",
+                type:"POST",
+                data:{"sub_name":"sub_name","goods_name":thisval},
+                async:true,
+                success:function(msg){
+                    if(msg.code == 0){
+                        alert(msg.msg);
+                    }
+                },
+                error:function(){
+                    console.log("http error");
+                }
+            });
+        }
+    }); 
+}); 
+//给资讯标题一个失去焦点事件验证标题是否存在 end
+
+</script>
 <body class="gray-bg">
 <div class="row">
     <div class="col-sm-12">
@@ -67,7 +92,7 @@ $(function(){
                     <div class="form-group">
                         <label class="col-sm-2 control-label">资讯标题</label>
                         <div class="col-sm-4">
-                            <input type="text" name="goods_name" placeholder="填写资讯标题" value="<{$data_news.news_name}>" class="form-control">
+                            <input type="text" id="goods_name" name="goods_name" placeholder="填写资讯标题" value="<{$data_news.news_name}>" class="form-control">
                         </div>
                     </div>
                     <div class="hr-line-dashed"></div>

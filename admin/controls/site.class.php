@@ -105,7 +105,7 @@ class Site{
     }
     function adv_list(){
         $db_site = D('home_adv');
-        $data_site = $db_site->order('position asc')->select();
+        $data_site = $db_site->order('position,cls_id asc')->select();
         for($i=0;$i<count($data_site);$i++){
             if($data_site[$i]['type'] == 1){
                 $data_site[$i]['pic_url'] = $data_site[$i]['img_url'];

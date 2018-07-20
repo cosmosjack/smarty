@@ -98,6 +98,7 @@ class news{
             $insert['news_cls_name'] = $data_news_cls['news_cls_name'];
             $insert['news_body'] = $_POST['content'];
             $insert['news_key'] = $_POST['goods_key'];
+            $insert['news_imgalt'] = $_POST['goods_imgalt'];
             $update['label'] = $_POST['label'];
 
             $insert['add_times'] = time();
@@ -237,6 +238,7 @@ class news{
                 $update['news_cls_name'] = $data_news_cls['news_cls_name'];
                 $update['news_body'] = $_POST['content'];
                 $update['news_key'] = $_POST['goods_key'];
+                $update['news_imgalt'] = $_POST['goods_imgalt'];
                 $update['label'] = $_POST['label'];
                 // $update['source'] = $_POST['goods_source'];
 

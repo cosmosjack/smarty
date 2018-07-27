@@ -35,13 +35,13 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">传真号码：</label>
+                            <label class="col-sm-3 control-label">手机：</label>
                             <div class="col-sm-8">
-                                <input  name="company_fax" class="form-control" value="<{$data_site.company_fax}>" type="text" aria-required="true" aria-invalid="true" class="error">
+                                <input  name="company_fax" class="form-control" value="<{$data_site.company_fax}>" type="text">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">企业电话：</label>
+                            <label class="col-sm-3 control-label">服务热线：</label>
                             <div class="col-sm-8">
                                 <input  name="company_tel" class="form-control" value="<{$data_site.company_tel}>" type="text">
                             </div>
@@ -52,6 +52,15 @@
                                 <input  name="company_address" class="form-control" value="<{$data_site.company_address}>" type="text">
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">客服QQ：</label>
+                            <div class="col-sm-8">
+                                <input  name="site_qq" value="<{$data_site.site_qq}>" class="form-control" >
+                                <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 请确定客服QQ</span>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label class="col-sm-3 control-label">电子邮箱：</label>
                             <div class="col-sm-8">
@@ -60,13 +69,6 @@
                             </div>
                         </div>
 
-                        <!-- <div class="form-group">
-                            <label class="col-sm-3 control-label">站点LOGO：</label>
-                            <div class="col-sm-8">
-                                <input  name="site_logo" type="file" class="form-control" >
-                                <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 像素215x55</span>
-                            </div>
-                        </div> -->
                         <div class="form-group">
                             <label class="col-sm-3 control-label">站点LOGO：</label>
                             <div class="col-sm-4">
@@ -86,7 +88,7 @@
                         <div class="hr-line-dashed"></div>
 
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">站点二维码：</label>
+                            <label class="col-sm-3 control-label">公众号二维码：</label>
                             <div class="col-sm-4">
                                 <label>
                                     <input type="file" multiple="multiple" id="input_img2" style="display: none;" name="site_code" value="" onchange="javascript:setImagePreview('input_img2','preview2','localImage2');">
@@ -104,12 +106,23 @@
                         <div class="hr-line-dashed"></div>
 
                         <!-- <div class="form-group">
-                            <label class="col-sm-3 control-label">站点二维码：</label>
-                            <div class="col-sm-8">
-                                <input  name="site_code" type="file" class="form-control" >
-                                <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 像素120x120</span>
+                            <label class="col-sm-3 control-label">公众号助手二维码：</label>
+                            <div class="col-sm-4">
+                                <label>
+                                    <input type="file" multiple="multiple" id="input_img3" style="display: none;" name="index_code" value="" onchange="javascript:setImagePreview('input_img3','preview3','localImage3');">
+                                    <a style="text-align: center">
+                                        <div id="localImage3">
+                                            <img id="preview3" src="<{if $data_site.index_code !=''}> <{$public}>/uploads/home_adv/<{$data_site.index_code}> <{else}><{$res}>/bootstrap/img/a1.jpg<{/if}>" style="margin:0 auto .1rem;display: block; width: 200px; height: 200px;">
+                                        </div>
+                                        <h4>选择展示图</h4>
+                                        <div style="clear: both;"></div>
+                                    </a>
+                                </label>
+                                <span class="help-block m-b-none"><i class="fa fa-info-circle" ></i> 像素120x120</span>
                             </div>
-                        </div> -->
+                        </div>
+                        <div class="hr-line-dashed"></div> -->
+
                         <div class="form-group">
                             <label class="col-sm-3 control-label">是否主动推送：</label>
                             <div class="col-sm-8">
@@ -158,11 +171,23 @@
                                 <input  name="record_code" type="text" class="form-control" value="<{$data_site.record_code}>"  >
                             </div>
                         </div>
+                        <!-- <div class="form-group">
+                            <label class="col-sm-3 control-label">网站标题：</label>
+                            <div class="col-sm-8">
+                                <input  name="site_title" type="text" class="form-control" value="<{$data_site.site_title}>" >
+                            </div>
+                        </div> -->
                         <div class="form-group">
                             <label class="col-sm-3 control-label">网站默认关键词：</label>
                             <div class="col-sm-8">
                                 <input  name="default_keywords" type="text" class="form-control" value="<{$data_site.default_keywords}>" >
                                 <span class="help-block m-b-none text-danger"><i class="fa fa-info-circle"></i> 请以《-》或《英文逗号》分隔</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">网站关键词描述：</label>
+                            <div class="col-sm-8">
+                                <input  name="site_desc" type="text" class="form-control" value="<{$data_site.site_desc}>" >
                             </div>
                         </div>
                         <hr/>
@@ -189,6 +214,27 @@
                         </div>
 
                         <div class="form-group">
+                            <label class="col-sm-3 control-label">首页热门搜索：</label>
+                            <div class="col-sm-8">
+                                <input  name="hot_keywords" class="form-control" type="text" readonly="true" disabled value="<{$data_site.home_hot_keywords}>">
+                                <input  name="home_hot_keywords" class="form-control" type="hidden" value="" >
+                                <span class="help-block m-b-none" style="color: #8b0000"><i class="fa fa-info-circle" ></i> 请点选下方的按钮来删除不要的,最好添加到3个</span>
+                                <div id="hot_keywords" class="col-sm-12">
+                                    <{foreach $home_hot_keywords as $key=>$val}>
+                                    <label class="btn btn-sm btn-primary" style="margin-left:3px;" onclick="del_label_keywords(this,'hot_keywords','home_hot_keywords')"  is_choose="0" index="<{$val}>"><{$val}></label>
+                                    <{/foreach}>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-inline">
+                                        <input type="text" id="new_keyword" class="form-control" placeholder="内容ID" />
+                                        <span class="help-block m-b-none" style="color: #8b0000"><i class="fa fa-info-circle"></i> 请填写搜索关键字</span>
+                                        <label onclick="add_label_keywords('new_keyword','hot_keywords','home_hot_keywords');" class="btn btn-success btn-sm">添 加</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <div class="col-sm-8 col-sm-offset-3">
                                 <input type="hidden" name="is_push" value="<{$data_site.is_push}>" />
                                 <input type="hidden" name="is_auto_push" value="<{$data_site.is_auto_push}>" />
@@ -206,9 +252,6 @@
                 <div class="ibox-title">
                     <h5>网站栏目修改</h5>
                     <div class="ibox-tools">
-                        <span  onclick="edit_colum_headerurl();" style="cursor:pointer;margin-left: 10px;" class="label label-success" >
-                        一键刷新栏目链接
-                        </span>
                         <span  onclick="add_top_colum();" style="cursor:pointer;margin-left: 10px;" class="label label-success" >
                         新增顶级栏目
                         </span>
@@ -495,30 +538,6 @@
         /* 获取所有没有被放在首页的栏目 end */
     }
 
-    /*一键刷新所有栏目链接(首页栏目修改/栏目链接) start */
-    function edit_colum_headerurl(){
-        var r=confirm("栏目链接有误时刷新！是否刷新");
-        if (r==true){
-            $.ajax({
-                url:"<{$url}>/edit_colum_headerurl",
-                type:"post",
-                data:{"isheaderurl":"headerurl"},/*用于判断*/
-                success:function(msg){
-                    if (msg.code == 200) {
-                        alert(msg.msg);
-                        location.reload();
-                    } else {
-                        alert(msg.msg);
-                    }
-                },
-                error:function(){
-                    console.log("http error");
-                }
-            });
-        }
-    }
-    /*一键刷新所有栏目链接(首页栏目修改/栏目链接) end */
-
     /*新增栏目 start*/
     function add_colum(colum_id,cls_id,type){
         //清空之前的数据
@@ -701,6 +720,38 @@
         $("#new_label").val('');
     }
 
+    //添加标签
+    function add_label_keywords(id_nam,class_name1,class_name2){
+        var new_label = $("#"+id_nam).val();
+        var now_label_list = $("input[name='"+class_name1+"']").val();
+        console.log($("#"+id_nam));
+        console.log($("input[name='"+class_name1+"']"));
+        console.log(id_nam,class_name1,class_name2);
+        console.log(now_label_list);
+        var now_label_array = now_label_list.split("|");
+        console.log(now_label_array);
+
+        //如果在原来的数组里边则退出脚本
+        console.log(now_label_array.length);
+        if(now_label_array.length>0){
+           // console.log(now_label_length);
+            for(var j=0;j<now_label_array.length;j++){
+                if (new_label == now_label_array[j]){
+                    return false;
+                }
+            }
+        }
+        var new_value = wipe_str_out(now_label_list+"|"+new_label,"|","both");
+
+        $("input[name='"+class_name1+"']").val(new_value);//加入input
+        $("input[name='"+class_name2+"']").val(new_value);//加入input
+        var name1 = '\''+class_name1+'\'';
+        var name2 = '\''+class_name2+'\'';
+        $("#"+class_name1).append('<label class="btn btn-sm btn-primary" style="margin-left:3px;" onclick="del_label(this,'+name1+','+name2+')"  is_choose="0" index="'+new_label+'">'+new_label+'</label>');
+        //清理现有的值
+        $("#"+id_nam).val('');
+    }
+
     //删除 label
     function del_label(e){
         var choose_label = $(e).attr("index");
@@ -719,6 +770,29 @@
         console.log(new_label_list);
         $("input[name='label_list']").val(new_label_list)
         $("input[name='home_10_recommend']").val(new_label_list)
+        $(e).remove();
+    }
+
+    //删除 label_keywords
+    function del_label_keywords(e,class_name1,class_name2){
+        var choose_label = $(e).attr("index");
+        var now_label_list = $("input[name='"+class_name1+"']").val();
+        console.log(choose_label);
+        console.log($("input[name='"+class_name1+"']"));
+        var now_label_array = now_label_list.split("|");
+        var now_label_length = now_label_array.length;
+        var new_label_array = [];
+
+        for(var i=0;i<now_label_length;i++){
+            if(choose_label != now_label_array[i]){
+                new_label_array.push(now_label_array[i]);
+            }
+        }
+        console.log(new_label_array);
+        var new_label_list = new_label_array.join("|");
+        console.log(new_label_list);
+        $("input[name='"+class_name1+"']").val(new_label_list)
+        $("input[name='"+class_name2+"']").val(new_label_list)
         $(e).remove();
     }
 

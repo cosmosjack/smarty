@@ -135,6 +135,71 @@ function whshow_position($id=1,$class='whshow_position'){
 }
 /* 获取详情页的定位 面包屑 end */
 
+/* 无限极面包屑 start */
+            /*参数$id         可以是列表项的cid值和详情表的id值
+             *参数$iscid      当传进的$id值是列表项的cid时 该参数设为true   例如 show_crumbs_new(21,true,false')
+             *参数$news_name  该参数设为true时 最后一级也会展示
+             *参数$class      为前端控制样式用
+             *
+             * 默认（参数不填）是使用详情页的面包屑即传详情表的id值
+            */
+function show_crumbs_new($id=1,$iscid=false,$news_name=false,$class='whshow_position'){
+    $db_news = D('news');
+    $db_news_cls = D('news_cls');
+    if ($iscid) {
+        $data_crumbs_news = $db_news_cls->where(['news_cls_id'=>$id])
+                                        ->field('news_cls_id,news_cls_name,cls_pid')
+                                        ->find();
+        $news_cls_name = 'yes'; //下面判断用
+    } else {
+        $data_crumbs_news = $db_news->where(['news_id'=>$id])
+                                    ->field('news_id,news_name,news_cls_id,news_cls_name,news_pic,add_times')
+                                    ->find();
+        if(!$data_crumbs_news){
+            $data_crumbs_news = $db_news->find();
+        }
+    }
+    
+    $str = "";
+    $str .="<div class='{$class}'>";
+    $str .="<a href='".SHOP_SITE_URL."'>首页</a> \ ";
+
+    $i = 1;
+    $data_crumbs_cls[$i] = $db_news_cls->where(['news_cls_id'=>$data_crumbs_news['news_cls_id']])
+                                   ->field('news_cls_id,news_cls_name,cls_pid')
+                                   ->find();
+    
+    end:
+    if ($data_crumbs_cls[$i]['cls_pid'] !== '0') {
+        $ii = $i+1;
+        $data_crumbs_cls[$ii] = $db_news_cls->where(['news_cls_id'=>$data_crumbs_cls[$i]['cls_pid']])
+                                   ->field('news_cls_id,news_cls_name,cls_pid')
+                                   ->find();
+        $i = $ii;
+        goto end;
+        
+    }
+
+    for ($j=$i; $j > 1; $j--) { 
+        $str .="<a href='".SHOP_SITE_URL."/whlist?cid={$data_crumbs_cls[$j]['news_cls_id']}'>".$data_crumbs_cls[$j]['news_cls_name']."</a> \ ";
+    }
+
+    $str .="<a href='".SHOP_SITE_URL."/whlist?cid={$data_crumbs_cls[1]['news_cls_id']}'>".$data_crumbs_cls[1]['news_cls_name']."</a> ";
+
+    if ($news_name) {
+        if ($news_cls_name === 'yes') {
+            $str .=" \ <a href='".SHOP_SITE_URL."/whlist?cid={$data_crumbs_news['news_cls_id']}'>".$data_crumbs_news['news_cls_name']."</a> ";
+        } else {
+            $str .=" \ <a href='".SHOP_SITE_URL."/whshow?id={$data_crumbs_news['news_id']}'>".$data_crumbs_news['news_name']."</a>";
+        }
+    }
+    
+    $str .="</div>";
+
+    return $str;
+}
+/* 无限极面包屑 end */
+
 // 根据经纬度获取 之间的距离 start
 function distance($lat1, $lon1, $lat2, $lon2, $unit) {
     $theta = $lon1 - $lon2;

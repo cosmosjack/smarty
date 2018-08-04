@@ -138,20 +138,21 @@ function whshow_position($id=1,$class='whshow_position'){
 /* 无限极面包屑 start */
             /*参数$id         可以是列表项的cid值和详情表的id值
              *参数$iscid      当传进的$id值是列表项的cid时 该参数设为true   例如 show_crumbs_new(21,true,false')
-             *参数$news_name  该参数设为true时 最后一级也会展示
+             *参数$news_names  该参数设为true时 最后一级也会展示
              *参数$class      为前端控制样式用
              *
              * 默认（参数不填）是使用详情页的面包屑即传详情表的id值
             */
-function show_crumbs_new($id=1,$iscid=false,$news_name=false,$class='whshow_position'){
+function show_crumbs_new($id=1,$iscid=false,$news_names=false,$class='whshow_position'){
     if (is_numeric($id)) {
         $db_news = D('news');
         $db_news_cls = D('news_cls');
+        $db_column = D('column');
         if ($iscid) {
             $data_crumbs_news = $db_news_cls->where(['news_cls_id'=>$id])
                                             ->field('news_cls_id,news_cls_name,cls_pid')
                                             ->find();
-            $news_cls_name = 'yes'; //下面判断用
+            $news_cls_names = 'yes'; //下面判断用
         } else {
             $data_crumbs_news = $db_news->where(['news_id'=>$id])
                                         ->field('news_id,news_name,news_cls_id,news_cls_name,news_pic,add_times')
@@ -159,6 +160,7 @@ function show_crumbs_new($id=1,$iscid=false,$news_name=false,$class='whshow_posi
             if(!$data_crumbs_news){
                 $data_crumbs_news = $db_news->find();
             }
+            $news_cls_names = 'no'; //下面判断用
         }
         
         if (empty($data_crumbs_news)) {
@@ -174,27 +176,54 @@ function show_crumbs_new($id=1,$iscid=false,$news_name=false,$class='whshow_posi
         $data_crumbs_cls[$i] = $db_news_cls->where(['news_cls_id'=>$data_crumbs_news['news_cls_id']])
                                        ->field('news_cls_id,news_cls_name,cls_pid')
                                        ->find();
-
+      
         end:
         if ($data_crumbs_cls[$i]['cls_pid'] !== '0') {
             $ii = $i+1;
             $data_crumbs_cls[$ii] = $db_news_cls->where(['news_cls_id'=>$data_crumbs_cls[$i]['cls_pid']])
                                        ->field('news_cls_id,news_cls_name,cls_pid')
                                        ->find();
+
             $i = $ii;
             goto end;
             
         }
 
         for ($j=$i; $j > 1; $j--) { 
-            $str .="<a href='".SHOP_SITE_URL."/whlist?cid={$data_crumbs_cls[$j]['news_cls_id']}'>".$data_crumbs_cls[$j]['news_cls_name']."</a> \ ";
+            $column_url_trmp = $db_column->where(['cls_id'=>$data_crumbs_cls[$j]['news_cls_id']])
+                                         ->field('id,cls_id,url')
+                                         ->find();
+            if (empty($column_url_trmp)) {
+                $url = SHOP_SITE_URL."/whlist?cid={$data_crumbs_cls[$j]['news_cls_id']}";
+            } else {
+                $url = $column_url_trmp['url'];
+            }
+            $str .="<a href='".$url."'>".$data_crumbs_cls[$j]['news_cls_name']."</a> \ ";
         }
 
-        $str .="<a href='".SHOP_SITE_URL."/whlist?cid={$data_crumbs_cls[1]['news_cls_id']}'>".$data_crumbs_cls[1]['news_cls_name']."</a> ";
+        //倒数第二级 start
+        $column_url_trmp1 = $db_column->where(['cls_id'=>$data_crumbs_cls[1]['news_cls_id']])
+                                     ->field('id,cls_id,url')
+                                     ->find();
+        if (empty($column_url_trmp1)) {
+            $url1 = SHOP_SITE_URL."/whlist?cid={$data_crumbs_cls[1]['news_cls_id']}";
+        } else {
+            $url1 = $column_url_trmp1['url'];
+        }
+        $str .="<a href='".$url1."'>".$data_crumbs_cls[1]['news_cls_name']."</a> ";
+        //倒数第二级 end
 
-        if ($news_name) {
-            if ($news_cls_name === 'yes') {
-                $str .=" \ <a href='".SHOP_SITE_URL."/whlist?cid={$data_crumbs_news['news_cls_id']}'>".$data_crumbs_news['news_cls_name']."</a> ";
+        if ($news_names) {
+            if ($news_cls_names === 'yes') {
+                $column_url_trmp2 = $db_column->where(['cls_id'=>$data_crumbs_news['news_cls_id']])
+                                             ->field('id,cls_id,url')
+                                             ->find();
+                if (empty($column_url_trmp2)) {
+                    $url2 = SHOP_SITE_URL."/whlist?cid={$data_crumbs_cls['news_cls_id']}";
+                } else {
+                    $url2 = $column_url_trmp2['url'];
+                }
+                $str .=" \ <a href='".$url2."'>".$data_crumbs_news['news_cls_name']."</a> ";
             } else {
                 $str .=" \ <a href='".SHOP_SITE_URL."/whshow?id={$data_crumbs_news['news_id']}'>".$data_crumbs_news['news_name']."</a>";
             }

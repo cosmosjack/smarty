@@ -85,6 +85,17 @@
                                         <h4>选择分类栏目展示图&nbsp;50x50</h4>
                                         <div style="clear: both;"></div>
                                     </a>
+                                    
+                                </label>
+                                <label>
+                                    <input type="file" multiple="multiple" id="input_img1" style="display: none;" name="apiimg_show" value="" onchange="javascript:setImagePreview('input_img1','preview1','localImage1');">
+                                    <a style="text-align: center">
+                                        <div id="localImage1">
+                                            <img id="preview1" src="<{$res}>/bootstrap/img/a9.jpg" style="margin:0 auto .1rem;display: block; width: 200px; height: 200px;">
+                                        </div>
+                                        <h4>小程序分类栏目展示图&nbsp;30x30</h4>
+                                        <div style="clear: both;"></div>
+                                    </a>
                                 </label>
                             </div>
                         </div>
@@ -93,6 +104,13 @@
                             <label class="col-sm-3 control-label">栏目链接：</label>
                             <div class="col-sm-8">
                                 <input  name="cls_url" class="form-control" value="" type="text">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">栏目英文名：</label>
+                            <div class="col-sm-8">
+                                <input  name="cls_englishname" class="form-control" value="" type="text">
                             </div>
                         </div>
 

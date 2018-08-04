@@ -43,7 +43,7 @@
                         <li><a class="J_menuItem" href="<{$app}>/user/user_list" target="_self">全部</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a class="J_menuItem" href="<{$app}>/user/user_list?zhuangtai=0" target="_self">待确认</a></li>
-                        <li><a class="J_menuItem" href="<{$app}>/user/user_list?zhuangtai=1" target="_self">已入驻</a></li>
+                        <li><a class="J_menuItem" href="<{$app}>/user/user_list?zhuangtai=1" target="_self">已确认</a></li>
                         <li><a class="J_menuItem" href="<{$app}>/user/user_list?zhuangtai=2" target="_self">已拒绝</a></li>
                       </ul>
                     </div>
@@ -75,8 +75,8 @@
                             <th>性别</th>
                             <th>手机</th>
                             <th>业务描述</th>
-                            <th>申请入驻时间</th>
-                            <th>入驻状态</th>
+                            <th>申请时间</th>
+                            <th>状态</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -90,7 +90,7 @@
                                 <td><{$val.user_desc}></td>
                                 <td><{$val.add_times|date_format:"Y-m-d H:i:s"}></td>
                                 <td><{$val.readnum}></td>
-                                <td><a onclick="ruzhu_user('<{$val.id}>')" style="margin-left: 10px;">入驻</a> | <a onclick="jujue_user('<{$val.id}>')" style="margin-left: 10px;">拒绝</a> | <a onclick="del_user('<{$val.id}>')" style="margin-left: 10px;color: #8b0000">删除</a></td>
+                                <td><a onclick="ruzhu_user('<{$val.id}>')" style="margin-left: 10px;">确认</a> | <a onclick="jujue_user('<{$val.id}>')" style="margin-left: 10px;">拒绝</a> | <a onclick="del_user('<{$val.id}>')" style="margin-left: 10px;color: #8b0000">删除</a></td>
                             </tr>
                         <{/foreach}>
 

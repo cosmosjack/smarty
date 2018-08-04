@@ -45,7 +45,7 @@
                                         <!--<span lower_count="<{count($val.son_data)}>" onclick="del_cls('<{$val.news_cls_id}>',this);" class="label label-primary pull-right">
                                         <i class="fa fa-trash-o "></i>
                                         </span>-->
-                                        <span onclick="edit_cls('<{$val.news_cls_id}>','<{$val.news_cls_name}>','<{$val.news_cls_desc}>','<{$val.news_cls_pic}>','<{$val.url}>');" data-toggle="modal" data-target="#myModal2" class="label label-danger pull-right">
+                                        <span onclick="edit_cls('<{$val.news_cls_id}>','<{$val.news_cls_name}>','<{$val.news_cls_desc}>','<{$val.news_cls_pic}>','<{$val.url}>','<{$val.english_name}>','<{$val.news_cls_icon}>');" data-toggle="modal" data-target="#myModal2" class="label label-danger pull-right">
                                             <i class=" fa fa-pencil "></i>
                                         </span>
                                         <span onclick="window.location.href='<{$url}>/cls_add/pid/<{$val.news_cls_id}>';" class="label label-success pull-right">
@@ -68,7 +68,7 @@
                                             <!-- <span onclick="del_cls('<{$second_val.news_cls_id}>');" class="label label-primary pull-right">
                                             <i class="fa fa-trash-o "></i>
                                             </span> -->
-                                            <span onclick="edit_cls('<{$second_val.news_cls_id}>','<{$second_val.news_cls_name}>','<{$second_val.news_cls_desc}>','<{$second_val.news_cls_pic}>','<{$second_val.url}>');" data-toggle="modal" data-target="#myModal2"  class="label label-danger pull-right ">
+                                            <span onclick="edit_cls('<{$second_val.news_cls_id}>','<{$second_val.news_cls_name}>','<{$second_val.news_cls_desc}>','<{$second_val.news_cls_pic}>','<{$second_val.url}>','<{$second_val.english_name}>','<{$second_val.news_cls_icon}>');" data-toggle="modal" data-target="#myModal2"  class="label label-danger pull-right ">
                                                 <i class=" fa fa-pencil "></i>
                                             </span>
                                              <span onclick="window.location.href='<{$url}>/cls_add/pid/<{$second_val.news_cls_id}>';" class="label label-success pull-right">
@@ -86,7 +86,7 @@
                                             <span onclick="del_cls('<{$three_val.news_cls_id}>');" class="label label-primary pull-right">
                                             <i class="fa fa-trash-o "></i>
                                             </span>
-                                            <span onclick="edit_cls('<{$three_val.news_cls_id}>','<{$three_val.news_cls_name}>','<{$three_val.news_cls_desc}>','<{$three_val.url}>');" data-toggle="modal" data-target="#myModal2"  class="label label-danger pull-right ">
+                                            <span onclick="edit_cls('<{$three_val.news_cls_id}>','<{$three_val.news_cls_name}>','<{$three_val.news_cls_desc}>','<{$three_val.news_cls_pic}>','<{$three_val.url}>','<{$three_val.english_name}>','<{$three_val.news_cls_icon}>');" data-toggle="modal" data-target="#myModal2"  class="label label-danger pull-right ">
                                                 <i class=" fa fa-pencil "></i>
                                             </span>
                                             </div>
@@ -146,7 +146,17 @@
                                         <div id="localImage">
                                             <img id="preview" src="<{$res}>/bootstrap/img/a1.jpg" style="margin:0 auto .1rem;display: block; width: 200px; height: 200px;">
                                         </div>
-                                        <h4>选择类别图</h4>
+                                        <h4>选择PC端类别图</h4>
+                                        <div style="clear: both;"></div>
+                                    </a>
+                                </label>
+                                <label>
+                                    <input type="file" multiple="multiple" id="input_img1" style="display: none;" name="news_cls_icon" value="" onchange="javascript:setImagePreview('input_img1','preview1','localImage1');">
+                                    <a style="text-align: center">
+                                        <div id="localImage1">
+                                            <img id="preview1" src="<{$res}>/bootstrap/img/a9.jpg" style="margin:0 auto .1rem;display: block; width: 200px; height: 200px;">
+                                        </div>
+                                        <h4>选择小程序类别图</h4>
                                         <div style="clear: both;"></div>
                                     </a>
                                 </label>
@@ -159,6 +169,22 @@
                             <label class="col-sm-2 control-label">类别介绍</label>
                             <div class="col-sm-4">
                                 <input type="text" name="cls_desc"  value="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">链接</label>
+                            <div class="col-sm-4">
+                                <input type="text" name="cls_url"  value="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">栏目英文名</label>
+                            <div class="col-sm-4">
+                                <input type="text" name="cls_englishname"  value="" class="form-control">
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
@@ -259,13 +285,15 @@
     /* 删除类别 end */
 
     /* 修改类别 start */
-    function edit_cls(cls_id,cls_name,cls_desc,cls_pic,cls_url){
+    function edit_cls(cls_id,cls_name,cls_desc,cls_pic,cls_url,cls_englishname,cls_icon){
         console.log(cls_id);
         $("input[name='cls_name']").val(cls_name);
         $("input[name='cls_id']").val(cls_id);
         $("input[name='cls_desc']").val(cls_desc);
         $("#preview").attr('src','http://'+window.location.host+'<{$root}>'+'/uploads/news/'+cls_pic);
         $("input[name='cls_url']").val(cls_url);
+        $("input[name='cls_englishname']").val(cls_englishname);
+        $("#preview1").attr('src','http://'+window.location.host+'<{$root}>'+'/uploads/news/'+cls_icon);//小程序图片
     }
     /* 修改类别 end */
 
@@ -275,7 +303,8 @@
         var cls_name = $("input[name='cls_name']").val();
         var cls_desc = $("input[name='cls_desc']").val();
         var cls_url = $("input[name='cls_url']").val();
-        var json_data = {"cls_id":cls_id,"cls_name":cls_name,"cls_desc":cls_desc,"cls_url":cls_url};
+        var cls_englishname = $("input[name='cls_englishname']").val();
+        var json_data = {"cls_id":cls_id,"cls_name":cls_name,"cls_desc":cls_desc,"cls_url":cls_url,"cls_englishname":cls_englishname};
         $.ajax({
             url:"<{$url}>/edit_cls",
             type:"GET",

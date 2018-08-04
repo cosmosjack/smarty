@@ -40,11 +40,13 @@ class user{
         } else {
             $ruzhu1['readnum'] = [0,1,2];
         }
-        $ruzhu = ['0'=>'待确认','1'=>'已入驻','2'=>'已拒绝'];
+        $ruzhu = ['0'=>'待确认','1'=>'已确认','2'=>'已拒绝'];
+        $user_sexs = ['0'=>'女','1'=>'男'];
         $page = new Page($db_user->where($ruzhu1)->total(),8);
         $data_user = $db_user->where($ruzhu1)->limit($page->limit)->select();
         foreach ($data_user as $key => $value) {
             $data_user[$key]['readnum'] = $ruzhu[$value['readnum']];
+            $data_user[$key]['user_sex'] = $user_sexs[$value['user_sex']];
         }
 //        p($data_user);
         $this->assign('data_user',$data_user);
@@ -78,9 +80,9 @@ class user{
         }
         $result = $db_user->where(['id'=>$id])->update("readnum=1");
         if ($result > 0) {
-            ajaxReturn(array('control'=>'del','code'=>200,'msg'=>'入驻成功'),"JSON");
+            ajaxReturn(array('control'=>'del','code'=>200,'msg'=>'确认成功'),"JSON");
         } else {
-            ajaxReturn(array('control'=>'del','code'=>0,'msg'=>'入驻失败'),"JSON");
+            ajaxReturn(array('control'=>'del','code'=>0,'msg'=>'确认失败'),"JSON");
         }
     }
     //入驻会员 end
@@ -94,9 +96,9 @@ class user{
         }
         $result = $db_user->where(['id'=>$id])->update("readnum=2");
         if ($result > 0) {
-            ajaxReturn(array('control'=>'del','code'=>200,'msg'=>'拒绝入驻成功'),"JSON");
+            ajaxReturn(array('control'=>'del','code'=>200,'msg'=>'拒绝成功'),"JSON");
         } else {
-            ajaxReturn(array('control'=>'del','code'=>0,'msg'=>'拒绝入驻失败'),"JSON");
+            ajaxReturn(array('control'=>'del','code'=>0,'msg'=>'拒绝失败'),"JSON");
         }
     }
     //拒绝入驻 end

@@ -308,26 +308,41 @@ class news{
         $db_news_cls = D('news_cls');
 
         if($_POST['sub']){
-            if($_POST['level'] == 1){
+            /*if($_POST['level'] == 1){
                 $this->error("目前不能增加顶级分类",2);
                 die();
+            }*/
+            $upload = new FileUpload();
+            //小程序栏目类别封面图(存在图片才添加) start
+            if ($_FILES['apiimg_show']['error'] == '0') {
+                $upload->set('path','./uploads/news');
+                $result_apiupload = $upload->upload('apiimg_show');
+
+                if($result_apiupload){
+                    $insert['news_cls_icon'] = $upload->getFileName();
+                }
             }
+            //小程序栏目类别封面图(存在图片才添加) end
+            
             if(empty($_POST['news_cls_name'])){
                 $this->error("栏目为空或重复",2);
             }
-            $upload = new FileUpload();
+            
+            //封面图片 start
             $upload->set('path','./uploads/news');
             $result_upload = $upload->upload('img_show');
 
             if($result_upload){
                 $insert['news_cls_pic'] = $upload->getFileName();
             }
-
+            //封面图片 end
+            
             $insert['news_cls_name'] = $_POST['news_cls_name'];
             $insert['news_cls_desc'] = $_POST['news_cls_desc'];
             $insert['cls_pid'] = $_POST['cls_pid'];
             $insert['level'] = $_POST['level'] ? $_POST['level']:2;
             $insert['url'] = $_POST['cls_url'];
+            $insert['english_name'] = $_POST['cls_englishname']; //栏目英文名
             $result = $db_news_cls->insert($insert);
 
             if($result){
@@ -358,12 +373,25 @@ class news{
         $up = new FileUpload();
         $up->set('path','./uploads/news');
         $result_file = $up->upload('news_cls_pic');
-//         P($result_file);p($_POST);die;
+//         P($result_file);p($_FILES);die;
         if($result_file){
             unlink('./uploads/news/'.$info['news_cls_pic']);
             $update['news_cls_pic'] = $up->getFileName();
         }
+
+        //小程序图片 有则删除 start
+        if ($_FILES['news_cls_icon']['error'] == '0') {
+            $up->set('path','./uploads/news');
+            $result_apifile = $up->upload('news_cls_icon');
+            if($result_apifile){
+                unlink('./uploads/news/'.$info['news_cls_icon']);
+                $update['news_cls_icon'] = $up->getFileName();
+            }
+        }
+        //小程序图片 有则删除 end
+        
         /* 如果有新的图片上传成功 则删除原来的图片 end */
+
         /* 如果是顶级则不能被修改 start */
         if($info['level'] != 1){
             $update['news_cls_name'] = $_POST['cls_name'];
@@ -371,6 +399,7 @@ class news{
         /* 如果是顶级则不能被修改 end */
         $update['news_cls_desc'] = $_POST['cls_desc'];
         $update['url'] = $_POST['cls_url'];
+        $update['english_name'] = $_POST['cls_englishname']; //栏目英文名
         $result = $db_news_cls->where($_POST['cls_id'])->update($update);
         if($result){
             $this->success('修改成功',2,"news/cls_list");

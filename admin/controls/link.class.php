@@ -36,9 +36,9 @@ class link{
             $db_link = D("link");
             $result = $db_link->insert($_POST);
             if($result){
-                echo '插入成功';
+                $this->success('插入成功',2,"link/index");
             }else{
-                echo '插入失败';
+                $this->error('插入失败',2,"link/add");
             }
         }
         $this->display();

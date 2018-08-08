@@ -99,7 +99,8 @@ class news{
             $insert['news_body'] = $_POST['content'];
             $insert['news_key'] = $_POST['goods_key'];
             $insert['news_imgalt'] = $_POST['goods_imgalt'];
-            $update['label'] = $_POST['label'];
+            $insert['label'] = $_POST['label'];
+            $insert['sort'] = $_POST['sort'];
 
             $insert['add_times'] = time();
             $insert['source'] = $_POST['goods_source'];
@@ -240,6 +241,7 @@ class news{
                 $update['news_key'] = $_POST['goods_key'];
                 $update['news_imgalt'] = $_POST['goods_imgalt'];
                 $update['label'] = $_POST['label'];
+                $update['sort'] = $_POST['sort'];
                 // $update['source'] = $_POST['goods_source'];
 
             /* 整理需要更新的数据 end */
@@ -300,7 +302,8 @@ class news{
 
     // 资讯列表
     function news_list(){
-
+        $cls_array = getChildArr();
+        $this->assign("cls_array",$cls_array);
         $this->display();
     }
     // 添加分类
@@ -489,6 +492,7 @@ class news{
         /* 排序条件 start */
         // $column = array("news_id","member_name","city","add_time","member_phone","last_login_ip","is_teacher","integral");
         $column = array_column($_GET['columns'], 'data');
+        $search = array_column($_GET['columns'], 'search');
         $column_key = intval($_GET['order'][0]['column']);
         $choose_column = $column[$column_key];
         $choose_sort = $_GET['order'][0]['dir'];
@@ -501,6 +505,19 @@ class news{
         $db_start = $_GET['start'] ? $_GET['start'] : 0;
         $db_length = $_GET['length'] ? $_GET['length'] : 10;
         $db_limit = $db_start.",".$db_length;
+
+        /* 每一列对应关键字的搜索 start */
+        // foreach ($search as $key => $val) {
+        //     if(!empty($val['value']))
+        //         $where[$column[$key]] = array('eq',$val['value']);
+        // }
+        /* 每一列对应关键字的搜索 end */
+
+        //分类id
+        if(!empty($search[3]['value'])){
+            $cls_data = getChildArr($search[3]['value'],$search[3]['value']);
+            $where['news_cls_id'] = array_column($cls_data,'news_cls_id');
+        }
 
         $db_total = $db_news->where($where)->total();
         $data_news = $db_news->where($where)->limit($db_limit)->order($order)->select();

@@ -119,7 +119,12 @@ class Site{
         $column = $db_column->field('cls_id,cls_name')->where(array('level'=>1))->select();
         array_unshift($column, array('cls_id'=>0,'cls_name'=>'首页'));
         // p($column);
+        // 一级栏目重新组装
+        foreach ($column as $val) {
+            $cls_data[$val['cls_id']] = $val['cls_name'];
+        }
         $this->assign('column',$column);
+        $this->assign('cls_data',$cls_data);
         $this->assign("data_site",$data_site);
         $this->display();
     }

@@ -9,76 +9,71 @@
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>广告图片管理,pc首页轮播图1920X520，分页面1000*250，手机轮播图320*160</h5>
+                    <h5>基本 <small>分类，查找</small></h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
                         </a>
-
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="table_data_tables.html#">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><a href="table_data_tables.html#">选项1</a>
+                            </li>
+                            <li><a href="table_data_tables.html#">选项2</a>
+                            </li>
+                        </ul>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
                     </div>
                 </div>
                 <div class="ibox-content">
-                    <ul class="thumbnails">
-                        <{foreach $data_site as $key=>$val}>
-                            <li class="list-group-item">
-                                <a href="<{$val.img_url}>" class="thumbnail">
-                                    <img src="<{$val.pic_url}>"  alt="1440x390" style="width: 1440px;height: 390px;">
-                                </a>
-                                <span style="margin-left: 5px;" class="label label-primary">
-                                    <i onclick="edit_adv('<{$val.id}>','<{$val.img_name}>','<{$val.img_desc}>','<{$val.img_url}>','<{$val.position}>','<{$val.cls_id}>');" class="fa fa-edit" data-toggle="modal" data-target="#myModal"></i>
-                                </span>
-                                <span style="margin-left: 5px;" class="label label-danger" onclick="del_adv('<{$val.id}>')">
-                                    <i class="fa fa-trash-o"></i>
-                                </span>
-                                <span style="margin-left: 20px;">
-                                    请上传<{if $val['position']==2}>320*160<{else if $val['cls_id']!=0}>1000*250<{else}>1920*520<{/if}>像素的图片</span>
-                                <span style="margin-left: 50px;">
-                                    <{if $val['position']==1}>PC端<{else}>手机端<{/if}>图片
-                                </span>
-                                <span style="margin-left: 80px;">
-                                    显示位置：<{foreach $column as $v}>
-                                                    <{if $val['cls_id']==$v['cls_id']}><{$v.cls_name}><{/if}>
-                                              <{/foreach}>
-                                </span>
-                            </li>
-                        <{/foreach}>
-                    </ul>
-                        <p align="center">
-                            <button  class="label label-success" >保存</button>
-                        </p>
 
+                    <table class="table table-striped table-bordered table-hover dataTables-example" id="tpl_data">
+                        <thead>
+                        <tr>
+                            <th>广告ID</th>
+                            <th class="col-lg-4"></th>
+                            <th class="col-lg-2">广告名称</th>
+                            <th>广告介绍</th>
+                            <th>显示位置</th>
+                            <th>显示页面</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody >
+                        <{foreach $data_site as $key=>$val}>
+                            <tr class="gradeX">
+                                <td><{$val.id}></td>
+                                <td><a href="<{$val.img_url}>" class="thumbnail">
+                                    <img src="<{$val.pic_url}>"  alt="<{$val.img_name}>">
+                                </a></td>
+                                <td><{$val.img_name}></td>
+                                <td><{$val.img_desc}></td>
+                                <{if $val.position == 1}>
+                                <td >电脑端</td>
+                                <{else}>
+                                <td >手机端</td>
+                                <{/if}>
+                                <td><{$column[$val.cls_id]['cls_name']}></td>
+                                <td>
+                                    <span style="margin-left: 5px;" class="label label-primary">
+                                    <i onclick="edit_adv('<{$val.id}>','<{$val.img_name}>','<{$val.img_desc}>','<{$val.img_url}>','<{$val.position}>','<{$val.cls_id}>');" class="fa fa-edit" data-toggle="modal" data-target="#myModal"></i>
+                                    </span>
+                                    <span style="margin-left: 5px;" class="label label-danger" onclick="del_adv('<{$val.id}>')">
+                                        <i class="fa fa-trash-o"></i>
+                                    </span>
+                                </td>
+                            </tr>
+                        <{/foreach}>
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-   <!-- <div class="row">
-        <div class="col-sm-12">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>其他栏目顶部广告</h5>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="ibox-content">
-                    <li class="list-group-item">
-                        <a href="#" class="thumbnail">
-                            <img src=""  alt="1440x390" style="width: 1440px;height: 390px;">
-                        </a>
-                            <span class="label label-primary">
-                                <i class="fa fa-edit"></i>
-                            </span>
-                            <span style="margin-left: 5px;" class="label label-danger">
-                                <i class="fa fa-trash-o"></i>
-                            </span>
-                    </li>
-
-                </div>
-            </div>
-        </div>
-    </div>-->
 
     <div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
         <form enctype="multipart/form-data" class="form-horizontal m-t" target="_self" method="post" action="<{$url}>/mod_adv">
@@ -163,6 +158,12 @@
 <script src="<{$res}>/bootstrap/js/bootstrap.min.js?v=3.3.5"></script>
 <script src="<{$res}>/bootstrap/js/content.min.js?v=1.0.0"></script>
 <script src="<{$res}>/bootstrap/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="<{$res}>/bootstrap/js/plugins/dataTables/jquery.dataTables.js"></script>
+<script src="<{$res}>/bootstrap/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+<link href="<{$res}>/bootstrap/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+<script>
+    $(document).ready(function(){$(".dataTables-example").dataTable();});
+</script>
 <script>
     function edit_adv(adv_id,img_name,img_desc,img_url,position,cls_id){
 

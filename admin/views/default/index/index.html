@@ -35,9 +35,9 @@
                     <div class="dropdown profile-element">
                         <span>
                             <{if !empty($data_site.site_logo)}>
-                                <img alt="image" width="70" height="70" class="img-circle" src="<{$root}>/public/uploads/home_adv/<{$data_site.site_logo}>" />
+                                <img alt="image" class="img-circle" src="<{$root}>/public/uploads/home_adv/<{$data_site.site_logo}>" onerror="this.onerror='';src='<{$res}>/bootstrap/img/logo.png'" />
                             <{else}>
-                                <img alt="image" class="img-circle" src="<{$res}>/bootstrap/img/profile_small.jpg" />
+                                <img alt="image" class="img-circle" src="<{$res}>/bootstrap/img/logo.png" />
                             <{/if}>
                         </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
